@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Economics Dashboard | AlmaU</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+        .top-left-logo {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #f0f4f8;
+            color: #001e50;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #001e50;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #555555;
+            max-width: 650px;
+            line-height: 1.5;
+            margin: 0 auto;
+        }
+
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1150px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Единая строго одинаковая рамка для ВСЕХ 10 карточек */
+        .card {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 190px;  /* Фиксированная ширина */
+            height: 240px; /* Фиксированная высота */
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; /* Заполняет рамку целиком БЕЗ обрезки деталей */
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover Effect с фирменным синим цветом */
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: #001e50;
+            box-shadow: 0 16px 30px rgba(0, 30, 80, 0.15);
+        }
+
+        .card:hover img {
+            transform: scale(1.03);
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 14px;
+            color: #718096;
+            padding-top: 50px;
+            text-align: center;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Логотип AlmaU из нового репозитория -->
+    <img src="https://ogaydv-prog.github.io/Industrial-Economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
+
+    <header>
+        <h1 style="margin-top: 20px;">Industrial Economics</h1>
+        <p class="subtitle" style="margin-bottom: 10px;">
+            Interactive Learning Hub | Business Analytics & Economics 2026 <br>
+            Almaty Management University 
+        </p>
+    </header>
+
+    <main class="grid-container">
+        <!-- 1. Syllabus -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/syllabus.html" class="card" title="Syllabus">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-sill-1-ie.png" alt="Syllabus">
+        </a>
+        
+        <!-- 2. Presentations -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/presentations.html" class="card" title="Course Presentations">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-preza-2-ie.png" alt="Course Presentations">
+        </a>
+        
+        <!-- 3. News -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/news.html" class="card" title="Industry News">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-news-3-ie.png" alt="Industry News">
+        </a>
+        
+        <!-- 4. Video -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/videos.html" class="card" title="Video Lectures">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-video-4-ie.png" alt="Video Lectures">
+        </a>
+        
+        <!-- 5. Readings -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/literature.html" class="card" title="Textbooks & Literature">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-read-5-ie.png" alt="Textbooks & Literature">
+        </a>
+        
+        <!-- 6. Simulations -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/simulations.html" class="card" title="Simulations">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-sim-6-ie.png" alt="Simulations">
+        </a>
+        
+        <!-- 7. MC 1 -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/mc1.html" class="card" title="Midterm Control 1">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-mc1-7-ie.png" alt="Midterm Control 1">
+        </a>
+        
+        <!-- 8. MC 2 -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/mc2.html" class="card" title="Midterm Control 2">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-mc2-8-ie.png" alt="Midterm Control 2">
+        </a>
+        
+        <!-- 9. Exam -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/exam.html" class="card" title="Final Exam Preparation">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-exam-9-ie.png" alt="Final Exam Preparation">
+        </a>
+        
+        <!-- 10. Grade -->
+        <a href="https://ogaydv-prog.github.io/Industrial-Economics/grade.html" class="card" title="Grading & Evaluation">
+            <img src="https://ogaydv-prog.github.io/Industrial-Economics/pic-grade-10-ie.png" alt="Grading & Evaluation">
+        </a>
+    </main>
+
+    <footer>
+        <p>Developed for Business Analytics & Economics AlmaU 2026 | Course: Industrial Economics</p>
+        <p>© Almaty Management University | School of Digital Technologies and Economics</p>
+    </footer>
+
+</body>
+</html>
