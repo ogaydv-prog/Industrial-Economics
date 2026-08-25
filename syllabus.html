@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus | Industrial Economics (EOR 3303)</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .top-left-logo {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            text-decoration: none;
+            background-color: #001e50;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background-color: #003380;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #001e50;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* Навигация по 8 разделам Силлабуса */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 1100px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #001e50;
+            padding: 9px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: #001e50;
+            color: #ffffff;
+            border-color: #001e50;
+            box-shadow: 0 4px 10px rgba(0, 30, 80, 0.2);
+        }
+
+        /* Контейнер контента */
+        .content-box {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            max-width: 1100px;
+            width: 100%;
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #001e50;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: #1e293b;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Карточки с ключевой информацией */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #001e50;
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+
+        .info-card strong {
+            color: #001e50;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-card span {
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* Таблицы */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            font-size: 13.5px;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #001e50;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11.5px;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Выделение ссылок в таблице литературы */
+        td a {
+            color: #2563eb;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* Внутренние бейджи элементов оценивания */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-rating { background: #dbeafe; color: #1e40af; }
+        .badge-exam { background: #fce7f3; color: #9d174d; }
+
+        footer {
+            margin-top: auto;
+            font-size: 13px;
+            color: #64748b;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .top-left-logo { position: static; margin-bottom: 15px; }
+            .back-button { position: static; margin-bottom: 15px; }
+            body { padding: 15px; }
+            .content-box { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
+    <a href="index.html" class="back-button"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+    <header>
+        <h1>Course Syllabus</h1>
+        <p class="subtitle">EOR 3303 Industrial Economics | Educational Program: BA&E (5 ECTS)</p>
+    </header>
+
+    <!-- 8 Вкладок в точном соответствии с силлабусом -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab('overview')"><i class="fa-solid fa-circle-info"></i> General Info</button>
+        <button class="tab-btn" onclick="openTab('outcomes')"><i class="fa-solid fa-graduation-cap"></i> Philosophy & LOs</button>
+        <button class="tab-btn" onclick="openTab('plan')"><i class="fa-solid fa-calendar-days"></i> 16-Week Plan</button>
+        <button class="tab-btn" onclick="openTab('policy')"><i class="fa-solid fa-gavel"></i> Course Policy</button>
+        <button class="tab-btn" onclick="openTab('ai')"><i class="fa-solid fa-robot"></i> Integrity & AI</button>
+        <button class="tab-btn" onclick="openTab('evaluation')"><i class="fa-solid fa-chart-pie"></i> Grading System</button>
+        <button class="tab-btn" onclick="openTab('literature')"><i class="fa-solid fa-book"></i> Literature</button>
+        <button class="tab-btn" onclick="openTab('rubrics')"><i class="fa-solid fa-table-list"></i> Appendices & Rubrics</button>
+    </div>
+
+    <main class="content-box">
+        
+        <!-- 1. GENERAL INFO -->
+        <div id="overview" class="tab-content active">
+            <h2><i class="fa-solid fa-university text-indigo-900"></i> Course Overview & Administration</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <strong>Course Code & Name</strong>
+                    <span>EOR 3303 «Industrial Economics»</span>
+                </div>
+                <div class="info-card">
+                    <strong>Credits & Total Hours</strong>
+                    <span>5 ECTS | Total: 150 hrs (45 Classroom / 105 IWS)</span>
+                </div>
+                <div class="info-card">
+                    <strong>Program & Level</strong>
+                    <span>«BA&E» | Bachelor Degree | Semester 5</span>
+                </div>
+                <div class="info-card">
+                    <strong>Instructor</strong>
+                    <span>Dmitriy Ogay, MBA, Professor of Practice</span>
+                </div>
+                <div class="info-card">
+                    <strong>Contact Email</strong>
+                    <span>d.ogay@almau.edu.kz</span>
+                </div>
+                <div class="info-card">
+                    <strong>Prerequisites</strong>
+                    <span>Microeconomics, Macroeconomics</span>
+                </div>
+            </div>
+
+            <p><strong>Approved by:</strong> Acting Dean School of Digital Technologies & Economics R. Sadykova (19 August 2026).</p>
+            
+            <h3>Course Description</h3>
+            <p>The course is aimed at studying the patterns and analysis of modern industry, particularly the behavior of firms and the functioning of markets. Global contributions are welcomed in all areas of industrial economics, including: organization of industry; applied oligopoly theory; product differentiation and technical change; theory of the firm and internal organization; and regulation, monopoly, merger, and technology policy.</p>
+
+            <h3>Course Objectives</h3>
+            <ul>
+                <li>To provide students with a comprehensive understanding of the behavior of firms and the functioning of markets.</li>
+                <li>To analyze industrial organization and strategies under different market structures.</li>
+                <li>To explore the role of technology, innovation, and product differentiation in shaping modern industries.</li>
+                <li>To understand the impact of regulation, competition policy, and globalization on industries.</li>
+                <li>To develop applied analytical and critical skills for evaluating firm behavior, market outcomes, and policy interventions.</li>
+            </ul>
+        </div>
+
+        <!-- 2. PHILOSOPHY & LEARNING OUTCOMES -->
+        <div id="outcomes" class="tab-content">
+            <h2><i class="fa-solid fa-lightbulb"></i> Teaching Philosophy & Learning Outcomes</h2>
+            
+            <h3>Teaching Philosophy</h3>
+            <p>Representing the main principles, values, and beliefs that underline the instructor's educational approach:</p>
+            <ul>
+                <li><strong>Student-orientation:</strong> Built around the needs, interests, and capabilities of students, emphasizing critical thinking, independence, and personal responsibility.</li>
+                <li><strong>Interactivity and active participation:</strong> Learning as a dialogue via discussions, projects, role-playing games, and collaborative problem-solving.</li>
+                <li><strong>Connection between theory and practice:</strong> Linking academic models directly to real-world economic, social, and technological market dynamics.</li>
+                <li><strong>Ethics and sustainability:</strong> Fostering professional social responsibility and an understanding of sustainable development goals.</li>
+            </ul>
+
+            <h3>Expected Learning Outcomes (LOs)</h3>
+            <p>Upon completion of the course, the student will be able to:</p>
+            <ul>
+                <li><strong>LO 1:</strong> Understand the structure and evolution of industrial sectors globally and nationally.</li>
+                <li><strong>LO 2:</strong> Explain the theoretical foundations of the economics of industry markets.</li>
+                <li><strong>LO 3:</strong> Analyze the impact of industrial production on GDP growth and employment and analyze the structure and dynamics of key industries.</li>
+                <li><strong>LO 4:</strong> Evaluate the challenges of industrial competitiveness in the age of globalization.</li>
+                <li><strong>LO 5:</strong> Link industrial development to sustainability and climate goals and develop policy recommendations for industrial modernization.</li>
+            </ul>
+        </div>
+
+        <!-- 3. 16-WEEK PLAN -->
+        <div id="plan" class="tab-content">
+            <h2><i class="fa-solid fa-calendar-check"></i> Thematic Plan by Weeks (16 Weeks)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Wk</th>
+                            <th style="width: 45%;">Topic / Module Description</th>
+                            <th style="width: 20%;">Assessment Type</th>
+                            <th style="width: 10%;">LO</th>
+                            <th style="width: 10%;">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Introduction to Industrial Economy: scope, concepts, history of industrialization.</td><td>Task</td><td>LO1</td><td>—</td></tr>
+                        <tr><td>2</td><td>Industrialization and Economic Growth: industrial production and GDP linkages.</td><td>Task</td><td>LO1</td><td>—</td></tr>
+                        <tr><td>3</td><td>The Theory of the Firm: Objectives, costs, and internal organization.</td><td>Task, analysis of the model</td><td>LO2, LO3</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>4</td><td>Market Structures: Perfect competition, oligopoly and monopolistic competition in industrial sector.</td><td>Case-study</td><td>LO5</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>5</td><td>Monopoly, Regulation and Antitrust Policy in the Industrial Economy.</td><td>Case-study</td><td>LO5</td><td>—</td></tr>
+                        <tr><td>6</td><td>Key Industries in the Global Economy: manufacturing, automotive productions, energy, ICT, and services.</td><td>Task</td><td>LO3</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>7</td><td>Industrial Competitiveness in Emerging Economies.</td><td>Case-study, Model's analysis</td><td>LO3</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr style="background-color: #eff6ff; font-weight: bold;"><td>8</td><td>Midterm Control 1</td><td>Multiple-choice test</td><td>—</td><td><span class="badge badge-rating">10%</span></td></tr>
+                        <tr><td>9</td><td>International Industrial Economics: Globalization and multinational firms.</td><td>Case-study</td><td>LO1, LO4</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>10</td><td>Regional and National Industrial Strategies.</td><td>Case-study, Task</td><td>LO4</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>11</td><td>Infrastructure, Transportation, and Logistics in industrial economy.</td><td>Analysis of the model</td><td>LO4</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>12</td><td>Sustainable Industrial Development: circular economy, ESG, carbon neutrality.</td><td>Case-study</td><td>LO2, LO5</td><td>—</td></tr>
+                        <tr><td>13</td><td>Industrial Economy and Labor Markets: employment, wages, skills.</td><td>Case-study</td><td>LO5</td><td><span class="badge badge-rating">5%</span></td></tr>
+                        <tr><td>14</td><td>Future of Industrial Economy: Industry 5.0, AI & automation.</td><td>Case-study</td><td>LO5</td><td>—</td></tr>
+                        <tr style="background-color: #eff6ff; font-weight: bold;"><td>15</td><td>Midterm Control 2</td><td>Multiple-choice test</td><td>—</td><td><span class="badge badge-rating">10%</span></td></tr>
+                        <tr style="background-color: #fce7f3; font-weight: bold;"><td>16</td><td>Final Exam</td><td>Paper exam</td><td>All</td><td><span class="badge badge-exam">40%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. COURSE POLICY -->
+        <div id="policy" class="tab-content">
+            <h2><i class="fa-solid fa-shield-halved"></i> Course Politics & Ethics</h2>
+            
+            <h3>In-Class Ethics & Attendance</h3>
+            <p>To complete the course, you must attend at least <strong>70% of classroom sessions</strong>. Course requirements include:</p>
+            <ul>
+                <li>Compulsory class attendance and active participation during seminars.</li>
+                <li>Preparation for classes, homework completion, and timely task delivery.</li>
+                <li>Tolerance, openness, friendliness, and constructive feedback in all discussions.</li>
+                <li>Punctuality: Students late to class are not allowed to enter as it disrupts training.</li>
+            </ul>
+
+            <h3>Exam & Absence Policy</h3>
+            <p><strong>Unacceptable behaviors:</strong> Unexcused absences, habitual tardiness, and late assignment submissions.</p>
+            <p>If absent during a control event for a valid, documented reason, you may retake it during IWST hours by prior agreement with the instructor. Otherwise, <strong>0 points</strong> will be awarded.</p>
+            
+            <h3>Information & Withdrawal</h3>
+            <ul>
+                <li>Check your personal Platonus portal and corporate email (<code>@almau.edu.kz</code>) daily for announcements.</li>
+                <li><strong>Academic Withdrawal (AW):</strong> Systematic violations of conduct or academic honesty lead to an AW grade, equivalent to an F (GPA 0.0).</li>
+            </ul>
+        </div>
+
+        <!-- 5. ACADEMIC INTEGRITY & AI -->
+        <div id="ai" class="tab-content">
+            <h2><i class="fa-solid fa-microchip"></i> Academic Integrity & AI Policy</h2>
+            <p>AlmaU enforces strict standards regarding academic honesty, citation rules, and anti-plagiarism verification across all submitted materials.</p>
+            
+            <h3>Allowed Use of Artificial Intelligence (AI)</h3>
+            <ul>
+                <li>Automation of complex economic calculations or data modeling.</li>
+                <li>Assisting in understanding core micro/macro economic concepts and formulas.</li>
+                <li>Research assistance, structuring ideas, and self-testing via AI platforms providing feedback.</li>
+            </ul>
+
+            <h3>Prohibited AI Usage & Misconduct</h3>
+            <p><strong>Replacing critical student thinking with AI is strictly forbidden.</strong> Generating full written texts, solutions, or essays via ChatGPT without personal intellectual contribution constitutes academic misconduct.</p>
+
+            <h3>Disciplinary Actions for Violations</h3>
+            <ol>
+                <li><strong>Warning & Explanation:</strong> Issued for minor, first-time unconscious violations.</li>
+                <li><strong>Resubmission:</strong> Allowed under strict academic standards for non-serious infractions.</li>
+                <li><strong>Grade Reduction / Cancellation:</strong> Direct zero/penalty on affected assignments.</li>
+                <li><strong>Academic Investigation:</strong> Severe cheating/plagiarism triggers formal review, leading to course failure with an <strong>F grade</strong> or administrative withdrawal.</li>
+            </ol>
+        </div>
+
+        <!-- 6. EVALUATION & GRADING -->
+        <div id="evaluation" class="tab-content">
+            <h2><i class="fa-solid fa-calculator"></i> Evaluation Policy & Grading Scale</h2>
+            
+            <p>Academic performance is evaluated on a 100-point scale. The final course grade is calculated as follows:</p>
+            <div style="text-align: center; background: #f1f5f9; padding: 15px; border-radius: 10px; font-weight: bold; color: #001e50; font-size: 16px; margin: 15px 0; border: 1px solid #cbd5e1;">
+                Final Grade = Rating × 0.6 + Final Exam × 0.4
+            </div>
+            <p>Where <strong>Rating = (RK1 + RK2) / 2</strong>. RK1 and RK2 represent the average arithmetic scores of current performance and midterm controls in the first and second halves of the term.</p>
+
+            <h3>Point-Rating Letter System</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Letter</th>
+                            <th>GPA</th>
+                            <th>Percentage</th>
+                            <th>Traditional Grade</th>
+                            <th>General Criteria Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>A</strong></td><td>4.0</td><td>95–100</td><td>Excellent</td><td>Comprehensive, deep knowledge exceeding syllabus scope.</td></tr>
+                        <tr><td><strong>A-</strong></td><td>3.67</td><td>90–94</td><td>Excellent</td><td>Full knowledge of the subject with comprehensive answers.</td></tr>
+                        <tr><td><strong>B+</strong></td><td>3.33</td><td>85–89</td><td>Good</td><td>Substantiated knowledge, though missing minor points.</td></tr>
+                        <tr><td><strong>B</strong></td><td>3.0</td><td>80–84</td><td>Good</td><td>Solid knowledge of curriculum requirements.</td></tr>
+                        <tr><td><strong>B-</strong></td><td>2.67</td><td>75–79</td><td>Good</td><td>Good understanding with occasional brief answers.</td></tr>
+                        <tr><td><strong>C+</strong></td><td>2.33</td><td>70–74</td><td>Satisfactory</td><td>Sufficient knowledge without deeper justification.</td></tr>
+                        <tr><td><strong>C</strong></td><td>2.0</td><td>65–69</td><td>Satisfactory</td><td>Basic grasp of concepts; lacks logical sequence.</td></tr>
+                        <tr><td><strong>C-</strong></td><td>1.67</td><td>60–64</td><td>Satisfactory</td><td>Minimal satisfactory understanding.</td></tr>
+                        <tr><td><strong>D+</strong></td><td>1.33</td><td>55–59</td><td>Satisfactory</td><td>Marginal passing knowledge.</td></tr>
+                        <tr><td><strong>D</strong></td><td>1.0</td><td>50–54</td><td>Satisfactory</td><td>Bare minimum passing grade.</td></tr>
+                        <tr><td><strong>FX</strong></td><td>0</td><td>25–49</td><td>Unsatisfactory</td><td>Insufficient knowledge; chance for retake.</td></tr>
+                        <tr><td><strong>F</strong></td><td>0</td><td>0–24</td><td>Unsatisfactory / Fail</td><td>Very low knowledge level; complete course failure.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 7. LITERATURE -->
+        <div id="literature" class="tab-content">
+            <h2><i class="fa-solid fa-book-bookmark"></i> Recommended Literature & Sources</h2>
+            
+            <h3>Required Literature</h3>
+            <ol>
+                <li>
+                    <strong>The Journal of Industrial Economics (1999–2025):</strong> John Wiley & Sons, Inc. <br>
+                    <a href="https://onlinelibrary.wiley.com/journal/14676451" target="_blank">https://onlinelibrary.wiley.com/journal/14676451</a>
+                </li>
+                <li style="margin-top: 10px;">
+                    <strong>Robert S. Pindyck, Daniel L. Rubinfeld:</strong> Microeconomics, Pearson Education Limited 2018 (9th Edition, 786 p.). <br>
+                    <a href="https://www.slideshare.net/slideshow/microeconomics-ninth-edition-pindyck-robert-srubinfeld-daniel-l/279319496" target="_blank">Access Course Reference Material</a>
+                </li>
+            </ol>
+
+            <h3 style="margin-top: 25px;">Additional Literature</h3>
+            <ol start="3">
+                <li>
+                    <strong>Réka Juhász, Nathan Lane, Dani Rodrik (August 2023):</strong> "The New Economics of Industrial Policy", Annual Review of Economics.
+                </li>
+            </ol>
+
+            <div style="margin-top: 25px; background: #eff6ff; p: 15px; padding: 15px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                <p style="margin:0; font-weight: 600; color: #1e40af;"><i class="fa-solid fa-folder-open"></i> Electronic Course Materials:</p>
+                <p style="margin: 5px 0 0 0; font-size: 13px;">Syllabus electronic version & study guidelines are available at Yandex Disk: <a href="https://disk.yandex.kz/d/9fuJ8brT7VZQ1Q" target="_blank">https://disk.yandex.kz/d/9fuJ8brT7VZQ1Q</a></p>
+            </div>
+        </div>
+
+        <!-- 8. APPENDICES & RUBRICS -->
+        <div id="rubrics" class="tab-content">
+            <h2><i class="fa-solid fa-list-check"></i> Marking Rubrics (Appendices 1–3)</h2>
+            
+            <h3>Appendix 1: Analysis of Economic Models & Constructing Graphs</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>90-100 (A)</th>
+                            <th>75-89 (B)</th>
+                            <th>60-74 (C)</th>
+                            <th>50-59 (D)</th>
+                            <th>0-49 (F)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Model Analysis</strong></td>
+                            <td>Exceptional mastery; deep critical thinking without errors.</td>
+                            <td>Strong understanding; detailed real-world application.</td>
+                            <td>Reasonable grasp; minor gaps or superficial analysis.</td>
+                            <td>Basic understanding; significant conceptual errors.</td>
+                            <td>Lack of fundamental knowledge; logic absent.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constructing Graphs</strong></td>
+                            <td>Flawlessly constructed, well-labeled, explores deep insights.</td>
+                            <td>Clear, accurate, supports argument effectively.</td>
+                            <td>Generally accurate; minor label or visual issues.</td>
+                            <td>Incomplete; poor alignment with theoretical model.</td>
+                            <td>Missing or completely incorrect visual representation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 30px;">Appendix 2: Tasks & Group Projects Assessment</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>90-100 (A)</th>
+                            <th>75-89 (B)</th>
+                            <th>60-74 (C)</th>
+                            <th>50-59 (D)</th>
+                            <th>0-49 (F)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Understanding</strong></td>
+                            <td>Mastery of complex industrial/micro models.</td>
+                            <td>Clear explanation applied to scenarios.</td>
+                            <td>Reasonable application with minor gaps.</td>
+                            <td>Incomplete grasp of core principles.</td>
+                            <td>No understanding or total misapplication.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Application</strong></td>
+                            <td>Flawless, innovative problem solving.</td>
+                            <td>Correct application with few errors.</td>
+                            <td>Sound core logic; lacks deeper insight.</td>
+                            <td>Weak connection to theoretical tools.</td>
+                            <td>Mismatch between theory & task.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Problem-Solving</strong></td>
+                            <td>Deep, multi-dimensional precise analysis.</td>
+                            <td>Logical, well-supported analytical method.</td>
+                            <td>Addresses main issues; lacks depth.</td>
+                            <td>Basic reasoning with logical gaps.</td>
+                            <td>Inability to break down problems.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Group Dynamics</strong></td>
+                            <td>Exemplary teamwork and equal leadership.</td>
+                            <td>Efficient collaboration & defined roles.</td>
+                            <td>Effective work with uneven engagement.</td>
+                            <td>Unclear task division; minimal sync.</td>
+                            <td>No coordination or team roles.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Presentation</strong></td>
+                            <td>Professional, flawless narrative structure.</td>
+                            <td>Clear, concise, supported by visuals.</td>
+                            <td>Well-structured; minor visual gaps.</td>
+                            <td>Lacks coherence; poorly explained.</td>
+                            <td>Disorganized presentation/data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 30px;">Appendix 3: Rubric for Case Studies</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>90-100 (A)</th>
+                            <th>75-89 (B)</th>
+                            <th>60-74 (C)</th>
+                            <th>50-59 (D)</th>
+                            <th>0-49 (F)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Theory Mastery</strong></td>
+                            <td>Precision connections between theories.</td>
+                            <td>Strong grasp linked directly to case.</td>
+                            <td>Solid understanding of case mechanics.</td>
+                            <td>Basic mention; lacks analytical depth.</td>
+                            <td>Key theories misinterpreted/absent.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Application</strong></td>
+                            <td>Advanced, highly creative model usage.</td>
+                            <td>Insightful application to real context.</td>
+                            <td>Logical practical connections.</td>
+                            <td>Weak/incomplete case ties.</td>
+                            <td>Minimal or irrelevant application.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Critical Thinking</strong></td>
+                            <td>Original, multi-perspective conclusions.</td>
+                            <td>Thorough, well-supported analysis.</td>
+                            <td>Thoughtful, misses deeper implications.</td>
+                            <td>Superficial; minimal reflection.</td>
+                            <td>Absence of critical reasoning.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data & Evidence</strong></td>
+                            <td>Flawless interpretation of dataset.</td>
+                            <td>Strong evidence integration into text.</td>
+                            <td>Effective data use; needs polish.</td>
+                            <td>Minor mistakes in data parsing.</td>
+                            <td>Complete lack of supporting data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Almaty Management University | School of Digital Technologies & Economics</p>
+    </footer>
+
+    <script>
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
