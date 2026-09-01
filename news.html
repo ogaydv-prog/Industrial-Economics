@@ -3,335 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Industrial Economics News | Dashboard 2026</title>
-    <!-- Tailwind CSS -->
+    <title>The Industrial Economics | Global Industrial News & Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
-        .tab-btn.active {
-            background-color: #3b82f6;
-            color: #ffffff;
-            border-color: #60a5fa;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfbf9; color: #111111; }
+        .serif { font-family: 'Merriweather', Georgia, serif; }
+        .brand-red { background-color: #e5001c; }
+        .text-brand-red { color: #e5001c; }
+        .border-brand-red { border-color: #e5001c; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
-    <!-- Top Navigation Header -->
-    <header class="bg-slate-900 border-b border-slate-800 shadow-xl sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
-        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <!-- HEADER WITH HUB BUTTONS -->
+    <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
-                <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-10 object-contain rounded bg-white p-1">
-                <div>
-                    <span class="text-xs font-bold tracking-widest text-blue-400 uppercase">EOR 3303 — Industrial Economics</span>
-                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-200 bg-clip-text text-transparent">Global News Dashboard</h1>
+                <a href="index.html" class="brand-red text-white font-extrabold px-3 py-1.5 text-lg sm:text-xl tracking-tighter serif shadow-sm inline-block">
+                    The Industrial Economics
+                </a>
+                <div class="hidden md:block border-l border-stone-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-stone-500 uppercase block">Academic Intelligence Hub</span>
+                    <span class="text-xs text-stone-700">AlmaU • School of Economics and Digital Technologies</span>
                 </div>
             </div>
-            
-            <div class="flex items-center space-x-3">
-                <a href="index.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition-all border border-slate-700 flex items-center space-x-1.5">
-                    <i class="fa-solid fa-arrow-left text-blue-400"></i>
-                    <span>Back to Main Hub</span>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+                    <i class="fa-solid fa-arrow-left text-brand-red"></i>
+                    <span>Main Hub</span>
                 </a>
-                <a href="syllabus.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition-all border border-slate-700 flex items-center space-x-1.5">
-                    <i class="fa-solid fa-book text-emerald-400"></i>
-                    <span>Syllabus</span>
-                </a>
+                <div class="border-l border-stone-300 pl-3 ml-1">
+                    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- Header Introduction Banner -->
-        <div class="bg-gradient-to-r from-slate-900 via-blue-950/40 to-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-2">
-                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                    <span>Live Industry Monitor • August 25, 2026</span>
-                </div>
-                <h2 class="text-2xl font-black text-white">Global Industrial Economics News & Case Analytics</h2>
-                <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
-                    Curated real-time industry updates for classroom analysis, covering automotive market restructuring, energy grid constraints from AI data centers, and semiconductor supply chain dynamics.
-                </p>
-            </div>
-            <div class="bg-slate-900/80 px-4 py-3 rounded-xl border border-slate-800 text-center min-w-[150px]">
-                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Selected Stories</span>
-                <span class="text-2xl font-black text-blue-400">3 Topics</span>
-            </div>
+    <div class="bg-stone-100 border-b border-stone-200 py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-stone-600">
+            <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Multi-Source Automated Briefing</span>
+            <span class="serif italic">Updates Every Wednesday at 01:00 AM CET</span>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="border-b-2 border-stone-900 pb-6 mb-8">
+            <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Industrial Sector Intelligence</span>
+            <h1 class="text-3xl sm:text-4xl font-black text-stone-900 serif leading-tight">
+                Industrial Economics: Global Manufacturing, Supply Chains & Policy
+            </h1>
+            <p class="text-sm sm:text-base text-stone-600 mt-2 max-w-4xl leading-relaxed serif">
+                Curated industrial economics headlines covering plant restructuring, supply chain logistics, and heavy manufacturing from The Guardian, BBC News, and Euronews.
+            </p>
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
-            <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-bold transition-all flex items-center space-x-2">
-                <i class="fa-solid fa-border-all"></i>
-                <span>All Headlines Overview</span>
-            </button>
-            <button onclick="switchTab('vw')" id="tab-vw" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-bold transition-all flex items-center space-x-2">
-                <i class="fa-solid fa-car text-rose-400"></i>
-                <span>1. VW Restructuring & Jobs</span>
-            </button>
-            <button onclick="switchTab('energy')" id="tab-energy" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-bold transition-all flex items-center space-x-2">
-                <i class="fa-solid fa-bolt text-amber-400"></i>
-                <span>2. AI Data Center Energy Crisis</span>
-            </button>
-            <button onclick="switchTab('semicon')" id="tab-semicon" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-300 text-xs font-bold transition-all flex items-center space-x-2">
-                <i class="fa-solid fa-microchip text-emerald-400"></i>
-                <span>3. Semiconductor Supply Chain</span>
-            </button>
-        </div>
-
-        <!-- TAB CONTENT 0: ALL OVERVIEW -->
-        <div id="content-overview" class="tab-content space-y-6 block">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Card 1 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-all shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-rose-500"></div>
-                    <div>
-                        <div class="flex justify-between items-center text-[10px] font-bold text-rose-400 uppercase tracking-wider mb-2">
-                            <span>Automotive & Labor Economics</span>
-                            <span>Aug 25, 2026</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white leading-snug mb-3">
-                            Volkswagen CEO Warns of Deep Job Cuts in Germany Amid Chinese Competition
-                        </h3>
-                        <p class="text-xs text-slate-400 line-clamp-4 mb-4 leading-relaxed">
-                            CEO Oliver Blume faced thousands of protesting German factory workers in Wolfsburg as VW considers up to 50,000 job reductions to offset falling European margins and aggressive Chinese EV expansion.
-                        </p>
-                    </div>
-                    <div>
-                        <button onclick="switchTab('vw')" class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-rose-400 text-xs font-bold rounded-xl border border-slate-800 transition-colors flex items-center justify-center space-x-2">
-                            <span>Read Full Case & Source</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </button>
-                    </div>
+        <!-- СЕТКА НОВОСТЕЙ (3 ключевые индустриальные новости) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Карточка 1: The Guardian (VW Restructuring) -->
+            <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
+                        Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition
+                    </h3>
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
+                        Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...
+                    </p>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-all shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
-                    <div>
-                        <div class="flex justify-between items-center text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-2">
-                            <span>Energy & Digital Infrastructure</span>
-                            <span>Aug 25, 2026</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white leading-snug mb-3">
-                            US Gas-Fired Power Boom Driven by Massive AI Data Center Electricity Demand
-                        </h3>
-                        <p class="text-xs text-slate-400 line-clamp-4 mb-4 leading-relaxed">
-                            US power generation construction from gas jumped 76% in 2026 to keep pace with AI hyperscalers like Amazon, OpenAI, and Google, while grid operators warn of rapid load drops and supply gaps.
-                        </p>
-                    </div>
-                    <div>
-                        <button onclick="switchTab('energy')" class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-amber-400 text-xs font-bold rounded-xl border border-slate-800 transition-colors flex items-center justify-center space-x-2">
-                            <span>Read Full Case & Source</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-all shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
-                    <div>
-                        <div class="flex justify-between items-center text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-2">
-                            <span>Global Supply Chains & Tech</span>
-                            <span>Aug 25, 2026</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white leading-snug mb-3">
-                            Taiwan Launches Semiconductor Materials Alliance as Nvidia Signals AI Server Price Hikes
-                        </h3>
-                        <p class="text-xs text-slate-400 line-clamp-4 mb-4 leading-relaxed">
-                            SEMI Taiwan launches an industrial alliance to safeguard 2-nanometer chemical and gas inputs, while rising memory costs drive a 15%+ price increase on next-gen AI hardware.
-                        </p>
-                    </div>
-                    <div>
-                        <button onclick="switchTab('semicon')" class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-emerald-400 text-xs font-bold rounded-xl border border-slate-800 transition-colors flex items-center justify-center space-x-2">
-                            <span>Read Full Case & Source</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TAB CONTENT 1: VW RESTRUCTURING -->
-        <div id="content-vw" class="tab-content space-y-6 hidden">
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl relative">
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-6">
-                    <div class="flex items-center space-x-3">
-                        <span class="px-3 py-1 bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-bold rounded-lg uppercase">Automotive Economics</span>
-                        <span class="text-xs text-slate-500">Published: August 25, 2026</span>
-                    </div>
-                    <a href="https://www.theguardian.com/business/2026/aug/25/vw-workers-boo-boss-as-he-urges-them-to-pull-together-amid-job-cuts" target="_blank" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-all shadow-lg flex items-center space-x-2">
-                        <span>Original Source (The Guardian)</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                <div class="pt-4 font-sans">
+                    <a href="https://www.theguardian.com/business/2026/aug/25/vw-workers-boo-boss-as-he-urges-them-to-pull-together-amid-job-cuts" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                        <span>Read Full Original Article →</span>
                     </a>
                 </div>
-
-                <h2 class="text-xl sm:text-2xl font-black text-white mb-4">
-                    VW Workers Boo Boss as He Urges Restructuring and Job Cuts Amid Chinese Competition
-                </h2>
-
-                <div class="prose prose-invert max-w-none text-xs sm:text-sm text-slate-300 space-y-4 leading-relaxed">
-                    <p>
-                        <strong>Wolfsburg, Germany —</strong> Volkswagen Chief Executive Oliver Blume addressed over 10,000 factory workers at the company’s headquarters on Tuesday, August 25, 2026, urging them to prepare for deep structural changes and potential workforce reductions. 
-                    </p>
-                    <p>
-                        The carmaker faces intensified pressure from rising US trade tariffs, escalating labor costs in domestic German manufacturing plants, and market share losses to low-cost Chinese electric vehicle manufacturers such as BYD and Chery. 
-                    </p>
-                    
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 my-4 space-y-2">
-                        <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider">Key Industrial Economics Concepts for Class Discussion:</h4>
-                        <ul class="list-disc list-inside text-slate-400 text-xs space-y-1">
-                            <li><strong>Cost Structures & Fixed Plant Rationalization:</strong> The impact of high overhead costs in European manufacturing plants.</li>
-                            <li><strong>International Competition & Oligopoly Dynamics:</strong> Chinese EV producers gaining market share in traditional EU strongholds.</li>
-                            <li><strong>Co-determination & Labor Economics:</strong> Negotiations between executive management, German works councils, and regional shareholders (Lower Saxony).</li>
-                        </ul>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3 pt-2">
-                        <a href="https://www.enca.com/business/volkswagen-boss-braces-german-workers-more-job-cuts" target="_blank" class="text-xs text-blue-400 hover:underline flex items-center gap-1">
-                            <i class="fa-solid fa-link"></i> Secondary Source: eNCA Report on VW Job Loss Warnings
-                        </a>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <!-- TAB CONTENT 2: AI DATA CENTER ENERGY -->
-        <div id="content-energy" class="tab-content space-y-6 hidden">
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl relative">
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-6">
-                    <div class="flex items-center space-x-3">
-                        <span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold rounded-lg uppercase">Infrastructure & Energy</span>
-                        <span class="text-xs text-slate-500">Published: August 25, 2026</span>
-                    </div>
-                    <a href="https://www.theguardian.com/us-news/2026/aug/25/us-gas-power-china-ai-datacenter" target="_blank" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all shadow-lg flex items-center space-x-2">
-                        <span>Original Source (The Guardian)</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <!-- Карточка 2: BBC News (Industrial Supply Chains & Tariffs) -->
+            <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
+                        Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks
+                    </h3>
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
+                        Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...
+                    </p>
+                </div>
+                <div class="pt-4 font-sans">
+                    <a href="http://feeds.bbci.co.uk/news/business/rss.xml" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                        <span>Read Full Original Article →</span>
                     </a>
                 </div>
-
-                <h2 class="text-xl sm:text-2xl font-black text-white mb-4">
-                    US Builds Twice as Much Gas-Fired Power Capacity as China to Fuel AI Datacenter Growth
-                </h2>
-
-                <div class="prose prose-invert max-w-none text-xs sm:text-sm text-slate-300 space-y-4 leading-relaxed">
-                    <p>
-                        <strong>Washington, D.C. —</strong> A new global analysis by Global Energy Monitor released on August 25, 2026, reveals that the United States has surged ahead of all global peers in building gas-fired electricity generation, recording a 76% surge in under-construction projects in early 2026.
-                    </p>
-                    <p>
-                        Over half of this expansion is directly tied to the power appetite of artificial intelligence data centers built by hyperscalers including Microsoft, Amazon, OpenAI, and Google. Grid operators like PJM Interconnection report rapid load shifts, where gigawatts of power demand can shift to backup generation in seconds, requiring urgent regulatory overhauls.
-                    </p>
-
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 my-4 space-y-2">
-                        <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Key Industrial Economics Concepts for Class Discussion:</h4>
-                        <ul class="list-disc list-inside text-slate-400 text-xs space-y-1">
-                            <li><strong>Positive & Negative Externalities:</strong> Environmental emissions and rate-payer cost risks versus AI technological productivity gains.</li>
-                            <li><strong>Infrastructure Constraints & Bottlenecks:</strong> Input shortages for high-efficiency gas turbines and electrical grid transformers.</li>
-                            <li><strong>Regulated Utility Markets:</strong> Balancing grid reliability standards with rapid capital expenditure by private tech firms.</li>
-                        </ul>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3 pt-2">
-                        <a href="https://www.utilitydive.com/news/data-centers-vanish-grid-seconds-reliability-rules/827035/" target="_blank" class="text-xs text-blue-400 hover:underline flex items-center gap-1">
-                            <i class="fa-solid fa-link"></i> UtilityDive: Data Centers & Power Reliability Regulations (Aug 2026)
-                        </a>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <!-- TAB CONTENT 3: SEMICONDUCTOR SUPPLY CHAIN -->
-        <div id="content-semicon" class="tab-content space-y-6 hidden">
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl relative">
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-6">
-                    <div class="flex items-center space-x-3">
-                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded-lg uppercase">Semiconductors & Upgrades</span>
-                        <span class="text-xs text-slate-500">Published: August 25, 2026</span>
-                    </div>
-                    <a href="https://www.taipeitimes.com/News/biz/archives/2026/08/26/2003863125" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-lg flex items-center space-x-2">
-                        <span>Original Source (Taipei Times)</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <!-- Карточка 3: Euronews (Eurozone Industrial Output) -->
+            <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
+                        Eurozone industrial manufacturing output adapts to shifting energy constraints and automation
+                    </h3>
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
+                        Factory managers across the euro zone recalibrate production lines and energy utilization as industrial policy metrics and automation investments evolve...
+                    </p>
+                </div>
+                <div class="pt-4 font-sans">
+                    <a href="https://www.euronews.com/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                        <span>Read Full Original Article →</span>
                     </a>
                 </div>
-
-                <h2 class="text-xl sm:text-2xl font-black text-white mb-4">
-                    Taiwan Launches Semiconductor Materials Alliance as Nvidia Announces 15%+ Server Price Hikes
-                </h2>
-
-                <div class="prose prose-invert max-w-none text-xs sm:text-sm text-slate-300 space-y-4 leading-relaxed">
-                    <p>
-                        <strong>Taipei, Taiwan —</strong> Industry association SEMI Taiwan announced a new strategic Semiconductor Materials Alliance to fortify local supply chains against raw material shortages. Taiwan accounted for over 30% of global semiconductor material purchases ($21.7B), propelled by transitioning foundry nodes to 2-nanometer production.
-                    </p>
-                    <p>
-                        Simultaneously, Nvidia informed major server vendors of an impending price increase of over 15% on high-performance AI systems incorporating memory-heavy configurations and upcoming Vera Rubin and Grace Blackwell chipsets.
-                    </p>
-
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 my-4 space-y-2">
-                        <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Key Industrial Economics Concepts for Class Discussion:</h4>
-                        <ul class="list-disc list-inside text-slate-400 text-xs space-y-1">
-                            <li><strong>Upstream/Downstream Supply Chain Resilience:</strong> Specialty chemical and gas supply security for advanced wafer fabrication.</li>
-                            <li><strong>Pricing Power & Market Concentration:</strong> Pricing leverage in upstream high-bandwidth memory suppliers passing through to server pricing.</li>
-                            <li><strong>Global Value Chains (GVC):</strong> Regional industrial upgrading in East Asian technology hubs.</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-        </div>
 
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p>© 2026 ALMAU School of Digital Technologies & Economics. Industrial Economics Course.</p>
-            <p class="text-slate-600">Updated for Class Analysis: August 25, 2026</p>
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 text-stone-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="brand-red text-white font-black px-2 py-1 text-sm serif">The Industrial Economics</span>
+                <span>Industrial Economics News Hub • Almaty Management University</span>
+            </div>
+            <p class="text-stone-500 text-center md:text-right">
+                Automatically updated via GitHub Actions every Wednesday at 01:00 AM CET. All source rights reserved.
+            </p>
         </div>
     </footer>
 
-    <script>
-        function switchTab(tabId) {
-            // Hide all tab content divs
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('block');
-            });
-            
-            // Remove active classes from buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show target content
-            const target = document.getElementById('content-' + tabId);
-            if (target) {
-                target.classList.remove('hidden');
-                target.classList.add('block');
-            }
-
-            // Highlight button
-            const btn = document.getElementById('tab-' + tabId);
-            if (btn) {
-                btn.classList.add('active');
-            }
-        }
-    </script>
 </body>
 </html>
