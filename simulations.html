@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интерактивные симуляции | Индустриальная экономика AlmaU</title>
+    <title>Industrial Economics Simulations | AlmaU</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js для графиков -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,166 +22,139 @@
         .custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: #001e50;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0,30,80,0.3);
+            box-shadow: 0 0 8px rgba(0,30,80,0.4);
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- Шапка -->
-    <header class="bg-[#001e50] text-white py-6 px-4 shadow-lg">
+    <!-- Header -->
+    <header class="bg-[#001e50] text-white py-5 px-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
-                <img src="https://ogaydv-prog.github.io/Industrial-Economics/almau.jpg" alt="AlmaU Logo" class="h-12 w-auto rounded-lg bg-white p-1">
+                <img src="https://ogaydv-prog.github.io/Industrial-Economics/almau.jpg" alt="AlmaU Logo" class="h-11 w-auto rounded-lg bg-white p-1">
                 <div>
-                    <h1 class="text-2xl font-black tracking-tight uppercase">Индустриальная Экономика</h1>
-                    <p class="text-xs text-slate-300 font-medium">Интерактивный дашборд и симулятор промышленных революций | AlmaU 2026</p>
+                    <h1 class="text-2xl font-black tracking-tight uppercase" id="header-title">Industrial Economics</h1>
+                    <p class="text-xs text-slate-300 font-medium" id="header-subtitle">Interactive Learning & Industrial Policy Simulations | AlmaU 2026</p>
                 </div>
             </div>
-            <a href="index.html" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition border border-slate-500">
-                ← На главный хаб
-            </a>
+            
+            <div class="flex items-center gap-3">
+                <!-- Language Toggle -->
+                <button onclick="toggleLanguage()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-lg text-xs font-black transition flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="lang-btn-text">EN / RU</span>
+                </button>
+                <a href="index.html" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-semibold transition border border-slate-500" id="back-btn">
+                    ← Main Hub
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- Навигация по вкладкам -->
+    <!-- Navigation Tabs -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 flex space-x-2 overflow-x-auto text-xs font-bold">
             <button onclick="switchTab('tab-gdp')" id="btn-tab-gdp" class="tab-btn active px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-chart-column"></i>
-                <span>1. Доля промышленности в ВВП (1970–2024)</span>
+                <span id="nav-tab1">1. Industrial Share (% of GDP)</span>
             </button>
             <button onclick="switchTab('tab-rev1')" id="btn-tab-rev1" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-industry"></i>
-                <span>Индустрия 1.0 (Пар)</span>
+                <span>Industry 1.0</span>
             </button>
             <button onclick="switchTab('tab-rev2')" id="btn-tab-rev2" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-bolt"></i>
-                <span>Индустрия 2.0 (Конвейер)</span>
+                <span>Industry 2.0 (Assembly)</span>
             </button>
             <button onclick="switchTab('tab-rev3')" id="btn-tab-rev3" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-microchip"></i>
-                <span>Индустрия 3.0 (Автоматизация)</span>
+                <span>Industry 3.0</span>
             </button>
             <button onclick="switchTab('tab-rev4')" id="btn-tab-rev4" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-robot"></i>
-                <span>Индустрия 4.0 & American Factory</span>
+                <span>Industry 4.0 & Case</span>
+            </button>
+            <button onclick="switchTab('tab-oecd')" id="btn-tab-oecd" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-landmark"></i>
+                <span id="nav-tab6">OECD Policy (20 Countries)</span>
             </button>
         </div>
     </nav>
 
-    <!-- Основной контент -->
+    <!-- Main Content -->
     <main class="max-w-7xl w-full mx-auto px-4 py-8 flex-grow">
 
-        <!-- ================= ВКЛАДКА 1: ДИНАМИКА ВВП С ИНТЕРАКТИВНЫМ СЛАЙДЕРОМ ================= -->
+        <!-- ================= TAB 1: GDP DYNAMICS ================= -->
         <section id="tab-gdp" class="tab-content block space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
                     <div>
-                        <h2 class="text-xl font-extrabold text-[#001e50]">Доля промышленности в ВВП (% от ВВП, 1970–2024)</h2>
-                        <p class="text-xs text-slate-500 mt-1">Историческая динамика деиндустриализации Запада и промышленного взрыва в Азии (данные World Bank)</p>
+                        <h2 class="text-xl font-extrabold text-[#001e50]" id="tab1-title">Industry Value Added (% of GDP, 1970–2020)</h2>
+                        <p class="text-xs text-slate-500 mt-1" id="tab1-subtitle">Deindustrialization in Western economies vs. Asian Manufacturing Boom (World Bank Data)</p>
                     </div>
                     <div class="bg-slate-100 px-4 py-2 rounded-xl text-center border border-slate-200">
-                        <span class="text-xs text-slate-500 font-bold uppercase">Выбранный год:</span>
+                        <span class="text-xs text-slate-500 font-bold uppercase" id="year-label">Selected Year:</span>
                         <span id="year-display" class="text-2xl font-black text-[#001e50] ml-2">2020</span>
                     </div>
                 </div>
 
-                <!-- Слайдер выбора года -->
                 <div class="my-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <label for="year-slider" class="block text-xs font-bold text-slate-600 mb-2">Перемещайте ползунок для анализа смены лидерства в мировой промышленности:</label>
-                    <input type="range" id="year-slider" min="1970" max="2020" step="10" value="2020" oninput="updateChart(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer custom-slider">
+                    <label for="year-slider" class="block text-xs font-bold text-slate-600 mb-2" id="slider-label">Move slider to analyze global industrial structural shifts:</label>
+                    <input type="range" id="year-slider" min="1970" max="2020" step="10" value="2020" oninput="updateGdpChart(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer custom-slider">
                     <div class="flex justify-between text-[11px] text-slate-400 font-bold mt-2 px-1">
-                        <span>1970</span>
-                        <span>1980</span>
-                        <span>1990</span>
-                        <span>2000</span>
-                        <span>2010</span>
-                        <span>2020</span>
+                        <span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020</span>
                     </div>
                 </div>
 
-                <!-- График Chart.js -->
-                <div class="relative h-[380px] w-full">
+                <div class="relative h-[360px] w-full">
                     <canvas id="gdpChart"></canvas>
-                </div>
-
-                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-slate-700 leading-relaxed">
-                    <p class="font-bold text-[#001e50] mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Что анализируют студенты на графике:</p>
-                    <p>• <strong>Деиндустриализация Запада:</strong> Снижение доли промышленности в США и Великобритании с ~30-35% в 1970 году до 17-18% в 2020 году из-за перехода к экономике услуг.</p>
-                    <p class="mt-1">• <strong>Индустриальный взрыв Китая и Кореи:</strong> Китай удерживает промышленный сектор на уровне около 38-40% ВВП, превратившись в «мировую фабрику».</p>
-                    <p class="mt-1">• <strong>Казахстан и сырьевая структура:</strong> Высокая доля промышленности (около 30-34%) обусловлена добывающим сектором (нефть и металлы).</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================= ВКЛАДКА 2: ИНДУСТРИЯ 1.0 ================= -->
+        <!-- ================= TAB 2: INDUSTRY 1.0 ================= -->
         <section id="tab-rev1" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-indigo-600 uppercase">1760 – 1840 гг.</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Первая Промышленная Революция (Индустрия 1.0)</h2>
-                    <p class="text-xs text-slate-500 mt-1">Переход от ручного труда к механизированному фабричному производству с использованием пара и воды.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-                        <h3 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-gear text-indigo-600 mr-1"></i> Ключевые технологии</h3>
-                        <p>Паровой двигатель Джеймса Уатта, механический ткацкий станок, начало коксовой металлургии и паровой транспорт (паровозы, пароходы).</p>
-                    </div>
-                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-                        <h3 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-building-factory text-indigo-600 mr-1"></i> Экономический эффект</h3>
-                        <p>Возникновение фабричной системы, взрывной рост производительности труда в текстильной промышленности в десятки раз, урбанизация.</p>
-                    </div>
-                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-                        <h3 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-film text-indigo-600 mr-1"></i> Медиа-материал</h3>
-                        <p>Документальный фильм BBC <em>«The Industrial Revolution»</em>. Изучение явления луддизма (разрушения станков рабочими из-за страха потери работы).</p>
-                    </div>
+                    <span class="text-xs font-bold text-indigo-600 uppercase">1760 – 1840</span>
+                    <h2 class="text-2xl font-black text-[#001e50]" id="t2-title">First Industrial Revolution (Industry 1.0)</h2>
+                    <p class="text-xs text-slate-500 mt-1" id="t2-desc">Mechanization, steam power, water power, and the rise of the factory system.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================= ВКЛАДКА 3: ИНДУСТРИЯ 2.0 И СИМУЛЯТОР ФОРДА ================= -->
+        <!-- ================= TAB 3: INDUSTRY 2.0 ================= -->
         <section id="tab-rev2" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-emerald-600 uppercase">1870 – 1914 гг.</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Вторая Промышленная Революция: Массовое производство</h2>
-                    <p class="text-xs text-slate-500 mt-1">Электрификация, конвейерная сборка Генри Форда и разделение труда по Тейлору.</p>
+                    <span class="text-xs font-bold text-emerald-600 uppercase">1870 – 1914</span>
+                    <h2 class="text-2xl font-black text-[#001e50]" id="t3-title">Second Industrial Revolution: Mass Production</h2>
+                    <p class="text-xs text-slate-500 mt-1" id="t3-desc">Electrification, Taylorism, and Henry Ford's moving assembly line.</p>
                 </div>
 
-                <!-- Симулятор эффекта конвейера -->
                 <div class="p-5 bg-slate-900 text-white rounded-xl space-y-4">
                     <h3 class="font-bold text-emerald-400 text-sm flex items-center gap-2">
                         <i class="fa-solid fa-calculator"></i>
-                        Интерактивный симулятор: Экономика конвейера Ford Model T (1913 г.)
+                        <span id="ford-sim-title">Ford Model T Assembly Line Simulator (1913)</span>
                     </h3>
-                    <p class="text-xs text-slate-300">
-                        Подвигайте слайдер скорости конвейера и посмотрите, как сокращение времени сборки автомобиля снижает себестоимость за счет эффекта масштаба и распределения постоянных издержек!
-                    </p>
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center pt-2">
-                        <div class="space-y-3">
-                            <label class="block text-xs font-bold text-slate-300">Время сборки 1 автомобиля (часов):</label>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-2" id="ford-label">Assembly Time per Car (Hours):</label>
                             <input type="range" id="ford-slider" min="1.5" max="12.5" step="0.5" value="12.5" oninput="calculateFord(this.value)" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
-                            <div class="flex justify-between text-[10px] text-slate-400">
-                                <span>1.5ч (Сверхбыстрый конвейер)</span>
-                                <span>12.5ч (Ручная сборка)</span>
-                            </div>
                         </div>
-
                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 grid grid-cols-2 gap-4 text-center">
                             <div>
-                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Время сборки</span>
-                                <span id="ford-time" class="text-xl font-black text-amber-400">12.5 ч</span>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block" id="ford-res1-label">Assembly Time</span>
+                                <span id="ford-time" class="text-xl font-black text-amber-400">12.5 h</span>
                             </div>
                             <div>
-                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Цена автомобиля</span>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block" id="ford-res2-label">Retail Price</span>
                                 <span id="ford-price" class="text-xl font-black text-emerald-400">$850</span>
                             </div>
                         </div>
@@ -190,63 +163,151 @@
             </div>
         </section>
 
-        <!-- ================= ВКЛАДКА 4: ИНДУСТРИЯ 3.0 ================= -->
+        <!-- ================= TAB 4: INDUSTRY 3.0 ================= -->
         <section id="tab-rev3" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase">1960 – 2000 гг.</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Третья Промышленная Революция: Цифровизация и ИТ</h2>
-                    <p class="text-xs text-slate-500 mt-1">Автоматизация процессов, первые промышленные роботы (Unimate), микропроцессоры и Закон Мура.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
-                    <p><strong>Закон Мура и робототехника:</strong> Экспоненциальное падение стоимости вычислительной мощности позволило роботизировать сварку и покраску на автомобильных заводах Японии, США и Германии в 1980-х годах.</p>
+                    <span class="text-xs font-bold text-blue-600 uppercase">1960 – 2000</span>
+                    <h2 class="text-2xl font-black text-[#001e50]" id="t4-title">Third Industrial Revolution: Automation & IT</h2>
+                    <p class="text-xs text-slate-500 mt-1" id="t4-desc">Computers, early robotics, PLCs, and Moore's Law driving cost reductions.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================= ВКЛАДКА 5: ИНДУСТРИЯ 4.0 & AMERICAN FACTORY ================= -->
+        <!-- ================= TAB 5: INDUSTRY 4.0 ================= -->
         <section id="tab-rev4" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-rose-600 uppercase">2010 – Настоящее время</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Индустрия 4.0 & Кейс фильма «American Factory»</h2>
-                    <p class="text-xs text-slate-500 mt-1">Киберфизические системы, IoT, искусственный интеллект и жесткая глобальная конкуренция.</p>
+                    <span class="text-xs font-bold text-rose-600 uppercase">2010 – Present</span>
+                    <h2 class="text-2xl font-black text-[#001e50]">Industry 4.0 & Case Study</h2>
                 </div>
-
-                <div class="p-5 bg-rose-950/10 border border-rose-200 rounded-xl space-y-3">
+                <div class="p-5 bg-rose-950/10 border border-rose-200 rounded-xl space-y-2">
                     <h3 class="font-bold text-rose-900 text-sm flex items-center gap-2">
                         <i class="fa-solid fa-film text-rose-600"></i>
-                        Разбор документального фильма «American Factory» (Netflix, 2019)
+                        <span>«American Factory» Case Study (Netflix, 2019)</span>
                     </h3>
-                    <p class="text-xs text-slate-700 leading-relaxed">
-                        Китайская корпорация Fuyao открывает завод по производству автомобильного стекла на базе закрытого завода General Motors в штате Огайо (США). Фильм демонстрирует ключевой столкновение Индустрии 4.0: разницу в производительности труда, культуре и замену людей роботами.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-xs">
-                        <div class="p-3 bg-white rounded-lg border border-rose-200">
-                            <span class="font-bold text-rose-700 block mb-1">Сцена 1: Производительность и условия</span>
-                            <p class="text-slate-600">Китайские рабочие работают по 12 часов с 2 выходными в месяц. Американцы требуют профсоюзов и 8-часового рабочего дня. Итог — конфликт операционных культур.</p>
-                        </div>
-                        <div class="p-3 bg-white rounded-lg border border-rose-200">
-                            <span class="font-bold text-rose-700 block mb-1">Сцена 2: Автоматизация (Таймкод 1:18:00)</span>
-                            <p class="text-slate-600">Руководство решает заменить медленных американских рабочих роботами-манипуляторами: «Мы поставим здесь 4 робота и сократим 8 человек».</p>
-                        </div>
+                    <p class="text-xs text-slate-700 leading-relaxed" id="case-desc">Analysis of productivity differences, cultural friction, and automation decisions at Fuyao Glass Ohio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 6: OECD INDUSTRIAL POLICY ================= -->
+        <section id="tab-oecd" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">Quantifying Industrial Strategies across 20 OECD Countries</h2>
+                        <p class="text-xs text-slate-500 mt-1" id="oecd-subtitle">Analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)</p>
                     </div>
+                    
+                    <!-- Country Selector -->
+                    <div class="flex items-center gap-2">
+                        <label for="country-select" class="text-xs font-bold text-slate-600" id="country-select-label">Select Country:</label>
+                        <select id="country-select" onchange="updateOecdCountry(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
+                            <option value="DEU">Germany (DEU)</option>
+                            <option value="GBR">United Kingdom (GBR)</option>
+                            <option value="KOR">Korea (KOR)</option>
+                            <option value="FRA">France (FRA)</option>
+                            <option value="TUR">Türkiye (TUR)</option>
+                            <option value="HUN">Hungary (HUN)</option>
+                            <option value="CZE">Czechia (CZE)</option>
+                            <option value="ITA">Italy (ITA)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Country Metric Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                        <span class="text-[10px] font-bold uppercase text-blue-600" id="card1-tag">Direct Support</span>
+                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card1-title">Grants & Tax Expenditures</h4>
+                        <span id="oecd-grants-val" class="text-2xl font-black text-[#001e50]">1.16% GDP</span>
+                    </div>
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                        <span class="text-[10px] font-bold uppercase text-emerald-600" id="card2-tag">Liquidity / Credit</span>
+                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card2-title">Financial Instruments</h4>
+                        <span id="oecd-fin-val" class="text-2xl font-black text-emerald-700">1.19% GDP</span>
+                    </div>
+                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                        <span class="text-[10px] font-bold uppercase text-amber-700" id="card3-tag">Strategic Focus</span>
+                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card3-title">Primary Policy Target</h4>
+                        <span id="oecd-focus-val" class="text-sm font-black text-amber-900 block mt-1">Energy Price Relief</span>
+                    </div>
+                </div>
+
+                <div class="relative h-[320px] w-full">
+                    <canvas id="oecdChart"></canvas>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Подвал -->
+    <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
-        <p>Разработано для студентов ОП «Бизнес-Аналитика и Экономика» (БАиЭ) | Дисциплина: Индустриальная экономика</p>
-        <p class="mt-1">© Almaty Management University | Школа цифровых технологий и экономики 2026</p>
+        <p id="footer-text1">Developed for Business Analytics & Economics Students | Course: Industrial Economics</p>
+        <p class="mt-1">© Almaty Management University | School of Digital Technologies and Economics 2026</p>
     </footer>
 
-    <!-- Скрипт переключения вкладок и построения графиков -->
+    <!-- Logic & Chart Scripts -->
     <script>
-        // Данные World Bank (% промышленности в ВВП)
+        let currentLang = 'en';
+
+        // i18n Dictionary
+        const i18n = {
+            en: {
+                headerTitle: "Industrial Economics",
+                headerSubtitle: "Interactive Learning & Industrial Policy Simulations | AlmaU 2026",
+                backBtn: "← Main Hub",
+                navTab1: "1. Industrial Share (% of GDP)",
+                navTab6: "OECD Policy (20 Countries)",
+                tab1Title: "Industry Value Added (% of GDP, 1970–2020)",
+                tab1Subtitle: "Deindustrialization in Western economies vs. Asian Manufacturing Boom (World Bank Data)",
+                yearLabel: "Selected Year:",
+                sliderLabel: "Move slider to analyze global industrial structural shifts:",
+                fordTitle: "Ford Model T Assembly Line Simulator (1913)",
+                fordLabel: "Assembly Time per Car (Hours):",
+                fordRes1: "Assembly Time",
+                fordRes2: "Retail Price",
+                oecdTitle: "Quantifying Industrial Strategies across 20 OECD Countries",
+                oecdSubtitle: "Analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)",
+                countryLabel: "Select Country:",
+                card1Tag: "Direct Support",
+                card1Title: "Grants & Tax Expenditures",
+                card2Tag: "Liquidity / Credit",
+                card2Title: "Financial Instruments",
+                card3Tag: "Strategic Focus",
+                card3Title: "Primary Policy Target",
+                footerText: "Developed for Business Analytics & Economics Students | Course: Industrial Economics"
+            },
+            ru: {
+                headerTitle: "Индустриальная Экономика",
+                headerSubtitle: "Интерактивный дашборд и симулятор промышленных революций | AlmaU 2026",
+                backBtn: "← На главный хаб",
+                navTab1: "1. Доля промышленности в ВВП",
+                navTab6: "Политика ОЭСР (20 стран)",
+                tab1Title: "Доля промышленности в ВВП (% от ВВП, 1970–2020)",
+                tab1Subtitle: "Деиндустриализация Запада vs Промышленный взрыв в Азии (данные World Bank)",
+                yearLabel: "Выбранный год:",
+                sliderLabel: "Перемещайте ползунок для анализа смены лидерства в мировой промышленности:",
+                fordTitle: "Симулятор конвейера Ford Model T (1913 г.)",
+                fordLabel: "Время сборки 1 авто (часов):",
+                fordRes1: "Время сборки",
+                fordRes2: "Цена авто",
+                oecdTitle: "Квантификация промышленных стратегий 20 стран ОЭСР",
+                oecdSubtitle: "Анализ грантов, налоговых льгот и кредитов (% от ВВП, 2019–2023)",
+                countryLabel: "Выберите страну:",
+                card1Tag: "Прямая поддержка",
+                card1Title: "Гранты и налоговые льготы",
+                card2Tag: "Ликвидность / Кредиты",
+                card2Title: "Финансовые инструменты",
+                card3Tag: "Стратегический фокус",
+                card3Title: "Главный приоритет политики",
+                footerText: "Разработано для студентов ОП «Бизнес-Аналитика и Экономика» | Индустриальная экономика"
+            }
+        };
+
+        // GDP Data
         const gdpData = {
             1970: [33, 38, 48, 43, 27, 34, 38, 35, 38, 39],
             1980: [31, 44, 42, 40, 36, 36, 36, 33, 32, 36],
@@ -255,67 +316,126 @@
             2010: [19, 46, 27, 28, 36, 38, 32, 19, 18, 24],
             2020: [18, 38, 26, 28, 32, 34, 30, 17, 16, 22]
         };
+        const countriesList = ['USA', 'China', 'Germany', 'Japan', 'S. Korea', 'Kazakhstan', 'Russia', 'UK', 'France', 'Italy'];
 
-        const countries = ['США', 'Китай', 'Германия', 'Япония', 'Юж. Корея', 'Казахстан', 'Россия', 'Великобритания', 'Франция', 'Италия'];
-
-        let myChart;
-
-        // Инициализация графика
-        window.onload = function() {
-            const ctx = document.getElementById('gdpChart').getContext('2d');
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: countries,
-                    datasets: [{
-                        label: 'Доля промышленности в ВВП (%)',
-                        data: gdpData[2020],
-                        backgroundColor: [
-                            '#001e50', '#e11d48', '#0284c7', '#059669', '#d97706',
-                            '#2563eb', '#475569', '#7c3aed', '#9333ea', '#0891b2'
-                        ],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 60,
-                            title: { display: true, text: '% от ВВП' }
-                        }
-                    }
-                }
-            });
+        // OECD Country Data (From OECD Paper 2026)
+        const oecdData = {
+            DEU: { grants: "1.16% GDP", fin: "1.19% GDP", focus: "Energy Cost Relief (Price Brakes)", grantsVal: 1.16, finVal: 1.19 },
+            GBR: { grants: "3.17% GDP", fin: "0.11% GDP", focus: "Fixed Capital Allowances", grantsVal: 3.17, finVal: 0.11 },
+            KOR: { grants: "1.06% GDP", fin: "0.52% GDP", focus: "R&D & High-Tech Manufacturing", grantsVal: 1.06, finVal: 0.52 },
+            FRA: { grants: "1.73% GDP", fin: "1.28% GDP", focus: "Apprenticeship & Energy Shield", grantsVal: 1.73, finVal: 1.28 },
+            TUR: { grants: "2.24% GDP", fin: "0.33% GDP", focus: "Corporate Tax Relief & Export Credit", grantsVal: 2.24, finVal: 0.33 },
+            HUN: { grants: "2.18% GDP", fin: "3.81% GDP", focus: "SME Guarantees & ERDF Grants", grantsVal: 2.18, finVal: 3.81 },
+            CZE: { grants: "1.85% GDP", fin: "0.67% GDP", focus: "Energy Sector & Modernisation Fund", grantsVal: 1.85, finVal: 0.67 },
+            ITA: { grants: "1.59% GDP", fin: "1.42% GDP", focus: "Investment Tax Credits & SME Fund", grantsVal: 1.59, finVal: 1.42 }
         };
 
-        // Обновление графика при движении слайдера
-        function updateChart(year) {
-            document.getElementById('year-display').innerText = year;
-            myChart.data.datasets[0].data = gdpData[year];
-            myChart.update();
-        }
+        let gdpChart, oecdChart;
 
-        // Симулятор Ford Model T
-        function calculateFord(hours) {
-            document.getElementById('ford-time').innerText = hours + ' ч';
-            // Простая формула линейной зависимости цены от времени сборки
-            let price = Math.round(300 + (hours - 1.5) * (550 / 11));
-            document.getElementById('ford-price').innerText = '$' + price;
-        }
+        window.onload = function() {
+            initGdpChart();
+            initOecdChart();
+        };
 
-        // Переключение вкладок
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             
             document.getElementById(tabId).classList.remove('hidden');
             document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        function initGdpChart() {
+            const ctx = document.getElementById('gdpChart').getContext('2d');
+            gdpChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: countriesList,
+                    datasets: [{
+                        label: '% of GDP',
+                        data: gdpData[2020],
+                        backgroundColor: '#001e50',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 60 } }
+                }
+            });
+        }
+
+        function updateGdpChart(year) {
+            document.getElementById('year-display').innerText = year;
+            gdpChart.data.datasets[0].data = gdpData[year];
+            gdpChart.update();
+        }
+
+        function initOecdChart() {
+            const ctx = document.getElementById('oecdChart').getContext('2d');
+            oecdChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Grants & Tax Expenditures', 'Financial Instruments'],
+                    datasets: [{
+                        label: '% of GDP',
+                        data: [oecdData['DEU'].grantsVal, oecdData['DEU'].finVal],
+                        backgroundColor: ['#001e50', '#059669'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 5 } }
+                }
+            });
+        }
+
+        function updateOecdCountry(code) {
+            const data = oecdData[code];
+            document.getElementById('oecd-grants-val').innerText = data.grants;
+            document.getElementById('oecd-fin-val').innerText = data.fin;
+            document.getElementById('oecd-focus-val').innerText = data.focus;
+
+            oecdChart.data.datasets[0].data = [data.grantsVal, data.finVal];
+            oecdChart.update();
+        }
+
+        function calculateFord(hours) {
+            document.getElementById('ford-time').innerText = hours + ' h';
+            let price = Math.round(300 + (hours - 1.5) * (550 / 11));
+            document.getElementById('ford-price').innerText = '$' + price;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ru' : 'en';
+            const lang = i18n[currentLang];
+
+            document.getElementById('header-title').innerText = lang.headerTitle;
+            document.getElementById('header-subtitle').innerText = lang.headerSubtitle;
+            document.getElementById('back-btn').innerText = lang.backBtn;
+            document.getElementById('nav-tab1').innerText = lang.navTab1;
+            document.getElementById('nav-tab6').innerText = lang.navTab6;
+            document.getElementById('tab1-title').innerText = lang.tab1Title;
+            document.getElementById('tab1-subtitle').innerText = lang.tab1Subtitle;
+            document.getElementById('year-label').innerText = lang.yearLabel;
+            document.getElementById('slider-label').innerText = lang.sliderLabel;
+            document.getElementById('ford-sim-title').innerText = lang.fordTitle;
+            document.getElementById('ford-label').innerText = lang.fordLabel;
+            document.getElementById('ford-res1-label').innerText = lang.fordRes1;
+            document.getElementById('ford-res2-label').innerText = lang.fordRes2;
+            document.getElementById('oecd-title').innerText = lang.oecdTitle;
+            document.getElementById('oecd-subtitle').innerText = lang.oecdSubtitle;
+            document.getElementById('country-select-label').innerText = lang.countryLabel;
+            document.getElementById('card1-tag').innerText = lang.card1Tag;
+            document.getElementById('card1-title').innerText = lang.card1Title;
+            document.getElementById('card2-tag').innerText = lang.card2Tag;
+            document.getElementById('card2-title').innerText = lang.card2Title;
+            document.getElementById('card3-tag').innerText = lang.card3Tag;
+            document.getElementById('card3-title').innerText = lang.card3Title;
+            document.getElementById('footer-text1').innerText = lang.footerText;
         }
     </script>
 </body>
