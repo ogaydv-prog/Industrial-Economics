@@ -4,58 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Industrial Economics Analytical Laboratory | AlmaU</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .tab-btn.active {
-            background-color: #001e50;
-            color: #ffffff;
-            border-color: #001e50;
-        }
-        
-        /* Удобные прямоугольные слайдеры с красной полосой */
-        .rect-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 14px;
-            border-radius: 4px;
-            background: #cbd5e1;
-            outline: none;
-            border: 1px solid #94a3b8;
-        }
-        .rect-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 38px;
-            height: 26px;
-            border-radius: 4px;
-            background: #ef4444;
-            cursor: pointer;
-            border: 2px solid #ffffff;
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
-            position: relative;
-        }
-        /* Внутренняя красная белая дефисная индикация на прямоугольнике */
-        .rect-slider::-webkit-slider-thumb::after {
-            content: "";
-            display: block;
-            width: 2px;
-            height: 12px;
-            background: #ffffff;
-            margin: 5px auto;
-        }
+        .tab-btn.active { background-color: #001e50; color: #ffffff; border-color: #001e50; }
+        .rect-slider { -webkit-appearance: none; width: 100%; height: 14px; border-radius: 4px; background: #cbd5e1; outline: none; border: 1px solid #94a3b8; }
+        .rect-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 38px; height: 26px; border-radius: 4px; background: #ef4444; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 0 8px rgba(239, 68, 68, 0.5); }
+        .rect-slider::-webkit-slider-thumb::after { content: ""; display: block; width: 2px; height: 12px; background: #ffffff; margin: 5px auto; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- Header -->
     <header class="bg-[#001e50] text-white py-5 px-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -65,7 +28,6 @@
                     <p class="text-xs text-slate-300 font-medium" id="header-subtitle">Advanced Analytical Laboratory & OECD Policy Data | AlmaU 2026</p>
                 </div>
             </div>
-            
             <div class="flex items-center gap-3">
                 <button onclick="toggleLanguage()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md">
                     <i class="fa-solid fa-globe"></i>
@@ -78,308 +40,192 @@
         </div>
     </header>
 
-    <!-- Navigation Tabs -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 flex space-x-2 overflow-x-auto text-xs font-bold">
             <button onclick="switchTab('tab-gdp')" id="btn-tab-gdp" class="tab-btn active px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-chart-column text-blue-500"></i>
-                <span id="nav-tab1">1. Global GDP Industrial Share</span>
+                <i class="fa-solid fa-chart-column text-blue-500"></i> <span id="nav-tab1">1. Global GDP</span>
             </button>
             <button onclick="switchTab('tab-rev1')" id="btn-tab-rev1" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-fire text-amber-600"></i>
-                <span>Industry 1.0 (1760–1840)</span>
+                <i class="fa-solid fa-fire text-amber-600"></i> <span id="nav-tab2">Industry 1.0</span>
             </button>
             <button onclick="switchTab('tab-rev2')" id="btn-tab-rev2" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-industry text-emerald-600"></i>
-                <span>Industry 2.0 (1870–1914)</span>
+                <i class="fa-solid fa-industry text-emerald-600"></i> <span id="nav-tab3">Industry 2.0</span>
             </button>
             <button onclick="switchTab('tab-rev3')" id="btn-tab-rev3" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-microchip text-indigo-600"></i>
-                <span>Industry 3.0 (1960–2000)</span>
+                <i class="fa-solid fa-microchip text-indigo-600"></i> <span id="nav-tab4">Industry 3.0</span>
             </button>
             <button onclick="switchTab('tab-rev4')" id="btn-tab-rev4" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-robot text-rose-600"></i>
-                <span>Industry 4.0 & Film Case</span>
+                <i class="fa-solid fa-robot text-rose-600"></i> <span id="nav-tab5">Industry 4.0 & Case</span>
             </button>
             <button onclick="switchTab('tab-oecd')" id="btn-tab-oecd" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-landmark text-amber-500"></i>
-                <span id="nav-tab6">OECD Policy (20 Countries)</span>
+                <i class="fa-solid fa-landmark text-amber-500"></i> <span id="nav-tab6">OECD Policy</span>
             </button>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="max-w-7xl w-full mx-auto px-4 py-8 flex-grow">
 
-        <!-- ================= TAB 1: GDP DYNAMICS ================= -->
+        <!-- TAB 1: GDP -->
         <section id="tab-gdp" class="tab-content block space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
+                <div class="flex justify-between items-center pb-4 border-b border-slate-100 gap-4">
                     <div>
-                        <h2 class="text-xl font-extrabold text-[#001e50]" id="tab1-title">Industry Value Added (% of GDP, 1970–2020)</h2>
-                        <p class="text-xs text-slate-500 mt-1" id="tab1-subtitle">Deindustrialization in Western economies vs. Asian Manufacturing Boom (World Bank Data)</p>
+                        <h2 class="text-xl font-extrabold text-[#001e50]" id="tab1-title">Industry Value Added (% of GDP)</h2>
+                        <p class="text-xs text-slate-500 mt-1" id="tab1-subtitle">Data Source: World Bank National Accounts Data.</p>
                     </div>
                     <div class="bg-slate-100 px-4 py-2 rounded-xl text-center border border-slate-200">
-                        <span class="text-xs text-slate-500 font-bold uppercase" id="year-label">Selected Year:</span>
+                        <span class="text-xs text-slate-500 font-bold uppercase" id="year-label">Year:</span>
                         <span id="year-display" class="text-2xl font-black text-[#001e50] ml-2">2020</span>
                     </div>
                 </div>
 
                 <div class="my-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
-                    <label for="year-slider" class="block text-xs font-bold text-slate-700 mb-3" id="slider-label">Move rectangular tracker to analyze structural shifts:</label>
+                    <label for="year-slider" class="block text-xs font-bold text-slate-700 mb-3" id="slider-label">Move tracker to analyze shifts:</label>
                     <input type="range" id="year-slider" min="1970" max="2020" step="10" value="2020" oninput="updateGdpChart(this.value)" class="rect-slider">
                     <div class="flex justify-between text-[11px] text-slate-500 font-bold mt-2 px-1">
                         <span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020</span>
                     </div>
                 </div>
 
-                <div class="relative h-[380px] w-full">
-                    <canvas id="gdpChart"></canvas>
+                <div class="relative h-[350px] w-full"><canvas id="gdpChart"></canvas></div>
+                
+                <div class="mt-6 p-4 bg-blue-50 text-blue-900 rounded-xl text-xs space-y-2 border border-blue-200" id="tab1-exp">
+                    <strong>Analytical Context by Decade:</strong>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>1970-1980:</strong> Western economies peak in industrial output. The US and Germany dominate global manufacturing.</li>
+                        <li><strong>1990:</strong> Post-Soviet collapse. <i>Note on Kazakhstan:</i> Pre-1991 data is retroactively estimated by the World Bank based on the Kazakh SSR's share of the Soviet Net Material Product. It differs from Russia due to Kazakhstan's heavy focus on extractive metallurgy and raw materials vs. Russia's military-industrial complex.</li>
+                        <li><strong>2000-2010:</strong> China enters the WTO (2001), causing an explosive manufacturing boom, draining industrial share from the US and UK (Deindustrialization).</li>
+                        <li><strong>2020:</strong> Western economies transition fully to service/knowledge economies, while Asia remains the industrial hub.</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 2: INDUSTRY 1.0 ================= -->
+        <!-- TAB 2: INDUSTRY 1.0 -->
         <section id="tab-rev1" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-amber-600 uppercase">1760 – 1840</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">First Industrial Revolution (Industry 1.0): Macro-Metrics & Engineering</h2>
-                    <p class="text-xs text-slate-500 mt-1">Geopolitical divergence, Steam Power Thermodynamics, Wilkinson Boring Machine & Textile Productivity Boom.</p>
-                </div>
-
-                <!-- Comparative Macro Chart (1760-1840) -->
                 <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-amber-600"></i>
-                        <span id="rev1-chart-title">Macro Comparison: GDP per Capita & Industrial Output Growth (1760–1840)</span>
-                    </h3>
-                    <p class="text-xs text-slate-600" id="rev1-chart-desc">Britain's mechanized explosion vs. Ottoman Empire and Tsarist Russia stagnation during the 1st Industrial Revolution.</p>
-                    <div class="relative h-[280px] w-full">
-                        <canvas id="rev1Chart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Case 1: Wilkinson's Boring Machine & Watt Engine -->
-                <div class="p-5 bg-amber-950/5 border border-amber-200 rounded-2xl space-y-4">
-                    <div class="flex items-center gap-3 text-amber-900">
-                        <i class="fa-solid fa-gun text-xl text-amber-700"></i>
-                        <h3 class="font-extrabold text-sm" id="wilk-title">1774 Engineering Breakthrough: John Wilkinson's Boring Machine & Watt's Engine</h3>
-                    </div>
-                    <p class="text-xs text-slate-700 leading-relaxed" id="wilk-desc">
-                        Before 1774, cannons and cylinders were cast around clay cores, resulting in uneven bores. Gas leaked, and early Newcomen engines had a dismal 1% efficiency. John Wilkinson invented a machine that bored solid iron cylinders with high precision. James Watt used this to prevent steam leaks, boosting thermodynamic efficiency by 400%!
+                    <h3 class="font-bold text-slate-800 text-sm" id="rev1-chart-title">Macro Comparison: GDP per Capita & Industrial Growth (1760–1840)</h3>
+                    <div class="relative h-[250px] w-full"><canvas id="rev1Chart"></canvas></div>
+                    <p class="text-xs text-slate-600 mt-2" id="rev1-chart-exp">
+                        <strong>Why did empires diverge?</strong> The UK embraced mechanization (textiles, steam), driving GDP up. <i>Tsarist Russia</i> and the <i>Ottoman Empire</i> relied on agrarian serfdom and manual guild labor, resulting in economic stagnation and a widening technological gap.
                     </p>
-
-                    <div class="bg-white p-4 rounded-xl border border-amber-200 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                </div>
+                <!-- Wilkinson -->
+                <div class="p-5 bg-amber-950/5 border border-amber-200 rounded-2xl">
+                    <h3 class="font-extrabold text-sm text-amber-900" id="wilk-title">1774: Wilkinson's Boring Machine</h3>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-2" id="wilk-slider-label">Cylinder Clearance Gap (Steam Leakage in mm):</label>
+                            <label class="block text-xs font-bold mb-2" id="wilk-slider-label">Cylinder Clearance Gap (mm):</label>
                             <input type="range" id="gap-slider" min="0.5" max="5.0" step="0.5" value="5.0" oninput="calcWilkinson(this.value)" class="rect-slider">
-                            <span class="text-[10px] text-slate-400 block mt-1">5.0mm = Newcomen Engine (1712) | 0.5mm = Wilkinson/Watt Precision (1775)</span>
                         </div>
                         <div class="grid grid-cols-2 gap-3 text-center">
-                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase block" id="kpd-label">Engine Efficiency</span>
-                                <span id="kpd-val" class="text-xl font-black text-amber-600">1.0%</span>
-                            </div>
-                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase block" id="coal-label">Coal Consumption</span>
-                                <span id="coal-val" class="text-xl font-black text-rose-600">100 Tons/mo</span>
-                            </div>
+                            <div class="p-3 bg-white rounded border"><span class="text-[10px] font-bold block" id="kpd-label">Efficiency</span><span id="kpd-val" class="text-xl font-black text-amber-600">1.0%</span></div>
+                            <div class="p-3 bg-white rounded border"><span class="text-[10px] font-bold block" id="coal-label">Coal Use</span><span id="coal-val" class="text-xl font-black text-rose-600">100 T/mo</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 3: INDUSTRY 2.0 ================= -->
+        <!-- TAB 3: INDUSTRY 2.0 -->
         <section id="tab-rev2" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-emerald-600 uppercase">1870 – 1914</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Second Industrial Revolution: Mass Production & Rise of US/Germany</h2>
-                    <p class="text-xs text-slate-500 mt-1">Steel Converter, Civil War Sizing Grids, Meatpacking Lines, and Ford Assembly Line Economics.</p>
-                </div>
-
-                <!-- Comparative Macro Chart (1870-1914) -->
-                <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-emerald-600"></i>
-                        <span id="rev2-chart-title">Global Steel & Industrial Output Shift: US & Germany Overtake UK (1870–1914)</span>
-                    </h3>
-                    <div class="relative h-[280px] w-full">
-                        <canvas id="rev2Chart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Civil War Sizing Case -->
                 <div class="p-5 bg-emerald-950/5 border border-emerald-200 rounded-2xl space-y-3">
-                    <h3 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-boxes-packing text-emerald-700"></i>
-                        <span id="civil-title">US Civil War (1861–1865), Bessemer Steel & S/M/L Standard Sizing</span>
-                    </h3>
-                    <p class="text-xs text-slate-700 leading-relaxed" id="civil-desc">
-                        To clothe 2 million Union soldiers, the US military collected physical measurements, inventing standard ready-to-wear sizing grids (S, M, L). Concurrently, Bessemer converters crashed steel prices from £60 to £6 per ton, enabling transcontinental railways and Chicago meat disassembly lines that inspired Henry Ford.
+                    <h3 class="font-bold text-emerald-900 text-sm" id="civil-title">US Civil War (1861–1865) & Standard Sizing (S/M/L)</h3>
+                    <p class="text-xs text-slate-700" id="civil-desc">
+                        To clothe 2 million Union soldiers rapidly, the US military collected mass physical measurements, inventing the first standard ready-to-wear sizing grids (S, M, L). This abolished custom tailoring, birthing modern mass garment manufacturing. <a href="https://en.wikipedia.org/wiki/Clothing_sizes#History" target="_blank" class="text-blue-600 underline">Source: History of Clothing Sizes</a>.
                     </p>
                 </div>
-
-                <!-- Ford Assembly Simulator -->
-                <div class="p-5 bg-slate-900 text-white rounded-2xl space-y-4">
-                    <h3 class="font-bold text-emerald-400 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-calculator"></i>
-                        <span id="ford-sim-title">Ford Model T Moving Assembly Line Simulator (1913)</span>
-                    </h3>
-                    <p class="text-xs text-slate-300" id="ford-exp">
-                        Moving assembly line reduced chassis assembly time from 12.5h to 1.5h per car. Fixed costs were spread over 2 million units, dropping retail price from $850 to $260!
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center pt-2">
+                <!-- Ford -->
+                <div class="p-5 bg-slate-900 text-white rounded-2xl">
+                    <h3 class="font-bold text-emerald-400 text-sm" id="ford-sim-title">Ford Assembly Line (1913)</h3>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-2" id="ford-label">Assembly Time per Car (Hours):</label>
                             <input type="range" id="ford-slider" min="1.5" max="12.5" step="0.5" value="12.5" oninput="calculateFord(this.value)" class="rect-slider">
                         </div>
-                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 grid grid-cols-2 gap-4 text-center">
-                            <div>
-                                <span class="text-[10px] text-slate-400 uppercase font-bold block" id="ford-res1-label">Assembly Time</span>
-                                <span id="ford-time" class="text-xl font-black text-amber-400">12.5 h</span>
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-slate-400 uppercase font-bold block" id="ford-res2-label">Retail Price</span>
-                                <span id="ford-price" class="text-xl font-black text-emerald-400">$850</span>
-                            </div>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700"><span class="text-[10px] text-slate-400 block" id="ford-res1">Time</span><span id="ford-time" class="text-xl font-black text-amber-400">12.5 h</span></div>
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700"><span class="text-[10px] text-slate-400 block" id="ford-res2">Price</span><span id="ford-price" class="text-xl font-black text-emerald-400">$850</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 4: INDUSTRY 3.0 ================= -->
+        <!-- TAB 4: INDUSTRY 3.0 -->
         <section id="tab-rev3" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-indigo-600 uppercase">1960 – 2000</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Third Industrial Revolution: IT, Microprocessors & Moore's Law</h2>
-                    <p class="text-xs text-slate-500 mt-1">Computers, PLCs, Semiconductor Exponential Growth & Industrial Robotics (Unimate).</p>
-                </div>
-
                 <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-microchip text-indigo-600"></i>
-                        <span id="rev3-chart-title">Moore's Law & Computing Cost Deflation (1970–2000)</span>
-                    </h3>
-                    <div class="relative h-[280px] w-full">
-                        <canvas id="rev3Chart"></canvas>
+                    <h3 class="font-bold text-slate-800 text-sm" id="rev3-chart-title">Moore's Law & Computing Deflation (1970–2000)</h3>
+                    <div class="relative h-[280px] w-full"><canvas id="rev3Chart"></canvas></div>
+                    <div class="text-xs text-slate-600 space-y-2 mt-4" id="rev3-exp">
+                        <p><strong>Chart Explanations:</strong></p>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Transistor Count Index:</strong> Represents Moore's Law (transistors doubling every 2 years), leading to a collapse in hardware costs.</li>
+                            <li><strong>MFG Productivity Index:</strong> Manufacturing output per worker hour, which skyrocketed as computers replaced manual calculation.</li>
+                        </ul>
+                        <p><strong>USA vs. Japan (1980s):</strong> While the US dominated PC microprocessors and software design (Intel, Microsoft), Japan led the physical implementation of Industry 3.0 via <i>Lean Manufacturing</i> and CNC (Computer Numerical Control) robotics (Fanuc, Toyota). Japan's automation allowed them to produce higher quality cars at lower costs, heavily disrupting the US auto market.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 5: INDUSTRY 4.0 & FILM CASE ================= -->
+        <!-- TAB 5: INDUSTRY 4.0 -->
         <section id="tab-rev4" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-rose-600 uppercase">2010 – Present</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Industry 4.0 & Case Study: «American Factory»</h2>
-                    <p class="text-xs text-slate-500 mt-1">Cyber-Physical Systems, IoT, Global Competition & Labor-Automation Trade-offs.</p>
-                </div>
-
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
                 <div class="p-5 bg-rose-950/10 border border-rose-200 rounded-2xl space-y-4">
-                    <h3 class="font-bold text-rose-900 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-film text-rose-600"></i>
-                        <span>«American Factory» (Netflix, Oscar 2019) Video Case Studies</span>
-                    </h3>
-                    <p class="text-xs text-slate-700 leading-relaxed" id="case-desc">
-                        Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and the decision to replace workers with industrial robotic arms.
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                        <div class="p-4 bg-white rounded-xl border border-rose-200 space-y-2">
-                            <span class="font-bold text-xs text-rose-700 block uppercase" id="scene1-title">Scene 1: Culture & Efficiency Clash</span>
-                            <p class="text-xs text-slate-600" id="scene1-desc">Chinese management inspecting US operations and discussing 12h shifts vs US union demands.</p>
-                            <a href="https://www.youtube.com/results?search_query=American+Factory+Netflix+clip+culture" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition">
-                                <i class="fa-brands fa-youtube mr-1"></i> Watch Scene Clips on YouTube
-                            </a>
-                        </div>
-                        <div class="p-4 bg-white rounded-xl border border-rose-200 space-y-2">
-                            <span class="font-bold text-xs text-rose-700 block uppercase" id="scene2-title">Scene 2: Automation Choice (1:18:00)</span>
-                            <p class="text-xs text-slate-600" id="scene2-desc">Chairman Cho approves installing 4 robotic arms to replace 8 workers: 'They are too slow'.</p>
-                            <a href="https://www.youtube.com/results?search_query=American+Factory+automation+scene" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition">
-                                <i class="fa-brands fa-youtube mr-1"></i> Watch Scene Clips on YouTube
-                            </a>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-rose-900 text-sm" id="case-title">«American Factory» (Netflix, Oscar 2019)</h3>
+                    <p class="text-xs text-slate-700" id="case-desc">Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and the decision to replace workers with industrial robotic arms.</p>
+                    <a href="https://mix.kinogo.mu/44853--amerikanskaja-fabrika.html" target="_blank" class="inline-block px-4 py-2 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition" id="watch-btn">
+                        <i class="fa-solid fa-play mr-1"></i> Watch Full Movie (Kinogo)
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 6: OECD INDUSTRIAL POLICY ================= -->
+        <!-- TAB 6: OECD -->
         <section id="tab-oecd" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
                     <div>
-                        <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">Quantifying Industrial Strategies across 20 OECD Countries (QuIS Report 2026)</h2>
-                        <p class="text-xs text-slate-500 mt-1" id="oecd-subtitle">Granular country profile analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)</p>
+                        <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">OECD Industrial Strategies (2019–2023)</h2>
+                        <p class="text-xs text-slate-500 mt-1" id="oecd-subtitle">Data derived from the 2026 OECD QuIS Report.</p>
                     </div>
-                    
-                    <div class="flex items-center gap-2">
-                        <label for="country-select" class="text-xs font-bold text-slate-600" id="country-select-label">Select Country Profile:</label>
-                        <select id="country-select" onchange="updateOecdCountry(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
-                            <option value="DEU">Germany (DEU)</option>
-                            <option value="GBR">United Kingdom (GBR)</option>
-                            <option value="KOR">Korea (KOR)</option>
-                            <option value="FRA">France (FRA)</option>
-                            <option value="TUR">Türkiye (TUR)</option>
-                            <option value="HUN">Hungary (HUN)</option>
-                            <option value="CZE">Czechia (CZE)</option>
-                            <option value="ITA">Italy (ITA)</option>
-                        </select>
-                    </div>
+                    <select id="country-select" onchange="updateOecdCountry(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
+                        <option value="DEU" id="opt-deu">Germany (DEU)</option>
+                        <option value="GBR" id="opt-gbr">United Kingdom (GBR)</option>
+                        <option value="KOR" id="opt-kor">Korea (KOR)</option>
+                        <option value="FRA" id="opt-fra">France (FRA)</option>
+                        <option value="TUR" id="opt-tur">Türkiye (TUR)</option>
+                        <option value="HUN" id="opt-hun">Hungary (HUN)</option>
+                        <option value="CZE" id="opt-cze">Czechia (CZE)</option>
+                        <option value="ITA" id="opt-ita">Italy (ITA)</option>
+                    </select>
                 </div>
 
-                <!-- Country Metric Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                        <span class="text-[10px] font-bold uppercase text-blue-600" id="card1-tag">Direct Support</span>
-                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card1-title">Grants & Tax Expenditures</h4>
-                        <span id="oecd-grants-val" class="text-2xl font-black text-[#001e50]">1.16% GDP</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Target Chart -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <h3 class="text-xs font-bold text-slate-700 mb-2" id="oecd-chart-title">Global Primary Policy Targets (% of GDP)</h3>
+                        <div class="relative h-[180px] w-full"><canvas id="oecdTargetChart"></canvas></div>
                     </div>
-                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-                        <span class="text-[10px] font-bold uppercase text-emerald-600" id="card2-tag">Liquidity / Credit</span>
-                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card2-title">Financial Instruments</h4>
-                        <span id="oecd-fin-val" class="text-2xl font-black text-emerald-700">1.19% GDP</span>
+                    <!-- Country Profile -->
+                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-3">
+                        <h3 class="text-sm font-bold text-[#001e50]" id="country-profile-title">Country Analytical Profile</h3>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-white p-2 border rounded"><strong>Grants/Tax:</strong> <span id="oecd-grants"></span></div>
+                            <div class="bg-white p-2 border rounded"><strong>Financial:</strong> <span id="oecd-fin"></span></div>
+                        </div>
+                        <p class="text-xs text-slate-700" id="oecd-rep-body"></p>
                     </div>
-                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                        <span class="text-[10px] font-bold uppercase text-amber-700" id="card3-tag">Strategic Focus</span>
-                        <h4 class="text-xs font-bold text-slate-700 mt-1" id="card3-title">Primary Policy Target</h4>
-                        <span id="oecd-focus-val" class="text-sm font-black text-amber-900 block mt-1">Energy Price Relief</span>
-                    </div>
-                </div>
-
-                <div class="relative h-[300px] w-full">
-                    <canvas id="oecdChart"></canvas>
-                </div>
-
-                <!-- Granular Analytical Report for Selected Country -->
-                <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                    <h3 class="font-bold text-[#001e50] text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-file-contract text-blue-600"></i>
-                        <span id="oecd-rep-title">OECD Analytical Country Profile & Policy Instruments</span>
-                    </h3>
-                    <p id="oecd-rep-body" class="text-xs text-slate-700 leading-relaxed">
-                        Detailed breakdown of specific state support mechanisms, flagship bills, and OECD conclusions for Germany.
-                    </p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
-        <p id="footer-text1">Developed for Business Analytics & Economics Students | Course: Industrial Economics</p>
-        <p class="mt-1">© Almaty Management University | School of Digital Technologies and Economics 2026</p>
-    </footer>
-
-    <!-- Logic & Chart Scripts -->
     <script>
         let currentLang = 'en';
 
@@ -388,310 +234,201 @@
                 headerTitle: "Industrial Economics",
                 headerSubtitle: "Advanced Analytical Laboratory & OECD Policy Data | AlmaU 2026",
                 backBtn: "← Main Hub",
-                navTab1: "1. Global GDP Industrial Share",
-                navTab6: "OECD Industrial Policy",
-                tab1Title: "Industry Value Added (% of GDP, 1970–2020)",
-                tab1Subtitle: "Deindustrialization in Western economies vs. Asian Manufacturing Boom (World Bank Data)",
-                yearLabel: "Selected Year:",
-                sliderLabel: "Move rectangular tracker to analyze structural shifts:",
-                wilkTitle: "1774 Engineering Breakthrough: John Wilkinson's Boring Machine & Watt's Engine",
-                wilkDesc: "Before 1774, cannons and cylinders were cast around clay cores, resulting in uneven bores. Gas leaked, and early Newcomen engines had a dismal 1% efficiency. John Wilkinson invented a machine that bored solid iron cylinders with high precision. James Watt used this to prevent steam leaks, boosting thermodynamic efficiency by 400%!",
-                wilkSliderLabel: "Cylinder Clearance Gap (Steam Leakage in mm):",
-                kpdLabel: "Engine Efficiency",
-                coalLabel: "Coal Consumption",
-                civilTitle: "US Civil War (1861–1865), Bessemer Steel & S/M/L Standard Sizing",
-                civilDesc: "To clothe 2 million Union soldiers, the US military collected physical measurements, inventing standard ready-to-wear sizing grids (S, M, L). Concurrently, Bessemer converters crashed steel prices from £60 to £6 per ton, enabling transcontinental railways and Chicago meat disassembly lines that inspired Henry Ford.",
-                fordTitle: "Ford Model T Moving Assembly Line Simulator (1913)",
-                fordExp: "Moving assembly line reduced chassis assembly time from 12.5h to 1.5h per car. Fixed costs were spread over 2 million units, dropping retail price from $850 to $260!",
-                fordLabel: "Assembly Time per Car (Hours):",
-                fordRes1: "Assembly Time",
-                fordRes2: "Retail Price",
-                caseDesc: "Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and the decision to replace workers with industrial robotic arms.",
-                scene1Title: "Scene 1: Culture & Efficiency Clash",
-                scene1Desc: "Chinese management inspecting US operations and discussing 12h shifts vs US union demands.",
-                scene2Title: "Scene 2: Automation Choice (1:18:00)",
-                scene2Desc: "Chairman Cho approves installing 4 robotic arms to replace 8 workers: 'They are too slow'.",
-                oecdTitle: "Quantifying Industrial Strategies across 20 OECD Countries (QuIS Report 2026)",
-                oecdSubtitle: "Granular country profile analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)",
-                countryLabel: "Select Country Profile:",
-                card1Tag: "Direct Support",
-                card1Title: "Grants & Tax Expenditures",
-                card2Tag: "Liquidity / Credit",
-                card2Title: "Financial Instruments",
-                card3Tag: "Strategic Focus",
-                card3Title: "Primary Policy Target",
-                footerText: "Developed for Business Analytics & Economics Students | Course: Industrial Economics"
+                nav1: "1. Global GDP", nav2: "Industry 1.0", nav3: "Industry 2.0", nav4: "Industry 3.0", nav5: "Industry 4.0 & Case", nav6: "OECD Policy",
+                tab1Title: "Industry Value Added (% of GDP)",
+                tab1Sub: "Data Source: World Bank National Accounts Data.",
+                yearLabel: "Year:", sliderLabel: "Move tracker to analyze shifts:",
+                tab1Exp: `<strong>Analytical Context by Decade:</strong>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>1970-1980:</strong> Western economies peak in industrial output. The US and Germany dominate.</li>
+                        <li><strong>1990:</strong> Post-Soviet collapse. <i>Note on Kazakhstan:</i> Pre-1991 data is retroactively estimated by the World Bank. It differs from Russia due to Kazakhstan's focus on extractive metallurgy vs. Russia's military-industrial complex.</li>
+                        <li><strong>2000-2010:</strong> China enters the WTO (2001), causing an explosive manufacturing boom.</li>
+                        <li><strong>2020:</strong> Western economies transition to services, Asia remains the industrial hub.</li>
+                    </ul>`,
+                rev1ChartTitle: "Macro Comparison: GDP per Capita & Industrial Growth (1760–1840)",
+                rev1ChartExp: "<strong>Why did empires diverge?</strong> The UK embraced mechanization (textiles, steam). <i>Tsarist Russia</i> and the <i>Ottoman Empire</i> relied on agrarian serfdom and manual guild labor, resulting in economic stagnation.",
+                wilkTitle: "1774: Wilkinson's Boring Machine", wilkSlider: "Cylinder Clearance Gap (mm):", kpd: "Efficiency", coal: "Coal Use",
+                civilTitle: "US Civil War (1861–1865) & Standard Sizing (S/M/L)",
+                civilDesc: `To clothe 2 million Union soldiers rapidly, the US military collected mass physical measurements, inventing the first standard ready-to-wear sizing grids (S, M, L). This abolished custom tailoring, birthing modern mass garment manufacturing. <a href="https://en.wikipedia.org/wiki/Clothing_sizes#History" target="_blank" class="text-blue-600 underline">Source: History of Clothing Sizes</a>.`,
+                fordTitle: "Ford Assembly Line (1913)", fordLabel: "Assembly Time per Car (Hours):", fordRes1: "Time", fordRes2: "Price",
+                rev3Title: "Moore's Law & Computing Deflation (1970–2000)",
+                rev3Exp: `<p><strong>Chart Explanations:</strong></p><ul class="list-disc pl-5"><li><strong>Transistor Count Index:</strong> Represents Moore's Law (transistors doubling every 2 years).</li><li><strong>MFG Productivity Index:</strong> Manufacturing output per worker hour.</li></ul><p><strong>USA vs. Japan (1980s):</strong> While the US dominated PC software (Microsoft), Japan led physical implementation via <i>Lean Manufacturing</i> and CNC robotics (Fanuc, Toyota), producing higher quality cars at lower costs and disrupting the US auto market.</p>`,
+                caseTitle: "«American Factory» (Netflix, Oscar 2019)", caseDesc: "Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and automation.", watchBtn: "Watch Full Movie (Kinogo)",
+                oecdTitle: "OECD Industrial Strategies (2019–2023)", oecdSub: "Data derived from the 2026 OECD QuIS Report.",
+                oecdChartTitle: "Global Primary Policy Targets (% of GDP)", profileTitle: "Country Analytical Profile",
+                optDeu: "Germany (DEU)", optGbr: "United Kingdom (GBR)", optKor: "Korea (KOR)", optFra: "France (FRA)", optTur: "Türkiye (TUR)", optHun: "Hungary (HUN)", optCze: "Czechia (CZE)", optIta: "Italy (ITA)"
             },
             ru: {
                 headerTitle: "Индустриальная Экономика",
                 headerSubtitle: "Продвинутая аналитическая лаборатория и данные ОЭСР | AlmaU 2026",
                 backBtn: "← На главный хаб",
-                navTab1: "1. Доля промышленности в ВВП",
-                navTab6: "Промышленная политика ОЭСР",
-                tab1Title: "Доля промышленности в ВВП (% от ВВП, 1970–2020)",
-                tab1Subtitle: "Деиндустриализация Запада vs Промышленный взрыв в Азии (данные World Bank)",
-                yearLabel: "Выбранный год:",
-                sliderLabel: "Перемещайте прямоугольный бегунок для анализа смены лидерства в мировой промышленности:",
-                wilkTitle: "Инженерный прорыв 1774 года: Расточной станок Уилкинсона и пар Уатта",
-                wilkDesc: "До 1774 года цилиндры отливали вокруг глиняного сердечника. Зазоры были огромными, а КПД первых машин Ньюкомена составлял всего 1%. Джон Уилкинсон изобрел станок для точной расточки цилиндров из цельной болванки. Джеймс Уатт использовал его, чтобы устранить утечку пара и поднять КПД в 4 раза!",
-                wilkSliderLabel: "Зазор между поршнем и цилиндром (в мм):",
-                kpdLabel: "КПД двигателя",
-                coalLabel: "Расход угля",
-                civilTitle: "Гражданская война в США (1861–1865), Сталь Бессемера и сетка размеров (S/M/L)",
-                civilDesc: "Чтобы одеть 2 млн солдат, армия США впервые собрала мерки сотен тысяч людей и создала сетку стандартных размеров (S, M, L). Конвертер Бессемера сбил цену стали с £60 до £6 за тонну, заложив основу железных дорог и чикагских конвейеров.",
-                fordTitle: "Симулятор конвейера Ford Model T (1913 г.)",
-                fordExp: "Конвейер сократил время сборки с 12.5 до 1.5 часов. Постоянные издержки распределились на 2 млн машин, снизив цену с $850 до $260!",
-                fordLabel: "Время сборки 1 авто (часов):",
-                fordRes1: "Время сборки",
-                fordRes2: "Цена авто",
-                caseDesc: "Разбор фильма Fuyao Glass Ohio: Столкновение культур, производительности труда и замена людей роботами.",
-                scene1Title: "Сцена 1: Конфликт культур и норм",
-                scene1Desc: "Китайское руководство инспектирует завод и сравнивает смены 12ч с требованиями профсоюзов США.",
-                scene2Title: "Сцена 2: Автоматизация (Таймкод 1:18:00)",
-                scene2Desc: "Председатель Цо утверждает увольнение 8 рабочих и запуск 4 роботов-манипуляторов.",
-                oecdTitle: "Квантификация промышленных стратегий 20 стран ОЭСР (Отчет QuIS 2026)",
-                oecdSubtitle: "Глубокий страновой анализ грантов, налоговых льгот и кредитов (% от ВВП, 2019–2023)",
-                countryLabel: "Выберите профиль страны:",
-                card1Tag: "Прямая поддержка",
-                card1Title: "Гранты и налоговые льготы",
-                card2Tag: "Ликвидность / Кредиты",
-                card2Title: "Финансовые инструменты",
-                card3Tag: "Стратегический фокус",
-                card3Title: "Главный приоритет политики",
-                footerText: "Разработано для студентов ОП «Бизнес-Аналитика и Экономика» | Индустриальная экономика"
+                nav1: "1. ВВП Мира", nav2: "Индустрия 1.0", nav3: "Индустрия 2.0", nav4: "Индустрия 3.0", nav5: "Индустрия 4.0 и Кейс", nav6: "Политика ОЭСР",
+                tab1Title: "Доля промышленности в ВВП (%)",
+                tab1Sub: "Источник: Национальные счета Всемирного Банка.",
+                yearLabel: "Год:", sliderLabel: "Перемещайте бегунок для анализа:",
+                tab1Exp: `<strong>Контекст по десятилетиям:</strong>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>1970-1980:</strong> Пик индустриализации Запада. Доминирование США и Германии.</li>
+                        <li><strong>1990:</strong> Распад СССР. <i>О Казахстане:</i> Данные до 1991 г. реконструированы Всемирным банком на основе доли КазССР в союзном производстве (тяжелая металлургия и сырье в противовес ВПК России).</li>
+                        <li><strong>2000-2010:</strong> Вступление Китая в ВТО (2001), взрывной рост производства.</li>
+                        <li><strong>2020:</strong> Переход Запада к экономике услуг, Азия — мировой промышленный хаб.</li>
+                    </ul>`,
+                rev1ChartTitle: "Сравнение: ВВП на душу населения и рост (1760–1840)",
+                rev1ChartExp: "<strong>Почему империи разошлись?</strong> Британия внедрила механизмы. <i>Царская Россия</i> и <i>Османская империя</i> опирались на крепостное право и ручной труд, что привело к стагнации.",
+                wilkTitle: "1774: Расточной станок Уилкинсона", wilkSlider: "Зазор цилиндра (мм):", kpd: "КПД", coal: "Уголь",
+                civilTitle: "Гражданская война в США (1861–1865) и размеры (S/M/L)",
+                civilDesc: `Чтобы быстро одеть 2 млн солдат, армия США собрала массовые замеры, создав первую сетку стандартов готовой одежды (S, M, L). Это уничтожило ручной пошив на заказ и породило современную легкую промышленность. <a href="https://en.wikipedia.org/wiki/Clothing_sizes#History" target="_blank" class="text-blue-600 underline">Источник: История размеров одежды</a>.`,
+                fordTitle: "Конвейер Форда (1913)", fordLabel: "Время сборки (часов):", fordRes1: "Время", fordRes2: "Цена",
+                rev3Title: "Закон Мура и удешевление вычислений (1970–2000)",
+                rev3Exp: `<p><strong>Пояснения к графику:</strong></p><ul class="list-disc pl-5"><li><strong>Индекс транзисторов:</strong> Отражает Закон Мура (удвоение каждые 2 года).</li><li><strong>Индекс производительности:</strong> Выпуск на час рабочего времени после внедрения ПК.</li></ul><p><strong>США против Японии (1980-е):</strong> Пока США доминировали в софте (Microsoft), Япония лидировала во внедрении ЧПУ и робототехники (Fanuc, Toyota) через <i>Бережливое производство</i>, выпуская дешевые и качественные авто, что ударило по рынку США.</p>`,
+                caseTitle: "«Американская фабрика» (Netflix, Оскар 2019)", caseDesc: "Анализ Fuyao Glass Ohio: столкновение культур, производительность и замена людей роботами.", watchBtn: "Смотреть фильм (Kinogo)",
+                oecdTitle: "Промышленные стратегии ОЭСР (2019–2023)", oecdSub: "Данные из отчета OECD QuIS 2026.",
+                oecdChartTitle: "Главные цели политики (% от ВВП)", profileTitle: "Аналитический профиль страны",
+                optDeu: "Германия (DEU)", optGbr: "Великобритания (GBR)", optKor: "Корея (KOR)", optFra: "Франция (FRA)", optTur: "Турция (TUR)", optHun: "Венгрия (HUN)", optCze: "Чехия (CZE)", optIta: "Италия (ITA)"
             }
+        };
+
+        const oecdData = {
+            DEU: { grants: "1.16%", fin: "1.19%", body: {
+                en: "Expanded support to mitigate energy costs. Flagship policies include the 'Electricity Price Brake Act' (0.27% of GDP) and 'Natural Gas Heat Price Brake Act' (0.20% of GDP). Loan programs reached 1.10% via Special Energy Sector Financing.",
+                ru: "Расширение поддержки для снижения цен на энергию. Ключевые меры: 'Закон о торможении цен на электроэнергию' (0.27% ВВП). Кредитные программы достигли 1.10% через Спецфинансирование энергосектора."
+            }},
+            GBR: { grants: "3.17%", fin: "0.11%", body: {
+                en: "Heavily favors tax expenditures over direct grants. Capital Allowances reached 1.10% of GDP. Targeting is highly specific: 83% of manufacturing support is subsector-specific. Limited use of state loans.",
+                ru: "Сильный упор на налоговые льготы. Налоговые скидки на капитал достигли 1.10% ВВП. Высокая точность: 83% поддержки производства идет в конкретные подотрасли."
+            }},
+            KOR: { grants: "1.06%", fin: "0.52%", body: {
+                en: "Targets R&D grants for net-zero and high-tech manufacturing (auto, chips). Massive export credit finance via the Export-Import Bank of Korea (KEXIM) represents 3.17% of GDP.",
+                ru: "Целевые гранты на НИОКР в высокотехнологичных секторах (чипы, авто). Огромная поддержка экспортных кредитов через KEXIM (3.17% ВВП)."
+            }},
+            FRA: { grants: "1.73%", fin: "1.28%", body: {
+                en: "Shifted from tax credits to direct grants. Phased out the 'Tax Credit for Competitiveness' (down from 0.79% to 0.04%). Introduced 'Tariff Shield Energy Grants' (0.15% GDP).",
+                ru: "Переход от налоговых льгот к прямым грантам. Отмена 'Налогового кредита на конкурентоспособность' (падение с 0.79% до 0.04%). Внедрение тарифного щита (0.15% ВВП)."
+            }},
+            TUR: { grants: "2.24%", fin: "0.33%", body: {
+                en: "Relies heavily on tax exemptions, notably the 'Reduced Corporate Tax' (0.51% GDP). Export credit support via Türk Eximbank is massive at 4.61% of GDP.",
+                ru: "Сильная зависимость от налоговых льгот (Сниженный корпоративный налог - 0.51% ВВП). Поддержка экспортных кредитов через Türk Eximbank составляет колоссальные 4.61% ВВП."
+            }},
+            HUN: { grants: "2.18%", fin: "3.81%", body: {
+                en: "Highest financial instrument support in OECD (3.81% GDP), driven by SME Surety Guarantees (1.88%). The 'Factory Saver Programme' provides major green/energy grants (0.09%).",
+                ru: "Самый высокий уровень финансовых инструментов в ОЭСР (3.81% ВВП) за счет гарантий для МСБ (1.88%). Программа 'Factory Saver' дает зеленые гранты (0.09%)."
+            }},
+            CZE: { grants: "1.85%", fin: "0.67%", body: {
+                en: "Increased grants driven by the EU 'Modernisation Fund' (0.47% GDP) for green deployment, and 'Compensation for Electricity and Gas' (0.55% GDP).",
+                ru: "Рост грантов за счет 'Фонда модернизации' ЕС (0.47% ВВП) для зеленых технологий и 'Компенсации за свет и газ' (0.55% ВВП)."
+            }},
+            ITA: { grants: "1.59%", fin: "1.42%", body: {
+                en: "Combines capital investment tax credits with large SME loan guarantee schemes (Nuova Sabatini). 54% of manufacturing support is subsector-targeted.",
+                ru: "Комбинирует налоговые кредиты на инвестиции в капитал с крупными гарантиями по кредитам МСБ (Nuova Sabatini). 54% поддержки производства имеет узкоотраслевую направленность."
+            }}
         };
 
         const gdpData = {
-            1970: [33, 38, 48, 43, 27, 34, 38, 35, 38, 39],
-            1980: [31, 44, 42, 40, 36, 36, 36, 33, 32, 36],
-            1990: [26, 41, 36, 37, 40, 32, 30, 27, 27, 32],
-            2000: [22, 45, 30, 30, 38, 38, 35, 24, 21, 27],
-            2010: [19, 46, 27, 28, 36, 38, 32, 19, 18, 24],
-            2020: [18, 38, 26, 28, 32, 34, 30, 17, 16, 22]
+            1970: [33, 38, 48, 43, 27, 34, 38, 35, 38, 39], 1980: [31, 44, 42, 40, 36, 36, 36, 33, 32, 36], 1990: [26, 41, 36, 37, 40, 32, 30, 27, 27, 32],
+            2000: [22, 45, 30, 30, 38, 38, 35, 24, 21, 27], 2010: [19, 46, 27, 28, 36, 38, 32, 19, 18, 24], 2020: [18, 38, 26, 28, 32, 34, 30, 17, 16, 22]
         };
         const countriesList = ['USA', 'China', 'Germany', 'Japan', 'S. Korea', 'Kazakhstan', 'Russia', 'UK', 'France', 'Italy'];
-        const countryColors = ['#001e50', '#e11d48', '#0284c7', '#059669', '#d97706', '#2563eb', '#475569', '#7c3aed', '#9333ea', '#0891b2'];
 
-        // Extended OECD Data Profiles from PDF Report
-        const oecdData = {
-            DEU: { 
-                grants: "1.16% GDP", fin: "1.19% GDP", focus: "Energy Cost Relief (Price Brakes)", grantsVal: 1.16, finVal: 1.19,
-                body: "Germany expanded direct grant support from 0.24% in 2019 to 0.84% in 2023. Flagship policies: 'Electricity Price Brake Act' (0.27% of GDP) and 'Natural Gas Heat Price Brake Act' (0.20% of GDP). Loan programs reached 1.10% of GDP via Special Energy Sector Financing."
-            },
-            GBR: { 
-                grants: "3.17% GDP", fin: "0.11% GDP", focus: "Fixed Capital Allowances", grantsVal: 3.17, finVal: 0.11,
-                body: "UK heavily favors tax expenditures over direct grants. Capital Allowances reached 1.10% of GDP. Granular targeting is high (83% of manufacturing support is subsector-specific). Limited use of state loans or guarantees."
-            },
-            KOR: { 
-                grants: "1.06% GDP", fin: "0.52% GDP", focus: "R&D & High-Tech Manufacturing", grantsVal: 1.06, finVal: 0.52,
-                body: "Korea targets R&D grants for net-zero and high-tech manufacturing (auto, chips, equipment). Export credit finance via KEXIM represents 3.17% of GDP."
-            },
-            FRA: { 
-                grants: "1.73% GDP", fin: "1.28% GDP", focus: "Apprenticeship & Energy Shield", grantsVal: 1.73, finVal: 1.28,
-                body: "France shifted from tax credits to direct grants. Key measures: Exceptional Apprentice Assistance (0.15% GDP) and Tariff Shield Energy Grants. Venture capital (GovVC) is relatively high at 0.18% of GDP."
-            },
-            TUR: { 
-                grants: "2.24% GDP", fin: "0.33% GDP", focus: "Corporate Tax Relief & Export Credit", grantsVal: 2.24, finVal: 0.33,
-                body: "Türkiye relies heavily on tax exemptions (Reduced Corporate Tax at 0.51% GDP). Export credit support via Türk Eximbank is massive at 4.61% of GDP."
-            },
-            HUN: { 
-                grants: "2.18% GDP", fin: "3.81% GDP", focus: "SME Guarantees & ERDF Grants", grantsVal: 2.18, finVal: 3.81,
-                body: "Hungary has the highest financial instrument support in OECD (3.81% GDP), driven by SME Surety Guarantees (1.88% GDP). ERDF EU grants represent 0.34% of GDP."
-            },
-            CZE: { 
-                grants: "1.85% GDP", fin: "0.67% GDP", focus: "Energy Sector & Modernisation Fund", grantsVal: 1.85, finVal: 0.67,
-                body: "Czechia increased grants from 0.89% to 1.85% GDP. Modernisation Fund accounts for 0.47% GDP. Horizontal green support expanded dramatically."
-            },
-            ITA: { 
-                grants: "1.59% GDP", fin: "1.42% GDP", focus: "Investment Tax Credits & SME Fund", grantsVal: 1.59, finVal: 1.42,
-                body: "Italy combines capital investment tax credits with large SME loan guarantee schemes (Nuova Sabatini). 54% of manufacturing support is subsector-targeted."
-            }
-        };
-
-        let gdpChart, rev1Chart, rev2Chart, rev3Chart, oecdChart;
+        let gdpChart, rev1Chart, rev3Chart, oecdTargetChart;
 
         window.onload = function() {
-            initGdpChart();
-            initRev1Chart();
-            initRev2Chart();
-            initRev3Chart();
-            initOecdChart();
+            initGdpChart(); initRev1Chart(); initRev3Chart(); initOecdChart();
+            updateOecdCountry('DEU');
         };
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabId).classList.remove('hidden');
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
         function initGdpChart() {
-            const ctx = document.getElementById('gdpChart').getContext('2d');
-            gdpChart = new Chart(ctx, {
+            gdpChart = new Chart(document.getElementById('gdpChart').getContext('2d'), {
                 type: 'bar',
-                data: {
-                    labels: countriesList,
-                    datasets: [{
-                        label: '% of GDP',
-                        data: gdpData[2020],
-                        backgroundColor: countryColors,
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, max: 60 } }
-                }
+                data: { labels: countriesList, datasets: [{ data: gdpData[2020], backgroundColor: ['#001e50', '#e11d48', '#0284c7', '#059669', '#d97706', '#2563eb', '#475569', '#7c3aed', '#9333ea', '#0891b2'], borderRadius: 6 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 60 } } }
             });
         }
-
-        function updateGdpChart(year) {
-            document.getElementById('year-display').innerText = year;
-            gdpChart.data.datasets[0].data = gdpData[year];
-            gdpChart.update();
-        }
+        function updateGdpChart(year) { document.getElementById('year-display').innerText = year; gdpChart.data.datasets[0].data = gdpData[year]; gdpChart.update(); }
 
         function initRev1Chart() {
-            const ctx = document.getElementById('rev1Chart').getContext('2d');
-            rev1Chart = new Chart(ctx, {
+            rev1Chart = new Chart(document.getElementById('rev1Chart').getContext('2d'), {
                 type: 'line',
-                data: {
-                    labels: ['1760', '1780', '1800', '1820', '1840'],
-                    datasets: [
-                        { label: 'UK GDP/Capita Index', data: [100, 112, 135, 168, 215], borderColor: '#001e50', borderWidth: 3 },
-                        { label: 'USA GDP/Capita Index', data: [95, 98, 115, 140, 180], borderColor: '#2563eb', borderWidth: 2 },
-                        { label: 'France GDP/Capita Index', data: [90, 94, 102, 120, 145], borderColor: '#059669', borderWidth: 2 },
-                        { label: 'Ottoman Empire Index', data: [75, 74, 73, 72, 71], borderColor: '#d97706', borderWidth: 2, borderDash: [4,4] },
-                        { label: 'Russian Empire Index', data: [70, 71, 73, 75, 78], borderColor: '#e11d48', borderWidth: 2, borderDash: [4,4] }
-                    ]
-                },
+                data: { labels: ['1760', '1780', '1800', '1820', '1840'], datasets: [
+                    { label: 'UK Index', data: [100, 112, 135, 168, 215], borderColor: '#001e50' },
+                    { label: 'Ottoman Index', data: [75, 74, 73, 72, 71], borderColor: '#d97706', borderDash: [4,4] },
+                    { label: 'Tsarist Russia Index', data: [70, 71, 73, 75, 78], borderColor: '#e11d48', borderDash: [4,4] }
+                ]},
                 options: { responsive: true, maintainAspectRatio: false }
             });
         }
+        function calcWilkinson(gap) {
+            let kpd = (4.0 - (gap - 0.5) * 0.6).toFixed(1); if (kpd < 1.0) kpd = 1.0;
+            document.getElementById('kpd-val').innerText = kpd + '%';
+            document.getElementById('coal-val').innerText = Math.round(25 + (gap - 0.5) * 16.6) + ' T/mo';
+        }
 
-        function initRev2Chart() {
-            const ctx = document.getElementById('rev2Chart').getContext('2d');
-            rev2Chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['1870', '1880', '1890', '1900', '1914'],
-                    datasets: [
-                        { label: 'USA Steel Share (%)', data: [15, 28, 35, 42, 48], borderColor: '#2563eb', borderWidth: 3 },
-                        { label: 'Germany Steel Share (%)', data: [12, 18, 24, 30, 34], borderColor: '#059669', borderWidth: 3 },
-                        { label: 'UK Steel Share (%)', data: [45, 32, 22, 15, 10], borderColor: '#001e50', borderWidth: 3 }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+        function calculateFord(hours) {
+            document.getElementById('ford-time').innerText = hours + ' h';
+            document.getElementById('ford-price').innerText = '$' + Math.round(260 + (hours - 1.5) * (590 / 11));
         }
 
         function initRev3Chart() {
-            const ctx = document.getElementById('rev3Chart').getContext('2d');
-            rev3Chart = new Chart(ctx, {
+            rev3Chart = new Chart(document.getElementById('rev3Chart').getContext('2d'), {
                 type: 'line',
-                data: {
-                    labels: ['1970', '1980', '1990', '2000'],
-                    datasets: [
-                        { label: 'Transistor Count Index (Log)', data: [1, 10, 100, 1000], borderColor: '#7c3aed', borderWidth: 3 },
-                        { label: 'US Mfg Productivity Index', data: [100, 135, 190, 280], borderColor: '#001e50', borderWidth: 2 }
-                    ]
-                },
+                data: { labels: ['1970', '1980', '1990', '2000'], datasets: [
+                    { label: 'Transistor Index (Log)', data: [1, 10, 100, 1000], borderColor: '#7c3aed' },
+                    { label: 'MFG Productivity', data: [100, 135, 190, 280], borderColor: '#001e50' }
+                ]},
                 options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
-        function calcWilkinson(gap) {
-            let kpd = (4.0 - (gap - 0.5) * 0.6).toFixed(1);
-            if (kpd < 1.0) kpd = 1.0;
-            let coal = Math.round(25 + (gap - 0.5) * 16.6);
-            
-            document.getElementById('kpd-val').innerText = kpd + '%';
-            document.getElementById('coal-val').innerText = coal + ' Tons/mo';
-        }
-
         function initOecdChart() {
-            const ctx = document.getElementById('oecdChart').getContext('2d');
-            oecdChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Grants & Tax Expenditures', 'Financial Instruments'],
-                    datasets: [{
-                        label: '% of GDP',
-                        data: [oecdData['DEU'].grantsVal, oecdData['DEU'].finVal],
-                        backgroundColor: ['#001e50', '#059669'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, max: 5 } }
-                }
+            // Figure 3.1 Targets Data from OECD Report
+            oecdTargetChart = new Chart(document.getElementById('oecdTargetChart').getContext('2d'), {
+                type: 'bar', indexAxis: 'y',
+                data: { labels: ['Sectoral', 'Fixed Capital', 'R&D', 'Green', 'Energy Costs'], datasets: [{ data: [0.45, 0.31, 0.28, 0.26, 0.22], backgroundColor: ['#001e50', '#0284c7', '#059669', '#16a34a', '#d97706'], borderRadius: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { max: 0.6, title: { display: true, text: '% of GDP' } } } }
             });
         }
 
         function updateOecdCountry(code) {
             const data = oecdData[code];
-            document.getElementById('oecd-grants-val').innerText = data.grants;
-            document.getElementById('oecd-fin-val').innerText = data.fin;
-            document.getElementById('oecd-focus-val').innerText = data.focus;
-            document.getElementById('oecd-rep-body').innerText = data.body;
-
-            oecdChart.data.datasets[0].data = [data.grantsVal, data.finVal];
-            oecdChart.update();
-        }
-
-        function calculateFord(hours) {
-            document.getElementById('ford-time').innerText = hours + ' h';
-            let price = Math.round(260 + (hours - 1.5) * (590 / 11));
-            document.getElementById('ford-price').innerText = '$' + price;
+            document.getElementById('oecd-grants').innerText = data.grants;
+            document.getElementById('oecd-fin').innerText = data.fin;
+            document.getElementById('oecd-rep-body').innerHTML = data.body[currentLang];
         }
 
         function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ru' : 'en';
-            const lang = i18n[currentLang];
-
-            document.getElementById('header-title').innerText = lang.headerTitle;
-            document.getElementById('header-subtitle').innerText = lang.headerSubtitle;
-            document.getElementById('back-btn').innerText = lang.backBtn;
-            document.getElementById('nav-tab1').innerText = lang.navTab1;
-            document.getElementById('nav-tab6').innerText = lang.navTab6;
-            document.getElementById('tab1-title').innerText = lang.tab1Title;
-            document.getElementById('tab1-subtitle').innerText = lang.tab1Subtitle;
-            document.getElementById('year-label').innerText = lang.yearLabel;
-            document.getElementById('slider-label').innerText = lang.sliderLabel;
-            document.getElementById('wilk-title').innerText = lang.wilkTitle;
-            document.getElementById('wilk-desc').innerText = lang.wilkDesc;
-            document.getElementById('wilk-slider-label').innerText = lang.wilkSliderLabel;
-            document.getElementById('kpd-label').innerText = lang.kpdLabel;
-            document.getElementById('coal-label').innerText = lang.coalLabel;
-            document.getElementById('civil-title').innerText = lang.civilTitle;
-            document.getElementById('civil-desc').innerText = lang.civilDesc;
-            document.getElementById('ford-sim-title').innerText = lang.fordTitle;
-            document.getElementById('ford-exp').innerText = lang.fordExp;
-            document.getElementById('ford-label').innerText = lang.fordLabel;
-            document.getElementById('ford-res1-label').innerText = lang.fordRes1;
-            document.getElementById('ford-res2-label').innerText = lang.fordRes2;
-            document.getElementById('case-desc').innerText = lang.caseDesc;
-            document.getElementById('scene1-title').innerText = lang.scene1Title;
-            document.getElementById('scene1-desc').innerText = lang.scene1Desc;
-            document.getElementById('scene2-title').innerText = lang.scene2Title;
-            document.getElementById('scene2-desc').innerText = lang.scene2Desc;
-            document.getElementById('oecd-title').innerText = lang.oecdTitle;
-            document.getElementById('oecd-subtitle').innerText = lang.oecdSubtitle;
-            document.getElementById('country-select-label').innerText = lang.countryLabel;
-            document.getElementById('card1-tag').innerText = lang.card1Tag;
-            document.getElementById('card1-title').innerText = lang.card1Title;
-            document.getElementById('card2-tag').innerText = lang.card2Tag;
-            document.getElementById('card2-title').innerText = lang.card2Title;
-            document.getElementById('card3-tag').innerText = lang.card3Tag;
-            document.getElementById('card3-title').innerText = lang.card3Title;
-            document.getElementById('footer-text1').innerText = lang.footerText;
+            currentLang = currentLang === 'en' ? 'ru' : 'en'; const l = i18n[currentLang];
+            document.getElementById('header-title').innerText = l.headerTitle; document.getElementById('header-subtitle').innerText = l.headerSubtitle;
+            document.getElementById('back-btn').innerText = l.backBtn;
+            document.getElementById('nav-tab1').innerText = l.nav1; document.getElementById('nav-tab2').innerText = l.nav2;
+            document.getElementById('nav-tab3').innerText = l.nav3; document.getElementById('nav-tab4').innerText = l.nav4;
+            document.getElementById('nav-tab5').innerText = l.nav5; document.getElementById('nav-tab6').innerText = l.nav6;
+            document.getElementById('tab1-title').innerText = l.tab1Title; document.getElementById('tab1-subtitle').innerText = l.tab1Sub;
+            document.getElementById('year-label').innerText = l.yearLabel; document.getElementById('slider-label').innerText = l.sliderLabel;
+            document.getElementById('tab1-exp').innerHTML = l.tab1Exp;
+            document.getElementById('rev1-chart-title').innerText = l.rev1ChartTitle; document.getElementById('rev1-chart-exp').innerHTML = l.rev1ChartExp;
+            document.getElementById('wilk-title').innerText = l.wilkTitle; document.getElementById('wilk-slider-label').innerText = l.wilkSlider;
+            document.getElementById('kpd-label').innerText = l.kpd; document.getElementById('coal-label').innerText = l.coal;
+            document.getElementById('civil-title').innerText = l.civilTitle; document.getElementById('civil-desc').innerHTML = l.civilDesc;
+            document.getElementById('ford-sim-title').innerText = l.fordTitle; document.getElementById('ford-label').innerText = l.fordLabel;
+            document.getElementById('ford-res1').innerText = l.fordRes1; document.getElementById('ford-res2').innerText = l.fordRes2;
+            document.getElementById('rev3-chart-title').innerText = l.rev3Title; document.getElementById('rev3-exp').innerHTML = l.rev3Exp;
+            document.getElementById('case-title').innerText = l.caseTitle; document.getElementById('case-desc').innerText = l.caseDesc;
+            document.getElementById('watch-btn').innerHTML = `<i class="fa-solid fa-play mr-1"></i> ${l.watchBtn}`;
+            document.getElementById('oecd-title').innerText = l.oecdTitle; document.getElementById('oecd-subtitle').innerText = l.oecdSub;
+            document.getElementById('oecd-chart-title').innerText = l.oecdChartTitle; document.getElementById('country-profile-title').innerText = l.profileTitle;
+            
+            document.getElementById('opt-deu').innerText = l.optDeu; document.getElementById('opt-gbr').innerText = l.optGbr;
+            document.getElementById('opt-kor').innerText = l.optKor; document.getElementById('opt-fra').innerText = l.optFra;
+            document.getElementById('opt-tur').innerText = l.optTur; document.getElementById('opt-hun').innerText = l.optHun;
+            document.getElementById('opt-cze').innerText = l.optCze; document.getElementById('opt-ita').innerText = l.optIta;
+            
+            updateOecdCountry(document.getElementById('country-select').value);
         }
     </script>
 </body>
