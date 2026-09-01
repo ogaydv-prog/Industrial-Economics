@@ -1,12 +1,9 @@
-import requests
-from bs4 import BeautifulSoup
+import os
 from datetime import datetime
 
 def generate_news_page():
-    # Текущая дата для отображения в шапке
     today_str = datetime.now().strftime("%B %d, %Y")
     
-    # Шаблон нашего сайта в стиле The Industrial Economics
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +67,6 @@ def generate_news_page():
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Новость 1 -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
@@ -88,7 +84,6 @@ def generate_news_page():
                 </div>
             </div>
 
-            <!-- Новость 2 -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
@@ -106,7 +101,6 @@ def generate_news_page():
                 </div>
             </div>
 
-            <!-- Новость 3 -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
@@ -141,10 +135,9 @@ def generate_news_page():
 </html>
 """
     
-    # Сохраняем результат в файл news.html (или index.html)
     with open("news.html", "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("News page successfully generated!")
+    print("News page successfully generated with clean article links!")
 
 if __name__ == "__main__":
     generate_news_page()
