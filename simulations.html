@@ -19,15 +19,30 @@
             color: #ffffff;
             border-color: #001e50;
         }
-        .custom-slider::-webkit-slider-thumb {
+        
+        /* Винтажный яркий красное слайдер */
+        .vintage-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #cbd5e1;
+            outline: none;
+        }
+        .vintage-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
-            background: #001e50;
+            background: #ef4444;
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(0,30,80,0.4);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+            transition: transform 0.1s ease;
+        }
+        .vintage-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
         }
     </style>
 </head>
@@ -40,12 +55,11 @@
                 <img src="https://ogaydv-prog.github.io/Industrial-Economics/almau.jpg" alt="AlmaU Logo" class="h-11 w-auto rounded-lg bg-white p-1">
                 <div>
                     <h1 class="text-2xl font-black tracking-tight uppercase" id="header-title">Industrial Economics</h1>
-                    <p class="text-xs text-slate-300 font-medium" id="header-subtitle">Interactive Learning & Industrial Policy Simulations | AlmaU 2026</p>
+                    <p class="text-xs text-slate-300 font-medium" id="header-subtitle">Interactive Analytical Dashboard & Historical Simulations | AlmaU 2026</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-3">
-                <!-- Language Toggle -->
                 <button onclick="toggleLanguage()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-lg text-xs font-black transition flex items-center gap-1.5 shadow-md">
                     <i class="fa-solid fa-globe"></i>
                     <span id="lang-btn-text">EN / RU</span>
@@ -61,28 +75,28 @@
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 flex space-x-2 overflow-x-auto text-xs font-bold">
             <button onclick="switchTab('tab-gdp')" id="btn-tab-gdp" class="tab-btn active px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-chart-column"></i>
+                <i class="fa-solid fa-chart-column text-blue-500"></i>
                 <span id="nav-tab1">1. Industrial Share (% of GDP)</span>
             </button>
             <button onclick="switchTab('tab-rev1')" id="btn-tab-rev1" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-industry"></i>
-                <span>Industry 1.0</span>
+                <i class="fa-solid fa-fire text-amber-600"></i>
+                <span>Industry 1.0 (Steam & Iron)</span>
             </button>
             <button onclick="switchTab('tab-rev2')" id="btn-tab-rev2" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-bolt"></i>
-                <span>Industry 2.0 (Assembly)</span>
+                <i class="fa-solid fa-industry text-emerald-600"></i>
+                <span>Industry 2.0 (Mass Production)</span>
             </button>
             <button onclick="switchTab('tab-rev3')" id="btn-tab-rev3" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-microchip"></i>
-                <span>Industry 3.0</span>
+                <i class="fa-solid fa-microchip text-indigo-600"></i>
+                <span>Industry 3.0 (Automation & IT)</span>
             </button>
             <button onclick="switchTab('tab-rev4')" id="btn-tab-rev4" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-robot"></i>
-                <span>Industry 4.0 & Case</span>
+                <i class="fa-solid fa-robot text-rose-600"></i>
+                <span>Industry 4.0 & Film Case</span>
             </button>
             <button onclick="switchTab('tab-oecd')" id="btn-tab-oecd" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-landmark"></i>
-                <span id="nav-tab6">OECD Policy (20 Countries)</span>
+                <i class="fa-solid fa-landmark text-amber-500"></i>
+                <span id="nav-tab6">OECD Industrial Policy</span>
             </button>
         </div>
     </nav>
@@ -104,15 +118,15 @@
                     </div>
                 </div>
 
-                <div class="my-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <label for="year-slider" class="block text-xs font-bold text-slate-600 mb-2" id="slider-label">Move slider to analyze global industrial structural shifts:</label>
-                    <input type="range" id="year-slider" min="1970" max="2020" step="10" value="2020" oninput="updateGdpChart(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer custom-slider">
-                    <div class="flex justify-between text-[11px] text-slate-400 font-bold mt-2 px-1">
+                <div class="my-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <label for="year-slider" class="block text-xs font-bold text-slate-700 mb-3" id="slider-label">Move vintage slider to analyze global industrial structural shifts:</label>
+                    <input type="range" id="year-slider" min="1970" max="2020" step="10" value="2020" oninput="updateGdpChart(this.value)" class="vintage-slider">
+                    <div class="flex justify-between text-[11px] text-slate-500 font-bold mt-2 px-1">
                         <span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020</span>
                     </div>
                 </div>
 
-                <div class="relative h-[360px] w-full">
+                <div class="relative h-[380px] w-full">
                     <canvas id="gdpChart"></canvas>
                 </div>
             </div>
@@ -120,33 +134,87 @@
 
         <!-- ================= TAB 2: INDUSTRY 1.0 ================= -->
         <section id="tab-rev1" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
-                <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-indigo-600 uppercase">1760 – 1840</span>
-                    <h2 class="text-2xl font-black text-[#001e50]" id="t2-title">First Industrial Revolution (Industry 1.0)</h2>
-                    <p class="text-xs text-slate-500 mt-1" id="t2-desc">Mechanization, steam power, water power, and the rise of the factory system.</p>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-amber-600 uppercase">1760 – 1840</span>
+                    <h2 class="text-2xl font-black text-[#001e50]">First Industrial Revolution (Industry 1.0)</h2>
+                    <p class="text-xs text-slate-500 mt-1">Mechanization, Watt's Steam Engine, Wilkinson's Boring Machine & Textile Production Boom.</p>
+                </div>
+
+                <!-- Case 1: Wilkinson's Machine & Watt Engine -->
+                <div class="p-5 bg-amber-950/5 border border-amber-200 rounded-2xl space-y-4">
+                    <div class="flex items-center gap-3 text-amber-900">
+                        <i class="fa-solid fa-cannon text-xl text-amber-700"></i>
+                        <h3 class="font-extrabold text-sm" id="wilk-title">1774 Engineering Breakthrough: John Wilkinson's Boring Machine & Watt's Engine</h3>
+                    </div>
+                    <p class="text-xs text-slate-700 leading-relaxed" id="wilk-desc">
+                        Before 1774, cannons and cylinders were cast around clay cores, resulting in uneven bores. Gas leaked, and early Newcomen engines had a dismal 1% efficiency. John Wilkinson invented a machine that bored solid iron cylinders with high precision. James Watt used this to prevent steam leaks, boosting thermodynamic efficiency by 400%!
+                    </p>
+
+                    <div class="bg-white p-4 rounded-xl border border-amber-200 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2" id="wilk-slider-label">Cylinder Clearance Gap (Steam Leakage in mm):</label>
+                            <input type="range" id="gap-slider" min="0.5" max="5.0" step="0.5" value="5.0" oninput="calcWilkinson(this.value)" class="vintage-slider">
+                            <span class="text-[10px] text-slate-400 block mt-1">5.0mm = Newcomen Engine (1712) | 0.5mm = Wilkinson/Watt Precision (1775)</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase block" id="kpd-label">Engine Efficiency</span>
+                                <span id="kpd-val" class="text-xl font-black text-amber-600">1.0%</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase block" id="coal-label">Coal Consumption</span>
+                                <span id="coal-val" class="text-xl font-black text-rose-600">100 Tons/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 2: Textile Economics -->
+                <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-shirt text-indigo-600"></i>
+                        <span id="textile-title">Lancashire Textile Boom (1760–1840): Labor Productivity Surge</span>
+                    </h3>
+                    <p class="text-xs text-slate-600" id="textile-desc">Hargreaves' Spinning Jenny (1764) and Arkwright's Water Frame reduced spinning labor time from 500 hours to 3 hours per kg of cotton yarn, crashing prices by 90%.</p>
                 </div>
             </div>
         </section>
 
         <!-- ================= TAB 3: INDUSTRY 2.0 ================= -->
         <section id="tab-rev2" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
-                <div class="border-b border-slate-100 pb-4 mb-4">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                <div class="border-b border-slate-100 pb-4">
                     <span class="text-xs font-bold text-emerald-600 uppercase">1870 – 1914</span>
-                    <h2 class="text-2xl font-black text-[#001e50]" id="t3-title">Second Industrial Revolution: Mass Production</h2>
-                    <p class="text-xs text-slate-500 mt-1" id="t3-desc">Electrification, Taylorism, and Henry Ford's moving assembly line.</p>
+                    <h2 class="text-2xl font-black text-[#001e50]">Second Industrial Revolution: Mass Production</h2>
+                    <p class="text-xs text-slate-500 mt-1">Standardization, S/M/L Sizing Grid, Bessemer Steel & Ford Assembly Line Economics.</p>
                 </div>
 
-                <div class="p-5 bg-slate-900 text-white rounded-xl space-y-4">
+                <!-- Civil War Sizing Case -->
+                <div class="p-5 bg-emerald-950/5 border border-emerald-200 rounded-2xl space-y-3">
+                    <h3 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-[#001e50] fa-boxes-packing text-emerald-700"></i>
+                        <span id="civil-title">US Civil War (1861–1865) & The Birth of Standardized Clothing Sizes (S/M/L)</span>
+                    </h3>
+                    <p class="text-xs text-slate-700 leading-relaxed" id="civil-desc">
+                        To clothe 2 million Union soldiers, the US military collected physical measurements, inventing standard ready-to-wear sizing grids (S, M, L). This abolished custom tailoring for masses, creating the modern garment manufacturing industry.
+                    </p>
+                </div>
+
+                <!-- Ford Assembly Simulator -->
+                <div class="p-5 bg-slate-900 text-white rounded-2xl space-y-4">
                     <h3 class="font-bold text-emerald-400 text-sm flex items-center gap-2">
                         <i class="fa-solid fa-calculator"></i>
-                        <span id="ford-sim-title">Ford Model T Assembly Line Simulator (1913)</span>
+                        <span id="ford-sim-title">Ford Model T Moving Assembly Line Simulator (1913)</span>
                     </h3>
+                    <p class="text-xs text-slate-300" id="ford-exp">
+                        Moving assembly line reduced chassis assembly time from 12.5h to 1.5h per car. Fixed costs were spread over 2 million units, dropping retail price from $850 to $260!
+                    </p>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center pt-2">
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-2" id="ford-label">Assembly Time per Car (Hours):</label>
-                            <input type="range" id="ford-slider" min="1.5" max="12.5" step="0.5" value="12.5" oninput="calculateFord(this.value)" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <input type="range" id="ford-slider" min="1.5" max="12.5" step="0.5" value="12.5" oninput="calculateFord(this.value)" class="vintage-slider">
                         </div>
                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 grid grid-cols-2 gap-4 text-center">
                             <div>
@@ -165,28 +233,60 @@
 
         <!-- ================= TAB 4: INDUSTRY 3.0 ================= -->
         <section id="tab-rev3" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
-                <div class="border-b border-slate-100 pb-4 mb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase">1960 – 2000</span>
-                    <h2 class="text-2xl font-black text-[#001e50]" id="t4-title">Third Industrial Revolution: Automation & IT</h2>
-                    <p class="text-xs text-slate-500 mt-1" id="t4-desc">Computers, early robotics, PLCs, and Moore's Law driving cost reductions.</p>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">1960 – 2000</span>
+                    <h2 class="text-2xl font-black text-[#001e50]">Third Industrial Revolution: Automation & IT</h2>
+                    <p class="text-xs text-slate-500 mt-1">Microprocessors, Moore's Law, PLCs and Automotive Industrial Robotics (Unimate).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 bg-indigo-50 border border-indigo-200 rounded-2xl space-y-2">
+                        <h3 class="font-bold text-indigo-900 text-sm"><i class="fa-solid fa-microchip mr-1"></i> Moore's Law Impact</h3>
+                        <p class="text-xs text-slate-700">Transistor density doubling every 2 years caused computing costs to collapse, enabling real-time programmable logic controllers (PLCs) on factory floors.</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+                        <h3 class="font-bold text-slate-900 text-sm"><i class="fa-solid fa-robot mr-1"></i> Robotics ROI</h3>
+                        <p class="text-xs text-slate-700">First Unimate robot at General Motors (1961) reduced welding defect rates by 85% and eliminated hazardous manual labor in die casting.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 5: INDUSTRY 4.0 ================= -->
+        <!-- ================= TAB 5: INDUSTRY 4.0 & FILM CASE ================= -->
         <section id="tab-rev4" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md">
-                <div class="border-b border-slate-100 pb-4 mb-4">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                <div class="border-b border-slate-100 pb-4">
                     <span class="text-xs font-bold text-rose-600 uppercase">2010 – Present</span>
-                    <h2 class="text-2xl font-black text-[#001e50]">Industry 4.0 & Case Study</h2>
+                    <h2 class="text-2xl font-black text-[#001e50]">Industry 4.0 & Case Study: «American Factory»</h2>
+                    <p class="text-xs text-slate-500 mt-1">Cyber-Physical Systems, IoT, Global Competition & Labor-Automation Trade-offs.</p>
                 </div>
-                <div class="p-5 bg-rose-950/10 border border-rose-200 rounded-xl space-y-2">
+
+                <div class="p-5 bg-rose-950/10 border border-rose-200 rounded-2xl space-y-4">
                     <h3 class="font-bold text-rose-900 text-sm flex items-center gap-2">
                         <i class="fa-solid fa-film text-rose-600"></i>
-                        <span>«American Factory» Case Study (Netflix, 2019)</span>
+                        <span>«American Factory» (Netflix, Oscar 2019) Video Case Studies</span>
                     </h3>
-                    <p class="text-xs text-slate-700 leading-relaxed" id="case-desc">Analysis of productivity differences, cultural friction, and automation decisions at Fuyao Glass Ohio.</p>
+                    <p class="text-xs text-slate-700 leading-relaxed" id="case-desc">
+                        Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and the decision to replace workers with industrial robotic arms.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 bg-white rounded-xl border border-rose-200 space-y-2">
+                            <span class="font-bold text-xs text-rose-700 block uppercase" id="scene1-title">Scene 1: Culture & Efficiency Clash</span>
+                            <p class="text-xs text-slate-600" id="scene1-desc">Chinese management inspecting US operations and discussing 12h shifts vs US union demands.</p>
+                            <a href="https://www.youtube.com/results?search_query=American+Factory+Netflix+clip+culture" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition">
+                                <i class="fa-brands fa-youtube mr-1"></i> Watch Scene Clips on YouTube
+                            </a>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-rose-200 space-y-2">
+                            <span class="font-bold text-xs text-rose-700 block uppercase" id="scene2-title">Scene 2: Automation Choice (1:18:00)</span>
+                            <p class="text-xs text-slate-600" id="scene2-desc">Chairman Cho approves installing 4 robotic arms to replace 8 workers: "They are too slow".</p>
+                            <a href="https://www.youtube.com/results?search_query=American+Factory+automation+scene" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1.5 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition">
+                                <i class="fa-brands fa-youtube mr-1"></i> Watch Scene Clips on YouTube
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -200,7 +300,6 @@
                         <p class="text-xs text-slate-500 mt-1" id="oecd-subtitle">Analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)</p>
                     </div>
                     
-                    <!-- Country Selector -->
                     <div class="flex items-center gap-2">
                         <label for="country-select" class="text-xs font-bold text-slate-600" id="country-select-label">Select Country:</label>
                         <select id="country-select" onchange="updateOecdCountry(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
@@ -216,7 +315,6 @@
                     </div>
                 </div>
 
-                <!-- Country Metric Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
                     <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
                         <span class="text-[10px] font-bold uppercase text-blue-600" id="card1-tag">Direct Support</span>
@@ -253,22 +351,36 @@
     <script>
         let currentLang = 'en';
 
-        // i18n Dictionary
         const i18n = {
             en: {
                 headerTitle: "Industrial Economics",
-                headerSubtitle: "Interactive Learning & Industrial Policy Simulations | AlmaU 2026",
+                headerSubtitle: "Interactive Analytical Dashboard & Historical Simulations | AlmaU 2026",
                 backBtn: "← Main Hub",
                 navTab1: "1. Industrial Share (% of GDP)",
-                navTab6: "OECD Policy (20 Countries)",
+                navTab6: "OECD Industrial Policy",
                 tab1Title: "Industry Value Added (% of GDP, 1970–2020)",
                 tab1Subtitle: "Deindustrialization in Western economies vs. Asian Manufacturing Boom (World Bank Data)",
                 yearLabel: "Selected Year:",
-                sliderLabel: "Move slider to analyze global industrial structural shifts:",
-                fordTitle: "Ford Model T Assembly Line Simulator (1913)",
+                sliderLabel: "Move vintage slider to analyze global industrial structural shifts:",
+                wilkTitle: "1774 Engineering Breakthrough: John Wilkinson's Boring Machine & Watt's Engine",
+                wilkDesc: "Before 1774, cannons and cylinders were cast around clay cores, resulting in uneven bores. Gas leaked, and early Newcomen engines had a dismal 1% efficiency. John Wilkinson invented a machine that bored solid iron cylinders with high precision. James Watt used this to prevent steam leaks, boosting thermodynamic efficiency by 400%!",
+                wilkSliderLabel: "Cylinder Clearance Gap (Steam Leakage in mm):",
+                kpdLabel: "Engine Efficiency",
+                coalLabel: "Coal Consumption",
+                textileTitle: "Lancashire Textile Boom (1760–1840): Labor Productivity Surge",
+                textileDesc: "Hargreaves' Spinning Jenny (1764) and Arkwright's Water Frame reduced spinning labor time from 500 hours to 3 hours per kg of cotton yarn, crashing prices by 90%.",
+                civilTitle: "US Civil War (1861–1865) & The Birth of Standardized Clothing Sizes (S/M/L)",
+                civilDesc: "To clothe 2 million Union soldiers, the US military collected physical measurements, inventing standard ready-to-wear sizing grids (S, M, L). This abolished custom tailoring for masses, creating the modern garment manufacturing industry.",
+                fordTitle: "Ford Model T Moving Assembly Line Simulator (1913)",
+                fordExp: "Moving assembly line reduced chassis assembly time from 12.5h to 1.5h per car. Fixed costs were spread over 2 million units, dropping retail price from $850 to $260!",
                 fordLabel: "Assembly Time per Car (Hours):",
                 fordRes1: "Assembly Time",
                 fordRes2: "Retail Price",
+                caseDesc: "Analysis of Fuyao Glass Ohio: Cultural clash, labor productivity gaps, and the decision to replace workers with industrial robotic arms.",
+                scene1Title: "Scene 1: Culture & Efficiency Clash",
+                scene1Desc: "Chinese management inspecting US operations and discussing 12h shifts vs US union demands.",
+                scene2Title: "Scene 2: Automation Choice (1:18:00)",
+                scene2Desc: "Chairman Cho approves installing 4 robotic arms to replace 8 workers: 'They are too slow'.",
                 oecdTitle: "Quantifying Industrial Strategies across 20 OECD Countries",
                 oecdSubtitle: "Analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)",
                 countryLabel: "Select Country:",
@@ -282,18 +394,33 @@
             },
             ru: {
                 headerTitle: "Индустриальная Экономика",
-                headerSubtitle: "Интерактивный дашборд и симулятор промышленных революций | AlmaU 2026",
+                headerSubtitle: "Интерактивный аналитический дашборд и симулятор промышленных революций | AlmaU 2026",
                 backBtn: "← На главный хаб",
                 navTab1: "1. Доля промышленности в ВВП",
-                navTab6: "Политика ОЭСР (20 стран)",
+                navTab6: "Промышленная политика ОЭСР",
                 tab1Title: "Доля промышленности в ВВП (% от ВВП, 1970–2020)",
                 tab1Subtitle: "Деиндустриализация Запада vs Промышленный взрыв в Азии (данные World Bank)",
                 yearLabel: "Выбранный год:",
-                sliderLabel: "Перемещайте ползунок для анализа смены лидерства в мировой промышленности:",
+                sliderLabel: "Перемещайте винтажный ползунок для анализа смены лидерства в мировой промышленности:",
+                wilkTitle: "Инженерный прорыв 1774 года: Расточной станок Уилкинсона и пар Уатта",
+                wilkDesc: "До 1774 года цилиндры отливали вокруг глиняного сердечника. Зазоры были огромными, а КПД первых машин Ньюкомена составлял всего 1%. Джон Уилкинсон изобрел станок для точной расточки цилиндров из цельной болванки. Джеймс Уатт использовал его, чтобы устранить утечку пара и поднять КПД в 4 раза!",
+                wilkSliderLabel: "Зазор между поршнем и цилиндром (в мм):",
+                kpdLabel: "КПД двигателя",
+                coalLabel: "Расход угля",
+                textileTitle: "Текстильный взрыв Ланкашира (1760–1840): Рост производительности",
+                textileDesc: "Станки Харгривса и Аркрайта сократили время прядения 1 кг хлопка с 500 часов до 3 часов, обрушив цены на ткань на 90%.",
+                civilTitle: "Гражданская война в США (1861–1865) и рождение сетки размеров (S/M/L)",
+                civilDesc: "Чтобы одеть 2 млн солдат, армия США впервые собрала мерки сотен тысяч людей и создала сетку стандартных размеров (S, M, L), дав старт массовой швейной индустрии.",
                 fordTitle: "Симулятор конвейера Ford Model T (1913 г.)",
+                fordExp: "Конвейер сократил время сборки с 12.5 до 1.5 часов. Постоянные издержки распределились на 2 млн машин, снизив цену с $850 до $260!",
                 fordLabel: "Время сборки 1 авто (часов):",
                 fordRes1: "Время сборки",
                 fordRes2: "Цена авто",
+                caseDesc: "Разбор фильма Fuyao Glass Ohio: Столкновение культур, производительности труда и замена людей роботами.",
+                scene1Title: "Сцена 1: Конфликт культур и норм",
+                scene1Desc: "Китайское руководство инспектирует завод и сравнивает смены 12ч с требованиями профсоюзов США.",
+                scene2Title: "Сцена 2: Автоматизация (Таймкод 1:18:00)",
+                scene2Desc: "Председатель Цо утверждает увольнение 8 рабочих и запуск 4 роботов-манипуляторов.",
                 oecdTitle: "Квантификация промышленных стратегий 20 стран ОЭСР",
                 oecdSubtitle: "Анализ грантов, налоговых льгот и кредитов (% от ВВП, 2019–2023)",
                 countryLabel: "Выберите страну:",
@@ -307,7 +434,6 @@
             }
         };
 
-        // GDP Data
         const gdpData = {
             1970: [33, 38, 48, 43, 27, 34, 38, 35, 38, 39],
             1980: [31, 44, 42, 40, 36, 36, 36, 33, 32, 36],
@@ -317,8 +443,8 @@
             2020: [18, 38, 26, 28, 32, 34, 30, 17, 16, 22]
         };
         const countriesList = ['USA', 'China', 'Germany', 'Japan', 'S. Korea', 'Kazakhstan', 'Russia', 'UK', 'France', 'Italy'];
+        const countryColors = ['#001e50', '#e11d48', '#0284c7', '#059669', '#d97706', '#2563eb', '#475569', '#7c3aed', '#9333ea', '#0891b2'];
 
-        // OECD Country Data (From OECD Paper 2026)
         const oecdData = {
             DEU: { grants: "1.16% GDP", fin: "1.19% GDP", focus: "Energy Cost Relief (Price Brakes)", grantsVal: 1.16, finVal: 1.19 },
             GBR: { grants: "3.17% GDP", fin: "0.11% GDP", focus: "Fixed Capital Allowances", grantsVal: 3.17, finVal: 0.11 },
@@ -354,13 +480,14 @@
                     datasets: [{
                         label: '% of GDP',
                         data: gdpData[2020],
-                        backgroundColor: '#001e50',
+                        backgroundColor: countryColors,
                         borderRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: { y: { beginAtZero: true, max: 60 } }
                 }
             });
@@ -370,6 +497,16 @@
             document.getElementById('year-display').innerText = year;
             gdpChart.data.datasets[0].data = gdpData[year];
             gdpChart.update();
+        }
+
+        function calcWilkinson(gap) {
+            // Меньше зазор -> Выше КПД и ниже расход угля
+            let kpd = (4.0 - (gap - 0.5) * 0.6).toFixed(1);
+            if (kpd < 1.0) kpd = 1.0;
+            let coal = Math.round(25 + (gap - 0.5) * 16.6);
+            
+            document.getElementById('kpd-val').innerText = kpd + '%';
+            document.getElementById('coal-val').innerText = coal + ' Tons/mo';
         }
 
         function initOecdChart() {
@@ -388,6 +525,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: { y: { beginAtZero: true, max: 5 } }
                 }
             });
@@ -405,7 +543,7 @@
 
         function calculateFord(hours) {
             document.getElementById('ford-time').innerText = hours + ' h';
-            let price = Math.round(300 + (hours - 1.5) * (550 / 11));
+            let price = Math.round(260 + (hours - 1.5) * (590 / 11));
             document.getElementById('ford-price').innerText = '$' + price;
         }
 
@@ -422,10 +560,25 @@
             document.getElementById('tab1-subtitle').innerText = lang.tab1Subtitle;
             document.getElementById('year-label').innerText = lang.yearLabel;
             document.getElementById('slider-label').innerText = lang.sliderLabel;
+            document.getElementById('wilk-title').innerText = lang.wilkTitle;
+            document.getElementById('wilk-desc').innerText = lang.wilkDesc;
+            document.getElementById('wilk-slider-label').innerText = lang.wilkSliderLabel;
+            document.getElementById('kpd-label').innerText = lang.kpdLabel;
+            document.getElementById('coal-label').innerText = lang.coalLabel;
+            document.getElementById('textile-title').innerText = lang.textileTitle;
+            document.getElementById('textile-desc').innerText = lang.textileDesc;
+            document.getElementById('civil-title').innerText = lang.civilTitle;
+            document.getElementById('civil-desc').innerText = lang.civilDesc;
             document.getElementById('ford-sim-title').innerText = lang.fordTitle;
+            document.getElementById('ford-exp').innerText = lang.fordExp;
             document.getElementById('ford-label').innerText = lang.fordLabel;
             document.getElementById('ford-res1-label').innerText = lang.fordRes1;
             document.getElementById('ford-res2-label').innerText = lang.fordRes2;
+            document.getElementById('case-desc').innerText = lang.caseDesc;
+            document.getElementById('scene1-title').innerText = lang.scene1Title;
+            document.getElementById('scene1-desc').innerText = lang.scene1Desc;
+            document.getElementById('scene2-title').innerText = lang.scene2Title;
+            document.getElementById('scene2-desc').innerText = lang.scene2Desc;
             document.getElementById('oecd-title').innerText = lang.oecdTitle;
             document.getElementById('oecd-subtitle').innerText = lang.oecdSubtitle;
             document.getElementById('country-select-label').innerText = lang.countryLabel;
