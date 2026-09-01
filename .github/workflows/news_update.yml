@@ -1,0 +1,36 @@
+name: Update Industrial News Weekly
+
+on:
+  schedule:
+    # Запуск каждую среду в 00:00 UTC (это ровно 01:00 AM CET / 06:00 утра по времени Астаны)
+    - cron: '0 0 * * 3'
+  workflow_dispatch: # Позволяет запускать обновление вручную из интерфейса GitHub
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run news parser script
+        run: python update_news.py
+
+      - name: Commit and push updated news
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.press email "actions@github.com"
+          git add index.html
+          git commit -m "Auto-update industrial economics news [skip ci]" || echo "No changes to commit"
+          git push
