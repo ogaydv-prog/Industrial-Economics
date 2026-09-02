@@ -236,65 +236,109 @@
             </div>
         </section>
 
-        <!-- TAB 6: OECD INDUSTRIAL STRATEGY -->
+        <!-- TAB 6: OECD INDUSTRIAL STRATEGY (ОБНОВЛЕННЫЙ ТРЕХГРАФИКОВЫЙ МОДУЛЬ) -->
         <section id="tab-oecd" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                
+                <!-- HEADER TAB 6 -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
                     <div>
-                        <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">Quantifying Industrial Strategies across 20 OECD Countries (QuIS Report 2026)</h2>
+                        <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">Quantifying Industrial Strategies across OECD Countries (QuIS Report 2026)</h2>
                         <p class="text-xs text-slate-500 mt-1" id="oecd-subtitle">Granular country profile analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)</p>
                     </div>
                     
                     <div class="flex items-center gap-2">
                         <label for="country-select" class="text-xs font-bold text-slate-600" id="country-select-label">Select Country Profile:</label>
-                        <select id="country-select" onchange="updateOecdCountry(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
-                            <option value="DEU">Germany (DEU)</option>
+                        <select id="country-select" onchange="updateOecdCountryPortfolio(this.value)" class="bg-slate-100 border border-slate-300 font-bold text-xs rounded-xl px-3 py-2 text-[#001e50]">
+                            <option value="DEU" selected>Germany (DEU)</option>
                             <option value="GBR">United Kingdom (GBR)</option>
                             <option value="KOR">Korea (KOR)</option>
                             <option value="FRA">France (FRA)</option>
                             <option value="TUR">Türkiye (TUR)</option>
-                            <option value="HUN">Hungary (HUN)</option>
-                            <option value="CZE">Czechia (CZE)</option>
+                            <option value="ISR">Israel (ISR)</option>
+                            <option value="SWE">Sweden (SWE)</option>
                             <option value="ITA">Italy (ITA)</option>
                         </select>
                     </div>
                 </div>
 
+                <!-- SUMMARY METRIC CARDS -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
                         <span class="text-[10px] font-bold uppercase text-blue-600" id="card1-tag">Direct Support</span>
                         <h4 class="text-xs font-bold text-slate-700 mt-1" id="card1-title">Grants & Tax Expenditures</h4>
-                        <span id="oecd-grants-val" class="text-2xl font-black text-[#001e50]">1.16% GDP</span>
+                        <span id="card-grants-val" class="text-2xl font-black text-[#001e50] block mt-1">1.16% GDP</span>
                     </div>
                     <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
                         <span class="text-[10px] font-bold uppercase text-emerald-600" id="card2-tag">Liquidity / Credit</span>
                         <h4 class="text-xs font-bold text-slate-700 mt-1" id="card2-title">Financial Instruments</h4>
-                        <span id="oecd-fin-val" class="text-2xl font-black text-emerald-700">1.19% GDP</span>
+                        <span id="card-fin-val" class="text-2xl font-black text-emerald-700 block mt-1">1.19% GDP</span>
                     </div>
                     <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
                         <span class="text-[10px] font-bold uppercase text-amber-700" id="card3-tag">Strategic Focus</span>
                         <h4 class="text-xs font-bold text-slate-700 mt-1" id="card3-title">Primary Policy Target</h4>
-                        <span id="oecd-focus-val" class="text-sm font-black text-amber-900 block mt-1">Energy Price Relief</span>
+                        <span id="card-focus-val" class="text-sm font-black text-amber-900 block mt-1">Energy Price Relief</span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                        <h3 class="text-xs font-bold text-slate-700 mb-2" id="oecd-chart-title">Global Primary Policy Targets (Figure 3.1, % of GDP)</h3>
-                        <div class="relative h-[240px] w-full"><canvas id="oecdTargetChart"></canvas></div>
-                        <p class="text-[11px] text-slate-500 mt-2" id="oecd-chart-expl">Source: OECD QuIS Database 2026. Sectoral support and fixed capital investment remain the dominant targets across OECD nations.</p>
+                <!-- 3 COUNTRY-SPECIFIC CHARTS GRID -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- CHART 1 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c1-head">
+                                <i class="fa-solid fa-chart-pie text-blue-600"></i> 1. Support Mix (% of GDP)
+                            </h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5" id="c1-sub">Grants vs Tax Expenditures vs Loans/Guarantees</p>
+                        </div>
+                        <div class="relative h-[200px] w-full my-auto"><canvas id="chartSupportMix"></canvas></div>
+                        <div class="p-2 bg-white rounded-lg border border-slate-200 text-[11px] text-slate-600 font-medium" id="exp-chart1">
+                            Analysis of direct budget outlays versus liquidity mechanisms.
+                        </div>
                     </div>
 
-                    <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-                        <h3 class="font-bold text-[#001e50] text-sm flex items-center gap-2">
-                            <i class="fa-solid fa-file-contract text-blue-600"></i>
-                            <span id="oecd-rep-title">OECD Analytical Country Profile & Strategy Instruments</span>
-                        </h3>
-                        <p id="oecd-rep-body" class="text-xs text-slate-700 leading-relaxed">
-                            Detailed breakdown of specific state support mechanisms, flagship bills, and OECD conclusions.
-                        </p>
+                    <!-- CHART 2 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c2-head">
+                                <i class="fa-solid fa-bullseye text-emerald-600"></i> 2. Strategic Policy Focus (%)
+                            </h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5" id="c2-sub">Budget distribution across core targets</p>
+                        </div>
+                        <div class="relative h-[200px] w-full my-auto"><canvas id="chartPolicyGoals"></canvas></div>
+                        <div class="p-2 bg-white rounded-lg border border-slate-200 text-[11px] text-slate-600 font-medium" id="exp-chart2">
+                            Budget allocation focus across state priorities.
+                        </div>
                     </div>
+
+                    <!-- CHART 3 -->
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c3-head">
+                                <i class="fa-solid fa-crosshairs text-amber-600"></i> 3. Granular Targeting (%)
+                            </h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5" id="c3-sub">Sector-specific vs Horizontal measures</p>
+                        </div>
+                        <div class="relative h-[200px] w-full my-auto"><canvas id="chartTargeting"></canvas></div>
+                        <div class="p-2 bg-white rounded-lg border border-slate-200 text-[11px] text-slate-600 font-medium" id="exp-chart3">
+                            Level of narrow sector targeting versus broad support.
+                        </div>
+                    </div>
+
                 </div>
+
+                <!-- DETAILED ANALYTICAL PROFILE -->
+                <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                    <h3 class="font-bold text-[#001e50] text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-file-contract text-blue-600"></i>
+                        <span id="profile-country-name">OECD Analytical Country Profile: Germany</span>
+                    </h3>
+                    <p id="profile-description" class="text-xs text-slate-700 leading-relaxed">
+                        Detailed breakdown of specific state support mechanisms, flagship bills, and OECD conclusions.
+                    </p>
+                </div>
+
             </div>
         </section>
 
@@ -307,6 +351,146 @@
 
     <script>
         let currentLang = 'en';
+
+        // ДАННЫЕ СТРАН ОЭСР (8 СТРАН, 3 ГРАФИКА ДЛЯ КАЖДОЙ)
+        const oecdPortfolios = {
+            DEU: {
+                name: { en: "Germany (DEU)", ru: "Германия (DEU)" },
+                grantsVal: "1.16% GDP", finVal: "1.19% GDP", 
+                focus: { en: "Energy Cost Relief & Green Transition", ru: "Энергетический щит и декарбонизация" },
+                desc: { 
+                    en: "Germany expanded direct grant support to 0.84% GDP. Flagship policies: 'Electricity Price Brake Act' (0.27% GDP) and 'Natural Gas Heat Price Brake Act' (0.20% GDP). Loan programs reached 1.10% GDP via KfW Bank.",
+                    ru: "Германия сделала упор на прямые гранты и компенсацию цен на энергию (Strompreisbremse — 0.27% ВВП) для предотвращения деиндустриализации. Кредитные программы через банк развития KfW обеспечивают 1.10% ВВП."
+                },
+                mix: [0.84, 0.32, 1.19],
+                goalsLabels: { en: ['Energy/Climate', 'R&D/Chips', 'SME/Infra', 'Other'], ru: ['Энергия/Климат', 'НИОКР/Чипы', 'МСП/Инфра', 'Прочее'] },
+                goalsData: [48, 22, 18, 12],
+                targetLabels: { en: ['Sector-Specific (Chips/Auto)', 'Horizontal (Energy)'], ru: ['Секторальные (Чипы/Авто)', 'Горизонтальные (Энергия)'] },
+                targetData: [38, 62],
+                exp1: { en: "High share of financial instruments (1.19% GDP) driven by KfW loan guarantees.", ru: "Высокая доля финансовых инструментов (1.19% ВВП) за счет банковских гарантий KfW." },
+                exp2: { en: "Nearly half of the support budget went to shielding industry from energy shocks.", ru: "Почти половина бюджета ушла на защиту промышленности от энергокризиса." },
+                exp3: { en: "62% of measures are horizontal across all manufacturing sectors.", ru: "62% мер носят межотраслевой (горизонтальный) характер для всех производств." }
+            },
+            GBR: {
+                name: { en: "United Kingdom (GBR)", ru: "Великобритания (GBR)" },
+                grantsVal: "3.17% GDP", finVal: "0.11% GDP", 
+                focus: { en: "Capital Allowances & Full Expensing", ru: "Налоговые вычеты на капитал (Capital Allowances)" },
+                desc: { 
+                    en: "UK heavily favors tax expenditures over direct grants. Capital Allowances reached 1.10% of GDP. Granular targeting is high in manufacturing with limited state loan usage.",
+                    ru: "Великобритания категорически предпочитает налоговые льготы прямому субсидированию. Система Full Expensing (льготы на капвложения) формирует 1.10% ВВП. Прямое государственное кредитование сведено к минимуму."
+                },
+                mix: [0.45, 2.72, 0.11],
+                goalsLabels: { en: ['Capital Allowances', 'Green Energy', 'R&D', 'Regional'], ru: ['Налоговые вычеты', 'Зеленая энергия', 'НИОКР', 'Регионы'] },
+                goalsData: [55, 20, 15, 10],
+                targetLabels: { en: ['Sector-Specific (Aero/Auto)', 'Horizontal (Capex)'], ru: ['Секторальные (Аэро/Авто)', 'Горизонтальные (Капвложения)'] },
+                targetData: [25, 75],
+                exp1: { en: "Dominance of tax expenditures (2.72% GDP) over direct grants and loans.", ru: "Доминирование налоговых вычетов (2.72% ВВП) при минимальных кредитах (0.11%)." },
+                exp2: { en: "55% of support is channeled through accelerated depreciation grids.", ru: "55% бюджета формируется через механизмы ускоренной амортизации." },
+                exp3: { en: "75% of support is horizontally available to any investing company.", ru: "75% поддержки доступно любой компании, инвестирующей в оборудование." }
+            },
+            KOR: {
+                name: { en: "Korea (KOR)", ru: "Южная Корея (KOR)" },
+                grantsVal: "1.06% GDP", finVal: "0.52% GDP", 
+                focus: { en: "Semiconductors, Batteries & R&D", ru: "Полупроводники, Батареи и НИОКР" },
+                desc: { 
+                    en: "Korea targets R&D grants for net-zero and high-tech manufacturing (auto, chips). Export credit finance via KEXIM represents 3.17% of GDP (off-budget scale).",
+                    ru: "Корея демонстрирует наивысший уровень таргетирования на высокотехнологичный сектор. Экспортно-импортный банк KEXIM предоставляет экспортные кредиты объемом 3.17% ВВП (внебюджетный масштаб)."
+                },
+                mix: [0.68, 0.38, 0.52],
+                goalsLabels: { en: ['R&D/Semiconductors', 'Export/Logistics', 'Greentech', 'SME'], ru: ['НИОКР/Полупроводники', 'Экспорт/Логистика', 'Экология', 'МСП'] },
+                goalsData: [52, 24, 14, 10],
+                targetLabels: { en: ['Sector-Specific (Tech)', 'Horizontal'], ru: ['Секторальные (Электроника)', 'Горизонтальные'] },
+                targetData: [68, 32],
+                exp1: { en: "Balanced mix of direct grants and state export financing.", ru: "Сбалансированное сочетание грантов и экспортно-кредитной поддержки." },
+                exp2: { en: "Over 50% of incentives focus on semiconductor and hardware R&D.", ru: "Более 50% всех стимулов сфокусировано на НИОКР и мировом лидерстве в чипах." },
+                exp3: { en: "68% of funds are narrowly targeted to microelectronics and automotive.", ru: "68% бюджетных средств имеют четкую целевую привязку к микроэлектронике и авто." }
+            },
+            FRA: {
+                name: { en: "France (FRA)", ru: "Франция (FRA)" },
+                grantsVal: "1.73% GDP", finVal: "1.28% GDP", 
+                focus: { en: "France 2030 & Energy Shield", ru: "France 2030, Наставничество и Энергощит" },
+                desc: { 
+                    en: "France shifted from tax credits to direct grants under France 2030. Key measures: Exceptional Apprentice Assistance (0.15% GDP) and Bpifrance equity/loans.",
+                    ru: "Франция совершила сдвиг от налоговых кредитов к прямым субсидиям. Программа France 2030 финансирует декарбонизацию промышленности, субсидии на ученичество (0.15% ВВП) и займы Bpifrance."
+                },
+                mix: [1.12, 0.61, 1.28],
+                goalsLabels: { en: ['France 2030 Plan', 'Apprenticeship', 'Energy Shield', 'SME'], ru: ['France 2030 (Реиндустриализация)', 'Кадры/Ученичество', 'Энергетика', 'МСП'] },
+                goalsData: [40, 25, 20, 15],
+                targetLabels: { en: ['Sector-Specific (Aero/Space)', 'Horizontal'], ru: ['Секторальные (Авиа/Агро/Космос)', 'Горизонтальные'] },
+                targetData: [54, 46],
+                exp1: { en: "Strong combination of direct grants (1.12%) and Bpifrance loans (1.28%).", ru: "Высокий уровень как прямых грантов (1.12%), так и кредитов Bpifrance (1.28%)." },
+                exp2: { en: "40% of subsidies are directed towards strategic re-industrialization.", ru: "40% субсидий направлены на реиндустриализацию и технологический суверенитет." },
+                exp3: { en: "54% of measures are targeted at aerospace, defense, and hydrogen.", ru: "54% мер таргетированы на стратегические отрасли (авиация, космос, водород)." }
+            },
+            TUR: {
+                name: { en: "Türkiye (TUR)", ru: "Турция (TUR)" },
+                grantsVal: "2.24% GDP", finVal: "0.33% GDP", 
+                focus: { en: "Corporate Tax Relief & Türk Eximbank", ru: "Освобождение от корпоративного налога и Экспорт" },
+                desc: { 
+                    en: "Türkiye relies heavily on corporate tax exemptions (Reduced Corporate Tax at 0.51% GDP). Export credit support via Türk Eximbank reaches 4.61% of GDP.",
+                    ru: "Турция активно использует инвестиционные сертификаты с освобождением от налогов и пошлин. Экспортное кредитование через Türk Eximbank составляет 4.61% ВВП."
+                },
+                mix: [0.34, 1.90, 0.33],
+                goalsLabels: { en: ['Tax Exemptions', 'Export Subsidies', 'Capex Certificates', 'Regional'], ru: ['Налоговые освобождения', 'Экспортные субсидии', 'Инвестиции', 'Регионы'] },
+                goalsData: [58, 22, 12, 8],
+                targetLabels: { en: ['Sector-Specific (Textile/Auto)', 'Horizontal'], ru: ['Секторальные (Текстиль/Авто/Оборона)', 'Горизонтальные'] },
+                targetData: [61, 39],
+                exp1: { en: "Heavily skewed toward tax exemptions (1.90% GDP) rather than direct grants.", ru: "Абсолютный акцент на налоговые льготы (1.90% ВВП) при скромных прямых грантах." },
+                exp2: { en: "58% of state support is funneled through corporate tax breaks.", ru: "58% господдержки реализуется через освобождение от налогов на прибыль и пошлин." },
+                exp3: { en: "61% of programs require local manufacturing and export commitments.", ru: "61% программ жестко привязаны к локализации производства и экспортным отраслям." }
+            },
+            ISR: {
+                name: { en: "Israel (ISR)", ru: "Израиль (ISR)" },
+                grantsVal: "1.16% GDP", finVal: "0.19% GDP", 
+                focus: { en: "Microelectronics & Intel Fab Expansion", ru: "Полупроводники (Intel Grant) & High-Tech" },
+                desc: { 
+                    en: "Israel focuses support heavily on microelectronics, highlighted by the Intel Grant expansion (0.46% of GDP). Vibrant private VC market keeps state VC minimal.",
+                    ru: "Промышленная политика Израиля характеризуется критической концентрацией: крупнейшей мерой является прямой грант компаниям микроэлектроники (Intel expansion — 0.46% ВВП)."
+                },
+                mix: [0.74, 0.42, 0.19],
+                goalsLabels: { en: ['Semiconductors/Fabs', 'R&D/Startups', 'Cybersecurity', 'Other'], ru: ['Микроэлектроника/Чипы', 'НИОКР/Стартапы', 'Кибербезопасность', 'Прочее'] },
+                goalsData: [58, 26, 10, 6],
+                targetLabels: { en: ['Sector-Specific (High-Tech)', 'Horizontal'], ru: ['Секторальные (High-Tech & Semiconductor)', 'Горизонтальные'] },
+                targetData: [72, 28],
+                exp1: { en: "Direct grants (0.74% GDP) dominate as state funds major fab constructions.", ru: "Прямые гранты (0.74%) преобладают. Государство финансирует гигантские фабы." },
+                exp2: { en: "58% of total industrial budget is dedicated to chip production.", ru: "58% всех бюджетных средств промышленной политики выделено на производство чипов." },
+                exp3: { en: "Record sector-specific concentration (72%) among OECD peers.", ru: "Рекордный уровень секторальной концентрации (72%) среди развитых стран." }
+            },
+            SWE: {
+                name: { en: "Sweden (SWE)", ru: "Швеция (SWE)" },
+                grantsVal: "1.07% GDP", finVal: "0.57% GDP", 
+                focus: { en: "Green Transition & Energy Tax Exemption", ru: "Зеленая сталь, Декарбонизация и Энерго-налоги" },
+                desc: { 
+                    en: "Sweden relies on reduced electricity tax rates for manufacturing (0.24% of GDP) and EU Innovation Fund grants. Demonstrates top CO2 efficiency across OECD.",
+                    ru: "Швеция фокусируется на климатических технологиях (зеленое железо HYBRIT, батареи) и сниженных ставках налога на электроэнергию для промышленности (0.24% ВВП)."
+                },
+                mix: [0.51, 0.56, 0.57],
+                goalsLabels: { en: ['Energy Tax/Climate', 'Green Tech/Batteries', 'EU Innovation', 'Forestry'], ru: ['Энергоналоги/Климат', 'Зеленые технологии', 'Инновации ЕС', 'Лесная пром.'] },
+                goalsData: [42, 30, 18, 10],
+                targetLabels: { en: ['Sector-Specific (Steel/Auto)', 'Horizontal'], ru: ['Секторальные (Металлургия/Транспорт)', 'Горизонтальные'] },
+                targetData: [45, 55],
+                exp1: { en: "Equally balanced triad: grants (0.51%), tax (0.56%), loans (0.57%).", ru: "Идеально сбалансированная триада: гранты (0.51%), налоги (0.56%), кредиты (0.57%)." },
+                exp2: { en: "72% of total support budget is targeted at decarbonization.", ru: "72% совокупного бюджета стимулов направлено на экологию и энергоэффективность." },
+                exp3: { en: "55% of measures are horizontal energy-transition incentives.", ru: "55% программ носят общий характер стимулирования энергоперехода." }
+            },
+            ITA: {
+                name: { en: "Italy (ITA)", ru: "Италия (ITA)" },
+                grantsVal: "1.59% GDP", finVal: "1.42% GDP", 
+                focus: { en: "Plan Transizione 4.0 & SME Guarantee Fund", ru: "Transizione 4.0 & Гарантийный фонд МСП" },
+                desc: { 
+                    en: "Italy combines capital investment tax credits with large SME loan guarantee schemes (Fondo di Garanzia PMI at 1.42% GDP). 54% of manufacturing support is targeted.",
+                    ru: "Италия сочетает налоговые кредиты на цифровизацию оборудования (Plan Transizione 4.0) с масштабным государственным Фондом гарантий для МСП (1.42% ВВП ликвидности)."
+                },
+                mix: [0.65, 0.94, 1.42],
+                goalsLabels: { en: ['Industry 4.0 Capex', 'SME Guarantees', 'Energy Efficiency', 'Southern Reg.'], ru: ['Цифровизация (Industry 4.0)', 'Гарантии МСП', 'Энергоэффективность', 'Южные регионы'] },
+                goalsData: [38, 32, 18, 12],
+                targetLabels: { en: ['Sector-Specific (Machinery)', 'Horizontal (SME)'], ru: ['Секторальные (Машиностроение/Мода)', 'Горизонтальные (МСП)'] },
+                targetData: [54, 46],
+                exp1: { en: "Massive SME credit guarantee liquidity presence (1.42% GDP).", ru: "Огромный объем государственных гарантий по кредитам МСП (1.42% ВВП)." },
+                exp2: { en: "38% of budget goes to tax credits for robotics and CNC machinery.", ru: "38% бюджета выделяется на налоговые вычеты при покупке робототехники и ЧПУ." },
+                exp3: { en: "54% of aid is deployed into specific industrial machinery districts.", ru: "54% помощи распределяется по узким промышленным кластерам." }
+            }
+        };
 
         const i18n = {
             en: {
@@ -334,14 +518,16 @@
                 scene1Title: "Scene 1: Culture & Efficiency Clash", scene1Desc: "Chinese management inspecting US operations and discussing 12h shifts vs US union demands.",
                 scene2Title: "Scene 2: Automation Choice (1:18:00)", scene2Desc: "Chairman Cho approves installing 4 robotic arms to replace 8 workers: 'They are too slow'.",
                 watchBtn: "Watch Full Movie Online (Kinogo)",
-                oecdTitle: "Quantifying Industrial Strategies across 20 OECD Countries (QuIS Report 2026)",
+                oecdTitle: "Quantifying Industrial Strategies across OECD Countries (QuIS Report 2026)",
                 oecdSubtitle: "Granular country profile analysis of Grants, Tax Expenditures & Financial Instruments (% of GDP, 2019–2023)",
                 countryLabel: "Select Country Profile:",
                 card1Tag: "Direct Support", card1Title: "Grants & Tax Expenditures",
                 card2Tag: "Liquidity / Credit", card2Title: "Financial Instruments",
                 card3Tag: "Strategic Focus", card3Title: "Primary Policy Target",
-                oecdChartTitle: "Global Primary Policy Targets (Figure 3.1, % of GDP)",
-                oecdChartExpl: "Source: OECD QuIS Database 2026. Sectoral support and fixed capital investment remain the dominant targets across OECD nations[cite: 3]."
+                c1Head: "1. Support Mix (% of GDP)", c1Sub: "Grants vs Tax Expenditures vs Loans/Guarantees",
+                c2Head: "2. Strategic Policy Focus (%)", c2Sub: "Budget distribution across core targets",
+                c3Head: "3. Granular Targeting (%)", c3Sub: "Sector-specific vs Horizontal measures",
+                footerText: "Developed for Business Analytics & Economics Students | Course: Industrial Economics"
             },
             ru: {
                 headerTitle: "The Industrial Economics",
@@ -368,14 +554,16 @@
                 scene1Title: "Сцена 1: Конфликт культур и норм", scene1Desc: "Китайское руководство инспектирует завод и сравнивает смены 12ч с требованиями профсоюзов США.",
                 scene2Title: "Сцена 2: Автоматизация (Таймкод 1:18:00)", scene2Desc: "Председатель Цо утверждает увольнение 8 рабочих и запуск 4 роботов-манипуляторов.",
                 watchBtn: "Смотреть фильм полностью (Kinogo)",
-                oecdTitle: "Квантификация промышленных стратегий 20 стран ОЭСР (Отчет QuIS 2026)",
+                oecdTitle: "Квантификация промышленных стратегий стран ОЭСР (Отчет QuIS 2026)",
                 oecdSubtitle: "Глубокий страновой анализ грантов, налоговых льгот и кредитов (% от ВВП, 2019–2023)",
                 countryLabel: "Выберите профиль страны:",
                 card1Tag: "Прямая поддержка", card1Title: "Гранты и налоговые льготы",
                 card2Tag: "Ликвидность / Кредиты", card2Title: "Финансовые инструменты",
                 card3Tag: "Стратегический фокус", card3Title: "Главный приоритет политики",
-                oecdChartTitle: "Главные цели промышленной стратегии (Фигура 3.1, % от ВВП)",
-                oecdChartExpl: "Источник: База данных OECD QuIS 2026. Отраслевая поддержка и инвестиции в основной капитал остаются главными приоритетами стран ОЭСР[cite: 3]."
+                c1Head: "1. Структура поддержки (% ВВП)", c1Sub: "Гранты vs Налоговые льготы vs Кредиты/Гарантии",
+                c2Head: "2. Распределение по целям (%)", c2Sub: "Доля бюджета на ключевые направления политики",
+                c3Head: "3. Секторальный таргетинг (%)", c3Sub: "Отраслевая адресация vs Горизонтальные меры",
+                footerText: "Разработано для студентов специальности «Бизнес-аналитика и экономика» | Курс: Промышленная экономика"
             }
         };
 
@@ -390,50 +578,16 @@
         const countriesList = ['USA', 'China', 'Germany', 'Japan', 'S. Korea', 'Kazakhstan', 'Russia', 'UK', 'France', 'Italy'];
         const countryColors = ['#001e50', '#e11d48', '#0284c7', '#059669', '#d97706', '#2563eb', '#475569', '#7c3aed', '#9333ea', '#0891b2'];
 
-        const oecdData = {
-            DEU: { 
-                grants: "1.16% GDP", fin: "1.19% GDP", focus: "Energy Cost Relief (Price Brakes)", grantsVal: 1.16, finVal: 1.19,
-                body: "Germany expanded direct grant support from 0.24% in 2019 to 0.84% in 2023. Flagship policies: 'Electricity Price Brake Act' (0.27% of GDP) and 'Natural Gas Heat Price Brake Act' (0.20% of GDP). Loan programs reached 1.10% of GDP via Special Energy Sector Financing[cite: 3]."
-            },
-            GBR: { 
-                grants: "3.17% GDP", fin: "0.11% GDP", focus: "Fixed Capital Allowances", grantsVal: 3.17, finVal: 0.11,
-                body: "UK heavily favors tax expenditures over direct grants. Capital Allowances reached 1.10% of GDP. Granular targeting is high (83% of manufacturing support is subsector-specific). Limited use of state loans or guarantees[cite: 3]."
-            },
-            KOR: { 
-                grants: "1.06% GDP", fin: "0.52% GDP", focus: "R&D & High-Tech Manufacturing", grantsVal: 1.06, finVal: 0.52,
-                body: "Korea targets R&D grants for net-zero and high-tech manufacturing (auto, chips, equipment). Export credit finance via KEXIM represents 3.17% of GDP[cite: 3]."
-            },
-            FRA: { 
-                grants: "1.73% GDP", fin: "1.28% GDP", focus: "Apprenticeship & Energy Shield", grantsVal: 1.73, finVal: 1.28,
-                body: "France shifted from tax credits to direct grants. Key measures: Exceptional Apprentice Assistance (0.15% GDP) and Tariff Shield Energy Grants. Venture capital (GovVC) is relatively high at 0.18% of GDP[cite: 3]."
-            },
-            TUR: { 
-                grants: "2.24% GDP", fin: "0.33% GDP", focus: "Corporate Tax Relief & Export Credit", grantsVal: 2.24, finVal: 0.33,
-                body: "Türkiye relies heavily on tax exemptions (Reduced Corporate Tax at 0.51% GDP). Export credit support via Türk Eximbank is massive at 4.61% of GDP[cite: 3]."
-            },
-            HUN: { 
-                grants: "2.18% GDP", fin: "3.81% GDP", focus: "SME Guarantees & ERDF Grants", grantsVal: 2.18, finVal: 3.81,
-                body: "Hungary has the highest financial instrument support in OECD (3.81% GDP), driven by SME Surety Guarantees (1.88% GDP). ERDF EU grants represent 0.34% of GDP[cite: 3]."
-            },
-            CZE: { 
-                grants: "1.85% GDP", fin: "0.67% GDP", focus: "Energy Sector & Modernisation Fund", grantsVal: 1.85, finVal: 0.67,
-                body: "Czechia increased grants from 0.89% to 1.85% GDP. Modernisation Fund accounts for 0.47% GDP. Horizontal green support expanded dramatically[cite: 3]."
-            },
-            ITA: { 
-                grants: "1.59% GDP", fin: "1.42% GDP", focus: "Investment Tax Credits & SME Fund", grantsVal: 1.59, finVal: 1.42,
-                body: "Italy combines capital investment tax credits with large SME loan guarantee schemes (Nuova Sabatini). 54% of manufacturing support is subsector-targeted[cite: 3]."
-            }
-        };
-
-        let gdpChart, rev1Chart, rev2Chart, rev3Chart, oecdTargetChart;
+        let gdpChart, rev1Chart, rev2Chart, rev3Chart;
+        let chartSupportMix, chartPolicyGoals, chartTargeting;
 
         window.onload = function() {
             initGdpChart();
             initRev1Chart();
             initRev2Chart();
             initRev3Chart();
-            initOecdChart();
-            updateOecdCountry('DEU');
+            initOecdCharts();
+            updateOecdCountryPortfolio('DEU');
         };
 
         function switchTab(tabId) {
@@ -498,20 +652,62 @@
             document.getElementById('ford-price').innerText = '$' + Math.round(260 + (hours - 1.5) * (590 / 11));
         }
 
-        function initOecdChart() {
-            oecdTargetChart = new Chart(document.getElementById('oecdTargetChart').getContext('2d'), {
-                type: 'bar', indexAxis: 'y',
-                data: { labels: ['Sectoral', 'Fixed Capital', 'R&D', 'Green', 'Energy Costs'], datasets: [{ label: '% of GDP', data: [0.45, 0.31, 0.28, 0.26, 0.22], backgroundColor: ['#001e50', '#0284c7', '#059669', '#16a34a', '#d97706'], borderRadius: 4 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { max: 0.6, title: { display: true, text: '% of GDP' } } } }
+        // ИНИЦИАЛИЗАЦИЯ ТРЕХ ГРАФИКОВ ДЛЯ ВКЛАДКИ 6 (OECD STRATEGY)
+        function initOecdCharts() {
+            const ctx1 = document.getElementById('chartSupportMix').getContext('2d');
+            chartSupportMix = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: currentLang === 'ru' ? ['Прямые гранты', 'Налоговые льготы', 'Фин. инструменты'] : ['Direct Grants', 'Tax Expenditures', 'Financial Instruments'],
+                    datasets: [{ label: '% GDP', data: [0, 0, 0], backgroundColor: ['#001e50', '#0284c7', '#059669'], borderRadius: 6 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 3.5 } } }
+            });
+
+            const ctx2 = document.getElementById('chartPolicyGoals').getContext('2d');
+            chartPolicyGoals = new Chart(ctx2, {
+                type: 'doughnut',
+                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#059669', '#d97706', '#2563eb', '#64748b'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
+            });
+
+            const ctx3 = document.getElementById('chartTargeting').getContext('2d');
+            chartTargeting = new Chart(ctx3, {
+                type: 'pie',
+                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#e11d48', '#001e50'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
             });
         }
 
-        function updateOecdCountry(code) {
-            const data = oecdData[code];
-            document.getElementById('oecd-grants-val').innerText = data.grants;
-            document.getElementById('oecd-fin-val').innerText = data.fin;
-            document.getElementById('oecd-focus-val').innerText = data.focus;
-            document.getElementById('oecd-rep-body').innerText = data.body;
+        // ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ СТРАНОВОГО ПОРТФОЛИО
+        function updateOecdCountryPortfolio(code) {
+            const data = oecdPortfolios[code];
+            if (!data) return;
+
+            document.getElementById('card-grants-val').innerText = data.grantsVal;
+            document.getElementById('card-fin-val').innerText = data.finVal;
+            document.getElementById('card-focus-val').innerText = data.focus[currentLang];
+            document.getElementById('profile-country-name').innerText = (currentLang === 'ru' ? "Аналитический профиль ОЭСР: " : "OECD Analytical Profile: ") + data.name[currentLang];
+            document.getElementById('profile-description').innerText = data.desc[currentLang];
+
+            document.getElementById('exp-chart1').innerText = data.exp1[currentLang];
+            document.getElementById('exp-chart2').innerText = data.exp2[currentLang];
+            document.getElementById('exp-chart3').innerText = data.exp3[currentLang];
+
+            // Chart 1 Update
+            chartSupportMix.data.labels = currentLang === 'ru' ? ['Прямые гранты', 'Налоговые льготы', 'Фин. инструменты'] : ['Direct Grants', 'Tax Expenditures', 'Financial Instruments'];
+            chartSupportMix.data.datasets[0].data = data.mix;
+            chartSupportMix.update();
+
+            // Chart 2 Update
+            chartPolicyGoals.data.labels = data.goalsLabels[currentLang];
+            chartPolicyGoals.data.datasets[0].data = data.goalsData;
+            chartPolicyGoals.update();
+
+            // Chart 3 Update
+            chartTargeting.data.labels = data.targetLabels[currentLang];
+            chartTargeting.data.datasets[0].data = data.targetData;
+            chartTargeting.update();
         }
 
         function toggleLanguage() {
@@ -524,7 +720,6 @@
             document.getElementById('nav-tab5').innerText = l.nav5; document.getElementById('nav-tab6').innerText = l.nav6;
             document.getElementById('tab1-title').innerText = l.tab1Title; document.getElementById('tab1-subtitle').innerText = l.tab1Subtitle;
             document.getElementById('year-label').innerText = l.yearLabel; document.getElementById('slider-label').innerText = l.sliderLabel;
-            document.getElementById('tab1-exp').innerHTML = l.tab1Exp;
             document.getElementById('r1-main-title').innerText = l.r1Title;
             document.getElementById('rev1-chart-title').innerText = l.rev1ChartTitle; document.getElementById('rev1-chart-exp').innerHTML = l.rev1ChartExp;
             document.getElementById('wilk-title').innerText = l.wilkTitle; document.getElementById('wilk-slider-label').innerText = l.wilkSlider;
@@ -546,9 +741,16 @@
             document.getElementById('card1-tag').innerText = l.card1Tag; document.getElementById('card1-title').innerText = l.card1Title;
             document.getElementById('card2-tag').innerText = l.card2Tag; document.getElementById('card2-title').innerText = l.card2Title;
             document.getElementById('card3-tag').innerText = l.card3Tag; document.getElementById('card3-title').innerText = l.card3Title;
-            document.getElementById('oecd-chart-title').innerText = l.oecdChartTitle; document.getElementById('oecd-chart-expl').innerText = l.oecdChartExpl;
+            
+            document.getElementById('c1-head').innerHTML = `<i class="fa-solid fa-chart-pie text-blue-600"></i> ${l.c1Head}`;
+            document.getElementById('c1-sub').innerText = l.c1Sub;
+            document.getElementById('c2-head').innerHTML = `<i class="fa-solid fa-bullseye text-emerald-600"></i> ${l.c2Head}`;
+            document.getElementById('c2-sub').innerText = l.c2Sub;
+            document.getElementById('c3-head').innerHTML = `<i class="fa-solid fa-crosshairs text-amber-600"></i> ${l.c3Head}`;
+            document.getElementById('c3-sub').innerText = l.c3Sub;
+
             document.getElementById('footer-text1').innerText = l.footerText;
-            updateOecdCountry(document.getElementById('country-select').value);
+            updateOecdCountryPortfolio(document.getElementById('country-select').value);
         }
     </script>
 </body>
