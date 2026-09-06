@@ -60,6 +60,14 @@
             <button onclick="switchTab('tab-oecd')" id="btn-tab-oecd" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-landmark text-amber-500"></i> <span id="nav-tab6">OECD Industrial Strategy</span>
             </button>
+            <!-- НОВАЯ ВКЛАДКА 7: T-SHIRT SIMULATOR -->
+            <a href="sim-t-shirts-en.html" id="btn-tab-tshirt" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap bg-indigo-50 hover:bg-indigo-100 text-indigo-950">
+                <i class="fa-solid fa-shirt text-indigo-600"></i> <span id="nav-tab7">7. T-Shirt Global Value Chain</span>
+            </a>
+            <!-- НОВАЯ ВКЛАДКА 8: VOLKSWAGEN CASE -->
+            <button onclick="switchTab('tab-vw')" id="btn-tab-vw" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap bg-blue-50 hover:bg-blue-100 text-blue-950">
+                <i class="fa-solid fa-car text-blue-700"></i> <span id="nav-tab8">8. Volkswagen Group Case Hub</span>
+            </button>
         </div>
     </nav>
 
@@ -236,11 +244,10 @@
             </div>
         </section>
 
-        <!-- TAB 6: OECD INDUSTRIAL STRATEGY (ОБНОВЛЕННЫЙ ТРЕХГРАФИКОВЫЙ МОДУЛЬ) -->
+        <!-- TAB 6: OECD INDUSTRIAL STRATEGY -->
         <section id="tab-oecd" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
                 
-                <!-- HEADER TAB 6 -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-slate-100 gap-4">
                     <div>
                         <h2 class="text-xl font-extrabold text-[#001e50]" id="oecd-title">Quantifying Industrial Strategies across OECD Countries (QuIS Report 2026)</h2>
@@ -262,7 +269,6 @@
                     </div>
                 </div>
 
-                <!-- SUMMARY METRIC CARDS -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
                         <span class="text-[10px] font-bold uppercase text-blue-600" id="card1-tag">Direct Support</span>
@@ -281,10 +287,7 @@
                     </div>
                 </div>
 
-                <!-- 3 COUNTRY-SPECIFIC CHARTS GRID -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- CHART 1 -->
                     <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
                         <div>
                             <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c1-head">
@@ -298,7 +301,6 @@
                         </div>
                     </div>
 
-                    <!-- CHART 2 -->
                     <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
                         <div>
                             <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c2-head">
@@ -312,7 +314,6 @@
                         </div>
                     </div>
 
-                    <!-- CHART 3 -->
                     <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 flex flex-col justify-between">
                         <div>
                             <h3 class="text-xs font-extrabold text-[#001e50] uppercase tracking-wider flex items-center gap-2" id="c3-head">
@@ -325,10 +326,8 @@
                             Level of narrow sector targeting versus broad support.
                         </div>
                     </div>
-
                 </div>
 
-                <!-- DETAILED ANALYTICAL PROFILE -->
                 <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
                     <h3 class="font-bold text-[#001e50] text-sm flex items-center gap-2">
                         <i class="fa-solid fa-file-contract text-blue-600"></i>
@@ -339,6 +338,51 @@
                     </p>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- TAB 8: VOLKSWAGEN CASE MODULE (ГОТОВАЯ СЕКЦИЯ ПОД СВЯЗКУ С РЕПОЗИТОРИЕМ) -->
+        <section id="tab-vw" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
+                <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 uppercase">Case Study & Analytical Engine</span>
+                        <h2 class="text-2xl font-black text-[#001e50]" id="vw-main-title">Volkswagen Group: Industrial Strategy & EV Transition Hub</h2>
+                        <p class="text-xs text-slate-500 mt-1" id="vw-sub-title">Interactive multi-tab simulation: Cost structure, global production network, and EV transformation.</p>
+                    </div>
+                <a href="https://ogaydv-prog.github.io/ie-simulator-almau/" target="_blank" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span id="vw-open-btn">Open VW Case Hub in Fullscreen</span>
+                    </a>
+                </div>
+
+                <!-- БЛОК-ПРЕЗЕНТАЦИЯ МОДУЛЯ VOLKSWAGEN -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-blue-600 font-bold text-sm"><i class="fa-solid fa-industry mr-1.5"></i> 1. Manufacturing Footprint</div>
+                        <p class="text-xs text-slate-600">Global supply chain structure, platform strategy (MEB / MQB), and economies of scale.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-emerald-600 font-bold text-sm"><i class="fa-solid fa-calculator mr-1.5"></i> 2. Financial & Cost Curves</div>
+                        <p class="text-xs text-slate-600">Operating margins, fixed overhead allocation, and R&D capital intensity.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-amber-600 font-bold text-sm"><i class="fa-solid fa-bolt mr-1.5"></i> 3. EV Transformation Case</div>
+                        <p class="text-xs text-slate-600">Strategic transition from ICE to BEV, battery supply logistics, and software challenges.</p>
+                    </div>
+                </div>
+
+                <!-- ВСТРОЕННЫЙ ИНТЕРАКТИВНЫЙ ОКНО-МОДУЛЬ (IFRAME) -->
+                <div class="bg-slate-900 rounded-2xl p-2 border border-slate-800 shadow-inner space-y-2">
+                    <div class="flex justify-between items-center px-3 py-1.5 text-xs text-slate-400">
+                        <span class="font-mono"><i class="fa-solid fa-window-maximize mr-1.5 text-blue-400"></i> Integrated VW Simulator Container</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">Live Repo Frame</span>
+                    </div>
+                    <!-- IFRAME ДЛЯ ЗАГРУЗКИ ВЕСЬ РЕПОЗИТОРИЯ VOLKSWAGEN -->
+                    <div class="w-full h-[650px] bg-white rounded-xl overflow-hidden">
+                        <iframe src="https://ogaydv-prog.github.io/ie-simulator-almau/" class="w-full h-full border-0" title="Volkswagen Group Industrial Case Engine"></iframe>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -498,6 +542,7 @@
                 headerSubtitle: "Advanced Analytical Portal & OECD QuIS Research Data | AlmaU 2026",
                 backBtn: "← Main Hub",
                 nav1: "1. Global GDP Industrial Share", nav2: "Industry 1.0 (Steam & Iron)", nav3: "Industry 2.0 (Mass Production)", nav4: "Industry 3.0 (IT & Automation)", nav5: "Industry 4.0 & Film Case", nav6: "OECD Industrial Strategy",
+                nav7: "7. T-Shirt Global Value Chain", nav8: "8. Volkswagen Group Case Hub",
                 tab1Title: "Industry Value Added (% of GDP, 1970–2020)",
                 tab1Subtitle: "World Bank National Accounts Data.",
                 yearLabel: "Selected Year:", sliderLabel: "Move rectangular tracker to analyze structural shifts:",
@@ -527,6 +572,9 @@
                 c1Head: "1. Support Mix (% of GDP)", c1Sub: "Grants vs Tax Expenditures vs Loans/Guarantees",
                 c2Head: "2. Strategic Policy Focus (%)", c2Sub: "Budget distribution across core targets",
                 c3Head: "3. Granular Targeting (%)", c3Sub: "Sector-specific vs Horizontal measures",
+                vwMainTitle: "Volkswagen Group: Industrial Strategy & EV Transition Hub",
+                vwSubTitle: "Interactive multi-tab simulation: Cost structure, global production network, and EV transformation.",
+                vwOpenBtn: "Open VW Case Hub in Fullscreen",
                 footerText: "Developed for Business Analytics & Economics Students | Course: Industrial Economics"
             },
             ru: {
@@ -534,6 +582,7 @@
                 headerSubtitle: "Продвинутый аналитический портал и данные OECD QuIS | AlmaU 2026",
                 backBtn: "← На главный хаб",
                 nav1: "1. Доля промышленности в ВВП", nav2: "Индустрия 1.0 (Пар и железо)", nav3: "Индустрия 2.0 (Масс-продакшн)", nav4: "Индустрия 3.0 (ИТ и Автоматизация)", nav5: "Индустрия 4.0 и Кинокейс", nav6: "Промышленная стратегия ОЭСР",
+                nav7: "7. Глобальная цепочка создания стоимости T-Shirt", nav8: "8. Кейс Volkswagen Group",
                 tab1Title: "Доля промышленности в ВВП (% от ВВП, 1970–2020)",
                 tab1Subtitle: "Национальные счета Всемирного Банка.",
                 yearLabel: "Выбранный год:", sliderLabel: "Перемещайте прямоугольный бегунок для анализа структурных сдвигов:",
@@ -563,6 +612,9 @@
                 c1Head: "1. Структура поддержки (% ВВП)", c1Sub: "Гранты vs Налоговые льготы vs Кредиты/Гарантии",
                 c2Head: "2. Распределение по целям (%)", c2Sub: "Доля бюджета на ключевые направления политики",
                 c3Head: "3. Секторальный таргетинг (%)", c3Sub: "Отраслевая адресация vs Горизонтальные меры",
+                vwMainTitle: "Volkswagen Group: Промышленная стратегия и перелом на рынке электромобилей",
+                vwSubTitle: "Интерактивный многокомпонентный симулятор: структура затрат, сеть заводов и переход на платформу EV.",
+                vwOpenBtn: "Открыть кейс VW на весь экран",
                 footerText: "Разработано для студентов специальности «Бизнес-аналитика и экономика» | Курс: Промышленная экономика"
             }
         };
@@ -718,6 +770,7 @@
             document.getElementById('nav-tab1').innerText = l.nav1; document.getElementById('nav-tab2').innerText = l.nav2;
             document.getElementById('nav-tab3').innerText = l.nav3; document.getElementById('nav-tab4').innerText = l.nav4;
             document.getElementById('nav-tab5').innerText = l.nav5; document.getElementById('nav-tab6').innerText = l.nav6;
+            document.getElementById('nav-tab7').innerText = l.nav7; document.getElementById('nav-tab8').innerText = l.nav8;
             document.getElementById('tab1-title').innerText = l.tab1Title; document.getElementById('tab1-subtitle').innerText = l.tab1Subtitle;
             document.getElementById('year-label').innerText = l.yearLabel; document.getElementById('slider-label').innerText = l.sliderLabel;
             document.getElementById('r1-main-title').innerText = l.r1Title;
@@ -748,6 +801,10 @@
             document.getElementById('c2-sub').innerText = l.c2Sub;
             document.getElementById('c3-head').innerHTML = `<i class="fa-solid fa-crosshairs text-amber-600"></i> ${l.c3Head}`;
             document.getElementById('c3-sub').innerText = l.c3Sub;
+
+            if (document.getElementById('vw-main-title')) document.getElementById('vw-main-title').innerText = l.vwMainTitle;
+            if (document.getElementById('vw-sub-title')) document.getElementById('vw-sub-title').innerText = l.vwSubTitle;
+            if (document.getElementById('vw-open-btn')) document.getElementById('vw-open-btn').innerText = l.vwOpenBtn;
 
             document.getElementById('footer-text1').innerText = l.footerText;
             updateOecdCountryPortfolio(document.getElementById('country-select').value);
