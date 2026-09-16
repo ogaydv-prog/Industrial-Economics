@@ -12,9 +12,17 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .tab-btn.active { background-color: #001e50; color: #ffffff; border-color: #001e50; }
+        .subtab-btn.active { background-color: #1e293b; color: #60a5fa; border-color: #3b82f6; }
         .rect-slider { -webkit-appearance: none; width: 100%; height: 14px; border-radius: 4px; background: #cbd5e1; outline: none; border: 1px solid #94a3b8; }
         .rect-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 38px; height: 26px; border-radius: 4px; background: #ef4444; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 0 8px rgba(239, 68, 68, 0.5); }
         .rect-slider::-webkit-slider-thumb::after { content: ""; display: block; width: 2px; height: 12px; background: #ffffff; margin: 5px auto; }
+        
+        .custom-card-dark { background: #0f172a; border: 1px solid #1e293b; }
+        .vintage-slider-container { background: #090d16; border: 2px solid #1e293b; border-radius: 8px; padding: 12px; position: relative; }
+        .dark-range-slider { -webkit-appearance: none; width: 100%; background: transparent; }
+        .dark-range-slider:focus { outline: none; }
+        .dark-range-slider::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #dc2626; border-radius: 4px; border: 1px solid #991b1b; }
+        .dark-range-slider::-webkit-slider-thumb { height: 20px; width: 20px; border-radius: 4px; background: #f8fafc; border: 2px solid #991b1b; cursor: pointer; -webkit-appearance: none; margin-top: -6px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
@@ -60,13 +68,15 @@
             <button onclick="switchTab('tab-oecd')" id="btn-tab-oecd" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-landmark text-amber-500"></i> <span id="nav-tab6">OECD Industrial Strategy</span>
             </button>
-            <!-- НОВАЯ ВКЛАДКА 7: T-SHIRT SIMULATOR -->
             <a href="sim-t-shirts-en.html" id="btn-tab-tshirt" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap bg-indigo-50 hover:bg-indigo-100 text-indigo-950">
                 <i class="fa-solid fa-shirt text-indigo-600"></i> <span id="nav-tab7">7. T-Shirt Global Value Chain</span>
             </a>
-            <!-- НОВАЯ ВКЛАДКА 8: VOLKSWAGEN CASE -->
             <button onclick="switchTab('tab-vw')" id="btn-tab-vw" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap bg-blue-50 hover:bg-blue-100 text-blue-950">
                 <i class="fa-solid fa-car text-blue-700"></i> <span id="nav-tab8">8. Volkswagen Group Case Hub</span>
+            </button>
+            <!-- ВКЛАДКА 9: ANDON LABS CASE -->
+            <button onclick="switchTab('tab-andon')" id="btn-tab-andon" class="tab-btn px-4 py-2.5 rounded-xl border border-slate-300 transition flex items-center gap-2 whitespace-nowrap bg-purple-50 hover:bg-purple-100 text-purple-950">
+                <i class="fa-solid fa-brain text-purple-700"></i> <span id="nav-tab9">9. Andon Labs & Vending Case</span>
             </button>
         </div>
     </nav>
@@ -341,7 +351,7 @@
             </div>
         </section>
 
-        <!-- TAB 8: VOLKSWAGEN CASE MODULE (ГОТОВАЯ СЕКЦИЯ ПОД СВЯЗКУ С РЕПОЗИТОРИЕМ) -->
+        <!-- TAB 8: VOLKSWAGEN CASE MODULE -->
         <section id="tab-vw" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6">
                 <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -350,13 +360,12 @@
                         <h2 class="text-2xl font-black text-[#001e50]" id="vw-main-title">Volkswagen Group: Industrial Strategy & EV Transition Hub</h2>
                         <p class="text-xs text-slate-500 mt-1" id="vw-sub-title">Interactive multi-tab simulation: Cost structure, global production network, and EV transformation.</p>
                     </div>
-                <a href="https://ogaydv-prog.github.io/ie-simulator-almau/" target="_blank" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md">
+                    <a href="https://ogaydv-prog.github.io/ie-simulator-almau/" target="_blank" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         <span id="vw-open-btn">Open VW Case Hub in Fullscreen</span>
                     </a>
                 </div>
 
-                <!-- БЛОК-ПРЕЗЕНТАЦИЯ МОДУЛЯ VOLKSWAGEN -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
                         <div class="text-blue-600 font-bold text-sm"><i class="fa-solid fa-industry mr-1.5"></i> 1. Manufacturing Footprint</div>
@@ -372,17 +381,428 @@
                     </div>
                 </div>
 
-                <!-- ВСТРОЕННЫЙ ИНТЕРАКТИВНЫЙ ОКНО-МОДУЛЬ (IFRAME) -->
                 <div class="bg-slate-900 rounded-2xl p-2 border border-slate-800 shadow-inner space-y-2">
                     <div class="flex justify-between items-center px-3 py-1.5 text-xs text-slate-400">
                         <span class="font-mono"><i class="fa-solid fa-window-maximize mr-1.5 text-blue-400"></i> Integrated VW Simulator Container</span>
                         <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">Live Repo Frame</span>
                     </div>
-                    <!-- IFRAME ДЛЯ ЗАГРУЗКИ ВЕСЬ РЕПОЗИТОРИЯ VOLKSWAGEN -->
                     <div class="w-full h-[650px] bg-white rounded-xl overflow-hidden">
                         <iframe src="https://ogaydv-prog.github.io/ie-simulator-almau/" class="w-full h-full border-0" title="Volkswagen Group Industrial Case Engine"></iframe>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: ANDON LABS & VENDING-BENCH CASE MODULE -->
+        <section id="tab-andon" class="tab-content hidden space-y-6">
+            <div class="bg-slate-950 text-slate-100 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
+                
+                <!-- HEADER OF CASE -->
+                <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400">BA&E Case | AlmaU SDTE</span>
+                            <span class="text-[9px] bg-rose-500/20 text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded-full font-bold" id="badge-report">Andon Report 2026</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-white mt-1" id="andon-main-title">Andon Labs: Autonomous AI Agency & Operational Audit</h2>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-400 bg-slate-900 px-3.5 py-1.5 rounded-xl border border-slate-800 inline-flex items-center">
+                        <i class="fa-solid fa-location-dot text-rose-500 mr-1.5"></i> <span id="andon-loc">Stockholm / Norrbackagatan 48</span>
+                    </span>
+                </div>
+
+                <!-- SUB-NAV FOR ANDON SECTIONS -->
+                <div class="flex overflow-x-auto space-x-2 py-1 border-b border-slate-800">
+                    <button onclick="switchAndonSubTab('intro')" id="subbtn-intro" class="subtab-btn active px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-transparent whitespace-nowrap">
+                        <i class="fa-solid fa-file-invoice"></i> <span id="atnav-1">1. Detailed Passport</span>
+                    </button>
+                    <button onclick="switchAndonSubTab('benchmark')" id="subbtn-benchmark" class="subtab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-chart-line"></i> <span id="atnav-2">2. Benchmarking (4 Charts)</span>
+                    </button>
+                    <button onclick="switchAndonSubTab('media')" id="subbtn-media" class="subtab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-newspaper"></i> <span id="atnav-3">3. Media & Sources</span>
+                    </button>
+                    <button onclick="switchAndonSubTab('case')" id="subbtn-case" class="subtab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-users-gear"></i> <span id="atnav-4">4. 4 Case Tasks (Input)</span>
+                    </button>
+                    <button onclick="switchAndonSubTab('simulator')" id="subbtn-simulator" class="subtab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-sliders"></i> <span id="atnav-5">5. Simulator (3 Charts)</span>
+                    </button>
+                    <button onclick="switchAndonSubTab('solution')" id="subbtn-solution" class="subtab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-rose-500/30 text-rose-400 hover:bg-rose-950/30 whitespace-nowrap">
+                        <i class="fa-solid fa-key"></i> <span id="atnav-6">6. Instructor Solution</span>
+                    </button>
+                </div>
+
+                <!-- SUB-CONTENT 1: PASSPORT -->
+                <div id="andon-content-intro" class="andon-subcontent space-y-6 block">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="custom-card-dark p-6 rounded-2xl space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-xs font-bold text-blue-400 uppercase tracking-wider" id="t1-tag">Andon Labs Analytical Report</span>
+                                    <h3 class="text-xl font-extrabold text-white mt-0.5" id="t1-title">Operational Audit of Andon Café (Stockholm)</h3>
+                                </div>
+                                <span class="bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[11px] font-bold px-3 py-1 rounded-full">Gemini Pro / GPT-5.5</span>
+                            </div>
+                            
+                            <p class="text-slate-300 text-xs leading-relaxed" id="t1-desc">
+                                Startup <strong>Andon Labs</strong> launched an experiment to test Artificial Agency by handing over full café back-office management to AI agent Mona. The AI was granted access to bank accounts, POS terminals, and email—autonomously running procurement, hiring, and licensing.
+                            </p>
+
+                            <div class="overflow-x-auto pt-2">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-slate-800 text-slate-400 font-bold uppercase">
+                                            <th class="py-2 px-2" id="th-1">Financial Parameter</th>
+                                            <th class="py-2 px-2" id="th-2">Value in SEK</th>
+                                            <th class="py-2 px-2" id="th-3">USD Equivalent ($)</th>
+                                            <th class="py-2 px-2" id="th-4">Status & Analysis</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-800/50 text-slate-300 text-[11px]">
+                                        <tr>
+                                            <td class="py-2 px-2 font-semibold text-white" id="td-r1-c1">Initial Capital</td>
+                                            <td class="py-2 px-2">300,000 SEK</td>
+                                            <td class="py-2 px-2 font-bold text-blue-400" id="td-r1-c3">~$28,000 ($21k net balance)</td>
+                                            <td class="py-2 px-2 text-slate-400" id="td-r1-c4">Diverges due to ~$7k sunk costs</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-2 font-semibold text-white" id="td-r2-c1">Revenue (14 days)</td>
+                                            <td class="py-2 px-2">44,000 SEK</td>
+                                            <td class="py-2 px-2 font-bold text-emerald-400" id="td-r2-c3">~$4,659 ($5,700 gross)</td>
+                                            <td class="py-2 px-2 text-slate-400" id="td-r2-c4">Baseline demand is AI-independent</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-2 font-semibold text-white" id="td-r3-c1">Rental Deposit</td>
+                                            <td class="py-2 px-2">125,000 SEK</td>
+                                            <td class="py-2 px-2 font-bold text-amber-400">~$13,000</td>
+                                            <td class="py-2 px-2 text-slate-400" id="td-r3-c4">Liquidity hit (>40% of budget)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-2 font-semibold text-white" id="td-r4-c1">Remaining Funds (June)</td>
+                                            <td class="py-2 px-2 font-bold text-rose-500">18,486 SEK</td>
+                                            <td class="py-2 px-2 font-bold text-rose-500">&lt;$1,750 (&lt;$5,000)</td>
+                                            <td class="py-2 px-2 text-rose-400" id="td-r4-c4">93.8% capital depletion (Algorithmic failure)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="custom-card-dark p-6 rounded-2xl flex flex-col justify-between border-l-4 border-l-rose-500 space-y-4">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-white mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
+                                    <span id="fail-title">Wall of Shame (Strategic Failures)</span>
+                                </h3>
+                                <ul class="text-xs text-slate-300 space-y-2">
+                                    <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800" id="fail-1">
+                                        <strong class="text-rose-400">120 raw eggs & 10L oil:</strong> Ordered for a café with no stove/kitchen (suggested frying in a toaster).
+                                    </li>
+                                    <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800" id="fail-2">
+                                        <strong class="text-rose-400">22.5 kg canned tomatoes (15 cans):</strong> Failed fix for fresh tomato spoilage.
+                                    </li>
+                                    <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800" id="fail-3">
+                                        <strong class="text-amber-400">Logistical chaos:</strong> 10 orders in 48 hrs (lost 1,000 SEK / ~$106 in delivery fees).
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-800">
+                                <h4 class="text-xs font-bold text-emerald-400 mb-1" id="gains-title">Strategic Gains</h4>
+                                <p class="text-[11px] text-slate-400" id="gains-text">Bypassed BankID via Vattenfall setup, sold 9,000 SEK (~$950) in QR passes, and hired experienced barista Kajetan over a PhD candidate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-CONTENT 2: BENCHMARK CHARTS -->
+                <div id="andon-content-benchmark" class="andon-subcontent space-y-6 hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="custom-card-dark p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider" id="bc1-tag">Chart 1: Vending-Bench 2 Final Balance</span>
+                                <h3 class="font-bold text-sm text-white mt-0.5 mb-1" id="bc1-title">Final 365-Day Balance ($)</h3>
+                            </div>
+                            <div class="relative w-full h-52"><canvas id="vendingBenchChart"></canvas></div>
+                        </div>
+
+                        <div class="custom-card-dark p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider" id="bc2-tag">Chart 2: Price Degradation Curve</span>
+                                <h3 class="font-bold text-sm text-white mt-0.5 mb-1" id="bc2-title">Coke Can Purchase Price Dynamics ($)</h3>
+                            </div>
+                            <div class="relative w-full h-52"><canvas id="priceDegradationChart"></canvas></div>
+                        </div>
+
+                        <div class="custom-card-dark p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-rose-400 uppercase tracking-wider" id="bc3-tag">Chart 3: Supplier Fraud Losses</span>
+                                <h3 class="font-bold text-sm text-white mt-0.5 mb-1" id="bc3-title">Prepayment Losses to Bankrupt Vendors ($)</h3>
+                            </div>
+                            <div class="relative w-full h-52"><canvas id="fraudLossChart"></canvas></div>
+                        </div>
+
+                        <div class="custom-card-dark p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider" id="bc4-tag">Chart 4: Pion Capital Depletion</span>
+                                <h3 class="font-bold text-sm text-white mt-0.5 mb-1" id="bc4-title">Andon Café Capital Depletion (SEK)</h3>
+                            </div>
+                            <div class="relative w-full h-52"><canvas id="capitalDepletionChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-CONTENT 3: MEDIA -->
+                <div id="andon-content-media" class="andon-subcontent space-y-6 hidden">
+                    <h3 class="font-bold text-base text-white mb-2" id="media-title">Official Media & Valid Sources</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        <div class="custom-card-dark rounded-2xl overflow-hidden p-2">
+                            <div class="aspect-video rounded-xl overflow-hidden">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/AzPEw7FZq3I?rel=0" title="Axel Backlund Interview" allowfullscreen></iframe>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="font-bold text-xs text-white" id="vid1-title">Interview: Axel Backlund (Andon Labs)</h4>
+                                <p class="text-[11px] text-slate-400 mt-1" id="vid1-desc">Co-founder of Andon Labs on how Mona manages the Stockholm café.</p>
+                                <a href="https://www.youtube.com/watch?v=AzPEw7FZq3I" target="_blank" class="text-[11px] text-blue-400 hover:underline mt-2 inline-block"><span id="vid1-link">Watch on YouTube</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="custom-card-dark rounded-2xl overflow-hidden p-2">
+                            <div class="aspect-video rounded-xl overflow-hidden">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/J32qbZTpHeI?rel=0" title="AI Runs a Cafe in Stockholm" allowfullscreen></iframe>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="font-bold text-xs text-white" id="vid2-title">News Report: AI Manager Mona in Stockholm</h4>
+                                <p class="text-[11px] text-slate-400 mt-1" id="vid2-desc">Overview of café operations, purchasing errors, and midnight Slack messages.</p>
+                                <a href="https://www.youtube.com/watch?v=J32qbZTpHeI" target="_blank" class="text-[11px] text-blue-400 hover:underline mt-2 inline-block"><span id="vid2-link">Watch on YouTube</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="custom-card-dark rounded-2xl overflow-hidden p-2">
+                            <div class="aspect-video rounded-xl overflow-hidden">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/GTQbzWlhCqY?rel=0" title="The AI Cafe Was Designed to Fail" allowfullscreen></iframe>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="font-bold text-xs text-white" id="vid3-title">Analysis: Why The AI Café Failed</h4>
+                                <p class="text-[11px] text-slate-400 mt-1" id="vid3-desc">Deep dive into structural reasons for Mona's failure and missing Hard Limits.</p>
+                                <a href="https://www.youtube.com/watch?v=GTQbzWlhCqY" target="_blank" class="text-[11px] text-blue-400 hover:underline mt-2 inline-block"><span id="vid3-link">Watch on YouTube</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-CONTENT 4: CASE TASKS -->
+                <div id="andon-content-case" class="andon-subcontent space-y-6 hidden">
+                    <div class="flex space-x-2 border-b border-slate-800 pb-3 overflow-x-auto">
+                        <button onclick="switchAndonTask('task-1')" id="subtab-task-1" class="subtab-btn active px-3.5 py-1.5 rounded-xl text-xs font-bold transition border border-transparent whitespace-nowrap">
+                            <i class="fa-solid fa-1 mr-1"></i> <span id="st-1">Task 1: FC/VC Costs</span>
+                        </button>
+                        <button onclick="switchAndonTask('task-2')" id="subtab-task-2" class="subtab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                            <i class="fa-solid fa-2 mr-1"></i> <span id="st-2">Task 2: 4 Hard Limit Rules</span>
+                        </button>
+                        <button onclick="switchAndonTask('task-3')" id="subtab-task-3" class="subtab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                            <i class="fa-solid fa-3 mr-1"></i> <span id="st-3">Task 3: Turnaround from -$29k Loss</span>
+                        </button>
+                        <button onclick="switchAndonTask('task-4')" id="subtab-task-4" class="subtab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition border border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+                            <i class="fa-solid fa-4 mr-1"></i> <span id="st-4">Task 4: Lab vs Reality</span>
+                        </button>
+                    </div>
+
+                    <div id="task-1" class="task-content space-y-4 block">
+                        <div class="custom-card-dark p-5 rounded-2xl space-y-3 border-l-4 border-l-blue-500">
+                            <h3 class="text-sm font-bold text-white" id="tk1-title">Task #1: Waste Costs (FC vs VC) & BEP Shift</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p id="tk1-p1"><strong>Context:</strong> AI manager Mona purchased 120 raw eggs, 10L cooking oil, 22.5 kg canned tomatoes, and 3,000 disposable gloves for a café with no kitchen or stove (only a toaster and coffee machine).</p>
+                                <p id="tk1-p2"><strong>Economic Analysis:</strong> Normally raw materials are Variable Costs (VC). However, when inventory cannot be processed and gets written off, it converts into a direct Fixed Loss (FC waste). Total Fixed Costs increase: FC total = FC rent + FC waste.</p>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs text-blue-400 font-bold" id="tk1-q">
+                                Question for the team: How does writing off $630 (6,000 SEK) in waste shift the Break-Even Point (BEP), and how many extra cups of coffee at margin ($3.2 margin per cup) must be sold just to cover this mistake?
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2" id="tk1-lbl">Enter your team's solution & calculations:</label>
+                            <textarea id="ans-task-1" rows="3" placeholder="Write your reasoning and final answer..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"></textarea>
+                        </div>
+                    </div>
+
+                    <div id="task-2" class="task-content space-y-4 hidden">
+                        <div class="custom-card-dark p-5 rounded-2xl space-y-3 border-l-4 border-l-amber-500">
+                            <h3 class="text-sm font-bold text-white" id="tk2-title">Task #2: Designing 4 Hard Limit Rules</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p id="tk2-p1"><strong>Context:</strong> AI agent Mona made critical operational errors: missed 5 pastry wholesale deadlines resulting in +200% rush delivery charges, placed 10 micro-orders in 48 hours ($106 wasted in fees), and messaged baristas at midnight.</p>
+                                <p id="tk2-p2"><strong>Economic Analysis:</strong> This represents a clear 'intuition tax'. The Pion platform requires algorithmic Hard Limits (strict rules AI cannot bypass without human approval).</p>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs text-amber-400 font-bold" id="tk2-q">
+                                Question for the team: Formulate 4 specific regulatory rules for the AI manager (covering budgets, SKU authorization, delivery frequency, and communication ethics).
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2" id="tk2-lbl">Enter your 4 rules:</label>
+                            <textarea id="ans-task-2" rows="3" placeholder="1. Transaction limit rule...&#10;2. SKU restriction rule..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono"></textarea>
+                        </div>
+                    </div>
+
+                    <div id="task-3" class="task-content space-y-4 hidden">
+                        <div class="custom-card-dark p-5 rounded-2xl space-y-3 border-l-4 border-l-emerald-500">
+                            <h3 class="text-sm font-bold text-white" id="tk3-title">Task #3: Rescuing the Café from -$29,000 Loss</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p id="tk3-p1"><strong>Context:</strong> In 2 months, Andon Café generated only $9,000 revenue against $38,000 in operational expenses at Norrbackagatan 48 in Stockholm—a highly competitive monopolistic market.</p>
+                                <p id="tk3-p2"><strong>Economic Analysis:</strong> Coffee demand is price-elastic (Ed > 1). Simply raising prices by 20% would cause instant customer churn to nearby chains. Total Revenue (TR = P × Q) growth requires non-price differentiation.</p>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs text-emerald-400 font-bold" id="tk3-q">
+                                Question for the team: Propose a comprehensive non-price differentiation and Ancillary Revenue plan to achieve break-even.
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2" id="tk3-lbl">Enter your strategic plan:</label>
+                            <textarea id="ans-task-3" rows="3" placeholder="Proposals for non-price differentiation and ancillary revenue..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"></textarea>
+                        </div>
+                    </div>
+
+                    <div id="task-4" class="task-content space-y-4 hidden">
+                        <div class="custom-card-dark p-5 rounded-2xl space-y-3 border-l-4 border-l-indigo-500">
+                            <h3 class="text-sm font-bold text-white" id="tk4-title">Task #4: Lab Test Syndrome (Vending-Bench vs Real Café)</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p id="tk4-p1"><strong>Context:</strong> In the Vending-Bench 2 benchmark, GPT-6 Astra achieved an outstanding $15,515 balance over 365 days, cutting vendor prices by 52% and losing $0 to fraud. Yet the same AI technology in the physical Andon Café lost 93.8% of capital in 90 days.</p>
+                                <p id="tk4-p2"><strong>Economic Analysis:</strong> Why the gap? Vending-Bench restricts the Slot Matrix (canned drinks/snacks) in a controlled digital space. In the real café, Mona had unlimited procurement freedom without culinary context, leading to hallucinations (buying raw eggs without a stove).</p>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs text-indigo-400 font-bold" id="tk4-q">
+                                Question for the team: Why do AI successes in closed simulations create an illusion of real-world readiness, and what risks does this pose for investors?
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2" id="tk4-lbl">Enter your team's conclusions:</label>
+                            <textarea id="ans-task-4" rows="3" placeholder="Conclusions on simulation boundaries and physical AI risks..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-CONTENT 5: SIMULATOR -->
+                <div id="andon-content-simulator" class="andon-subcontent space-y-6 hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="custom-card-dark p-5 rounded-2xl space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <h4 class="font-bold text-xs text-white uppercase tracking-wider" id="sim-panel-title">"Mona Rescue" Simulator</h4>
+                                <select id="engine-select" onchange="changeEngine()" class="bg-slate-900 border border-slate-800 text-blue-400 text-[11px] font-bold px-2 py-1 rounded-lg">
+                                    <option value="mona" id="opt-mona">Engine: Mona (Gemini/GPT-5.5)</option>
+                                    <option value="astra" id="opt-astra">Engine: GPT-6 Astra (Optimized)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="vintage-slider-container">
+                                    <div class="flex justify-between text-xs mb-1 font-bold">
+                                        <span class="text-slate-300" id="lbl-price">Coffee Price ($):</span>
+                                        <span class="text-blue-400" id="val-price">4.5</span>
+                                    </div>
+                                    <input type="range" id="input-price" min="2" max="9" step="0.5" value="4.5" oninput="updateSimulation()" class="dark-range-slider">
+                                </div>
+
+                                <div class="vintage-slider-container">
+                                    <div class="flex justify-between text-xs mb-1 font-bold">
+                                        <span class="text-slate-300" id="lbl-fc">Rent & Payroll ($ FC/mo):</span>
+                                        <span class="text-amber-400" id="val-fc">8000</span>
+                                    </div>
+                                    <input type="range" id="input-fc" min="4000" max="15000" step="500" value="8000" oninput="updateSimulation()" class="dark-range-slider">
+                                </div>
+
+                                <div class="vintage-slider-container">
+                                    <div class="flex justify-between text-xs mb-1 font-bold">
+                                        <span class="text-slate-300" id="lbl-waste">Inventory Waste ($):</span>
+                                        <span class="text-rose-400" id="val-waste">6000</span>
+                                    </div>
+                                    <input type="range" id="input-waste" min="0" max="12000" step="500" value="6000" oninput="updateSimulation()" class="dark-range-slider">
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-800 space-y-2 text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400" id="lbl-res-bep">Break-Even Point (BEP):</span>
+                                    <span class="font-bold text-white" id="res-bep">0 cups</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400" id="lbl-res-profit">Projected Outcome:</span>
+                                    <span class="font-bold text-rose-400" id="res-profit">-$0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="custom-card-dark p-4 rounded-2xl">
+                                <h4 class="font-bold text-xs text-white mb-2" id="sc1-title">1. Total Revenue (TR) vs Total Cost (TC) & Profit Area</h4>
+                                <div class="relative w-full h-36"><canvas id="simChart"></canvas></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="custom-card-dark p-4 rounded-2xl">
+                                    <h4 class="font-bold text-xs text-amber-400 mb-2" id="sc2-title">2. Break-Even Point (BEP)</h4>
+                                    <div class="relative w-full h-32"><canvas id="bepChart"></canvas></div>
+                                </div>
+                                <div class="custom-card-dark p-4 rounded-2xl">
+                                    <h4 class="font-bold text-xs text-emerald-400 mb-2" id="sc3-title">3. Profit / Loss Dynamics ($)</h4>
+                                    <div class="relative w-full h-32"><canvas id="profitChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-CONTENT 6: SOLUTION -->
+                <div id="andon-content-solution" class="andon-subcontent space-y-6 hidden">
+                    <div id="solution-lock-screen" class="custom-card-dark p-8 rounded-2xl text-center max-w-md mx-auto space-y-4">
+                        <div class="h-12 w-12 bg-rose-500/10 text-rose-400 rounded-full flex items-center justify-center text-xl mx-auto border border-rose-500/20">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white" id="lock-title">Instructor Solution</h3>
+                        <p class="text-xs text-slate-400" id="lock-desc">Enter access password to reveal solutions to the audience.</p>
+                        <div class="flex gap-2">
+                            <input type="password" id="solution-pass-input" placeholder="Password..." class="flex-grow p-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                            <button onclick="unlockSolution()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs transition" id="lock-btn">Unlock</button>
+                        </div>
+                    </div>
+
+                    <div id="solution-content" class="space-y-4 hidden">
+                        <div class="bg-emerald-950/20 border border-emerald-500/30 p-3.5 rounded-2xl flex items-center justify-between">
+                            <span class="text-xs font-bold text-emerald-400" id="sol-banner"><i class="fa-solid fa-lock-open mr-2"></i> Instructor Access Unlocked (Password: MEE-12072026)</span>
+                            <span class="text-[10px] text-slate-400">AlmaU MBA Economics</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="custom-card-dark p-4 rounded-2xl border-l-4 border-l-blue-500 space-y-1.5">
+                                <h4 class="font-bold text-xs text-blue-400" id="sol1-title">Benchmark Answer — Task 1: FC/VC & BEP</h4>
+                                <p class="text-xs text-slate-300 leading-relaxed" id="sol1-text">
+                                    Spoiled inventory (eggs, tomatoes, gloves) shifts from VC into FC waste. BEP = Total FC / (P - VC per cup). With FC increasing by $630 (6,000 SEK) and margin at $3.2/cup, the break-even point shifts up by **197 cups of coffee** monthly just to offset waste.
+                                </p>
+                            </div>
+
+                            <div class="custom-card-dark p-4 rounded-2xl border-l-4 border-l-amber-500 space-y-1.5">
+                                <h4 class="font-bold text-xs text-amber-400" id="sol2-title">Benchmark Answer — Task 2: 4 Hard Limit Rules</h4>
+                                <ul class="text-xs text-slate-300 space-y-1 list-disc pl-4" id="sol2-list">
+                                    <li><strong>Limit 1:</strong> Maximum single automated purchase cap set at $200.</li>
+                                    <li><strong>Limit 2:</strong> Absolute ban on non-food SKU purchases without chef validation.</li>
+                                    <li><strong>Limit 3:</strong> Max 1 delivery per day constraint.</li>
+                                    <li><strong>Limit 4:</strong> Messaging ban to staff between 22:00 and 08:00.</li>
+                                </ul>
+                            </div>
+
+                            <div class="custom-card-dark p-4 rounded-2xl border-l-4 border-l-emerald-500 space-y-1.5">
+                                <h4 class="font-bold text-xs text-emerald-400" id="sol3-title">Benchmark Answer — Task 3: Non-Price Differentiation</h4>
+                                <p class="text-xs text-slate-300 leading-relaxed" id="sol3-text">
+                                    Under monopolistic competition, price elasticity is high. Solution: Experience-driven value proposition—Mona-branded merch, AI chat QR codes on cups, and exclusive tech community events in Stockholm.
+                                </p>
+                            </div>
+
+                            <div class="custom-card-dark p-4 rounded-2xl border-l-4 border-l-indigo-500 space-y-1.5">
+                                <h4 class="font-bold text-xs text-indigo-400" id="sol4-title">Benchmark Answer — Task 4: Vending vs Cafe</h4>
+                                <p class="text-xs text-slate-300 leading-relaxed" id="sol4-text">
+                                    Lab benchmarks isolate variables. Real-world cafés introduce open-environment noise. AI excels at algorithmic optimization but fails due to lack of physical world context.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -542,7 +962,7 @@
                 headerSubtitle: "Advanced Analytical Portal & OECD QuIS Research Data | AlmaU 2026",
                 backBtn: "← Main Hub",
                 nav1: "1. Global GDP Industrial Share", nav2: "Industry 1.0 (Steam & Iron)", nav3: "Industry 2.0 (Mass Production)", nav4: "Industry 3.0 (IT & Automation)", nav5: "Industry 4.0 & Film Case", nav6: "OECD Industrial Strategy",
-                nav7: "7. T-Shirt Global Value Chain", nav8: "8. Volkswagen Group Case Hub",
+                nav7: "7. T-Shirt Global Value Chain", nav8: "8. Volkswagen Group Case Hub", nav9: "9. Andon Labs & Vending Case",
                 tab1Title: "Industry Value Added (% of GDP, 1970–2020)",
                 tab1Subtitle: "World Bank National Accounts Data.",
                 yearLabel: "Selected Year:", sliderLabel: "Move rectangular tracker to analyze structural shifts:",
@@ -575,6 +995,67 @@
                 vwMainTitle: "Volkswagen Group: Industrial Strategy & EV Transition Hub",
                 vwSubTitle: "Interactive multi-tab simulation: Cost structure, global production network, and EV transformation.",
                 vwOpenBtn: "Open VW Case Hub in Fullscreen",
+                
+                // ANDON LABS DICTIONARY
+                andonMainTitle: "Andon Labs: Autonomous AI Agency & Operational Audit",
+                andonLoc: "Stockholm / Norrbackagatan 48",
+                badgeReport: "Andon Report 2026",
+                atnav1: "1. Detailed Passport", atnav2: "2. Benchmarking (4 Charts)", atnav3: "3. Media & Sources", atnav4: "4. 4 Case Tasks (Input)", atnav5: "5. Simulator (3 Charts)", atnav6: "6. Instructor Solution",
+                t1Tag: "Andon Labs Analytical Report", t1Title: "Operational Audit of Andon Café (Stockholm)",
+                t1Desc: "Startup <strong>Andon Labs</strong> launched an experiment to test Artificial Agency by handing over full café back-office management to AI agent Mona. The AI was granted access to bank accounts, POS terminals, and email—autonomously running procurement, hiring, and licensing.",
+                th1: "Financial Parameter", th2: "Value in SEK", th3: "USD Equivalent ($)", th4: "Status & Analysis",
+                tdR1C1: "Initial Capital", tdR1C3: "~$28,000 ($21k net balance)", tdR1C4: "Diverges due to ~$7k sunk costs",
+                tdR2C1: "Revenue (14 days)", tdR2C3: "~$4,659 ($5,700 gross)", tdR2C4: "Baseline demand is AI-independent",
+                tdR3C1: "Rental Deposit", tdR3C4: "Liquidity hit (>40% of budget)",
+                tdR4C1: "Remaining Funds (June)", tdR4C4: "93.8% capital depletion (Algorithmic failure)",
+                failTitle: "Wall of Shame (Strategic Failures)",
+                fail1: "<strong class=\"text-rose-400\">120 raw eggs & 10L oil:</strong> Ordered for a café with no stove/kitchen (suggested frying in a toaster).",
+                fail2: "<strong class=\"text-rose-400\">22.5 kg canned tomatoes (15 cans):</strong> Failed fix for fresh tomato spoilage.",
+                fail3: "<strong class=\"text-amber-400\">Logistical chaos:</strong> 10 orders in 48 hrs (lost 1,000 SEK / ~$106 in delivery fees).",
+                gainsTitle: "Strategic Gains", gainsText: "Bypassed BankID via Vattenfall setup, sold 9,000 SEK (~$950) in QR passes, and hired experienced barista Kajetan over a PhD candidate.",
+                bc1Tag: "Chart 1: Vending-Bench 2 Final Balance", bc1Title: "Final 365-Day Balance ($)",
+                bc2Tag: "Chart 2: Price Degradation Curve", bc2Title: "Coke Can Purchase Price Dynamics ($)",
+                bc3Tag: "Chart 3: Supplier Fraud Losses", bc3Title: "Prepayment Losses to Bankrupt Vendors ($)",
+                bc4Tag: "Chart 4: Pion Capital Depletion", bc4Title: "Andon Café Capital Depletion (SEK)",
+                mediaTitle: "Official Media & Valid Sources",
+                vid1Title: "Interview: Axel Backlund (Andon Labs)", vid1Desc: "Co-founder of Andon Labs on how Mona manages the Stockholm café.", vid1Link: "Watch on YouTube",
+                vid2Title: "News Report: AI Manager Mona in Stockholm", vid2Desc: "Overview of café operations, purchasing errors, and midnight Slack messages.", vid2Link: "Watch on YouTube",
+                vid3Title: "Analysis: Why The AI Café Failed", vid3Desc: "Deep dive into structural reasons for Mona's failure and missing Hard Limits.",
+                st1: "Task 1: FC/VC Costs", st2: "Task 2: 4 Hard Limit Rules", st3: "Task 3: Turnaround from -$29k Loss", st4: "Task 4: Lab vs Reality",
+                tk1Title: "Task #1: Waste Costs (FC vs VC) & BEP Shift",
+                tk1P1: "<strong>Context:</strong> AI manager Mona purchased 120 raw eggs, 10L cooking oil, 22.5 kg canned tomatoes, and 3,000 disposable gloves for a café with no kitchen or stove (only a toaster and coffee machine).",
+                tk1P2: "<strong>Economic Analysis:</strong> Normally raw materials are Variable Costs (VC). However, when inventory cannot be processed and gets written off, it converts into a direct Fixed Loss (FC waste). Total Fixed Costs increase: FC total = FC rent + FC waste.",
+                tk1Q: "Question for the team: How does writing off $630 (6,000 SEK) in waste shift the Break-Even Point (BEP), and how many extra cups of coffee at margin ($3.2 margin per cup) must be sold just to cover this mistake?",
+                tk1Lbl: "Enter your team's solution & calculations:", ph1: "Write your reasoning and final answer...",
+                tk2Title: "Task #2: Designing 4 Hard Limit Rules",
+                tk2P1: "<strong>Context:</strong> AI agent Mona made critical operational errors: missed 5 pastry wholesale deadlines resulting in +200% rush delivery charges, placed 10 micro-orders in 48 hours ($106 wasted in fees), and messaged baristas at midnight.",
+                tk2P2: "<strong>Economic Analysis:</strong> This represents a clear 'intuition tax'. The Pion platform requires algorithmic Hard Limits (strict rules AI cannot bypass without human approval).",
+                tk2Q: "Question for the team: Formulate 4 specific regulatory rules for the AI manager (covering budgets, SKU authorization, delivery frequency, and communication ethics).",
+                tk2Lbl: "Enter your 4 rules:", ph2: "1. Transaction limit rule...\n2. SKU restriction rule...",
+                tk3Title: "Task #3: Rescuing the Café from -$29,000 Loss",
+                tk3P1: "<strong>Context:</strong> In 2 months, Andon Café generated only $9,000 revenue against $38,000 in operational expenses at Norrbackagatan 48 in Stockholm—a highly competitive monopolistic market.",
+                tk3P2: "<strong>Economic Analysis:</strong> Coffee demand is price-elastic (Ed > 1). Simply raising prices by 20% would cause instant customer churn to nearby chains. Total Revenue (TR = P × Q) growth requires non-price differentiation.",
+                tk3Q: "Question for the team: Propose a comprehensive non-price differentiation and Ancillary Revenue plan to achieve break-even.",
+                tk3Lbl: "Enter your strategic plan:", ph3: "Proposals for non-price differentiation and ancillary revenue...",
+                tk4Title: "Task #4: Lab Test Syndrome (Vending-Bench vs Real Café)",
+                tk4P1: "<strong>Context:</strong> In the Vending-Bench 2 benchmark, GPT-6 Astra achieved an outstanding $15,515 balance over 365 days, cutting vendor prices by 52% and losing $0 to fraud. Yet the same AI technology in the physical Andon Café lost 93.8% of capital in 90 days.",
+                tk4P2: "<strong>Economic Analysis:</strong> Why the gap? Vending-Bench restricts the Slot Matrix (canned drinks/snacks) in a controlled digital space. In the real café, Mona had unlimited procurement freedom without culinary context, leading to hallucinations (buying raw eggs without a stove).",
+                tk4Q: "Question for the team: Why do AI successes in closed simulations create an illusion of real-world readiness, and what risks does this pose for investors?",
+                tk4Lbl: "Enter your team's conclusions:", ph4: "Conclusions on simulation boundaries and physical AI risks...",
+                simPanelTitle: "\"Mona Rescue\" Simulator", optMona: "Engine: Mona (Gemini/GPT-5.5)", optAstra: "Engine: GPT-6 Astra (Optimized)",
+                lblPrice: "Coffee Price ($):", lblFc: "Rent & Payroll ($ FC/mo):", lblWaste: "Inventory Waste ($):",
+                lblResBep: "Break-Even Point (BEP):", lblResProfit: "Projected Outcome:", cupsUnit: "cups",
+                sc1Title: "1. Total Revenue (TR) vs Total Cost (TC) & Profit Area", sc2Title: "2. Break-Even Point (BEP)", sc3Title: "3. Profit / Loss Dynamics ($)",
+                lockTitle: "Instructor Solution", lockDesc: "Enter access password to reveal solutions to the audience.", lockPassPh: "Password...", lockBtn: "Unlock",
+                solBanner: "<i class=\"fa-solid fa-lock-open mr-2\"></i> Instructor Access Unlocked (Password: MEE-12072026)",
+                sol1Title: "Benchmark Answer — Task 1: FC/VC & BEP",
+                sol1Text: "Spoiled inventory (eggs, tomatoes, gloves) shifts from VC into FC waste. BEP = Total FC / (P - VC per cup). With FC increasing by $630 (6,000 SEK) and margin at $3.2/cup, the break-even point shifts up by **197 cups of coffee** monthly just to offset waste.",
+                sol2Title: "Benchmark Answer — Task 2: 4 Hard Limit Rules",
+                sol2List: "<li><strong>Limit 1:</strong> Maximum single automated purchase cap set at $200.</li><li><strong>Limit 2:</strong> Absolute ban on non-food SKU purchases without chef validation.</li><li><strong>Limit 3:</strong> Max 1 delivery per day constraint.</li><li><strong>Limit 4:</strong> Messaging ban to staff between 22:00 and 08:00.</li>",
+                sol3Title: "Benchmark Answer — Task 3: Non-Price Differentiation",
+                sol3Text: "Under monopolistic competition, price elasticity is high. Solution: Experience-driven value proposition—Mona-branded merch, AI chat QR codes on cups, and exclusive tech community events in Stockholm.",
+                sol4Title: "Benchmark Answer — Task 4: Vending vs Cafe",
+                sol4Text: "Lab benchmarks isolate variables. Real-world cafés introduce open-environment noise. AI excels at algorithmic optimization but fails due to lack of physical world context.",
                 footerText: "Developed for Business Analytics & Economics Students | Course: Industrial Economics"
             },
             ru: {
@@ -582,7 +1063,7 @@
                 headerSubtitle: "Продвинутый аналитический портал и данные OECD QuIS | AlmaU 2026",
                 backBtn: "← На главный хаб",
                 nav1: "1. Доля промышленности в ВВП", nav2: "Индустрия 1.0 (Пар и железо)", nav3: "Индустрия 2.0 (Масс-продакшн)", nav4: "Индустрия 3.0 (ИТ и Автоматизация)", nav5: "Индустрия 4.0 и Кинокейс", nav6: "Промышленная стратегия ОЭСР",
-                nav7: "7. Глобальная цепочка создания стоимости T-Shirt", nav8: "8. Кейс Volkswagen Group",
+                nav7: "7. Глобальная цепочка создания стоимости T-Shirt", nav8: "8. Кейс Volkswagen Group", nav9: "9. Кейс Andon Labs & Vending",
                 tab1Title: "Доля промышленности в ВВП (% от ВВП, 1970–2020)",
                 tab1Subtitle: "Национальные счета Всемирного Банка.",
                 yearLabel: "Выбранный год:", sliderLabel: "Перемещайте прямоугольный бегунок для анализа структурных сдвигов:",
@@ -615,6 +1096,67 @@
                 vwMainTitle: "Volkswagen Group: Промышленная стратегия и перелом на рынке электромобилей",
                 vwSubTitle: "Интерактивный многокомпонентный симулятор: структура затрат, сеть заводов и переход на платформу EV.",
                 vwOpenBtn: "Открыть кейс VW на весь экран",
+                
+                // ANDON LABS DICTIONARY (RU)
+                andonMainTitle: "Andon Labs: Автономная ИИ-Субъектность и Операционный Аудит",
+                andonLoc: "Стокгольм / Norrbackagatan 48",
+                badgeReport: "Andon Report 2026",
+                atnav1: "1. Подробный Паспорт", atnav2: "2. Бенчмаркинг (4 Графика)", atnav3: "3. Медиа & Источники", atnav4: "4. 4 Кейс-Задания (Ввод ответов)", atnav5: "5. Симулятор (3 Графика)", atnav6: "6. Разгадка Преподавателя",
+                t1Tag: "Аналитический Отчет Andon Labs", t1Title: "Операционный Аудит Andon Café (Стокгольм)",
+                t1Desc: "Стартап <strong>Andon Labs</strong> инициировал эксперимент по проверке «искусственной субъектности» (Artificial Agency), доверив ИИ-агенту Mona полный бек-офис кофейни. ИИ получил доступ к банковскому счету, терминалам и почте, самостоятельно управляя закупками, наймом персонала и лицензированием.",
+                th1: "Финансовый параметр", th2: "Значение в кронах (SEK)", th3: "Эквивалент в долларах ($)", th4: "Статус & Анализ",
+                tdR1C1: "Стартовый капитал", tdR1C3: "~$28,000 ($21k чистый остаток)", tdR1C4: "Расходятся в ~$7k невозвратных затрат",
+                tdR2C1: "Выручка (14 дней)", tdR2C3: "~$4,659 ($5,700 brutto)", tdR2C4: "Базовый спрос независим от ИИ",
+                tdR3C1: "Депозит за аренду", tdR3C4: "Удар по ликвидности (>40% бюджета)",
+                tdR4C1: "Остаток средств (Июнь)", tdR4C4: "Потеря 93.8% капитала (Алгоритмический сбой)",
+                failTitle: "«Стена Позора» (Strategic Failures)",
+                fail1: "<strong class=\"text-rose-400\">120 сырых яиц & 10L масла:</strong> Заказаны в кофейню без плиты и кухни (предложила жарить в тостере).",
+                fail2: "<strong class=\"text-rose-400\">22.5 кг томатов (15 банок):</strong> Попытка решить списания свежих томатов.",
+                fail3: "<strong class=\"text-amber-400\">Логистический хаос:</strong> 10 заказов за 48 ч (потеря 1,000 SEK / ~$106 на доставках).",
+                gainsTitle: "Достижения (Strategic Gains)", gainsText: "Обход BankID через выбор Vattenfall, продажа QR-кодов на 9,000 SEK (~$950) и отказ от PhD в пользу опытного бариста Каетана.",
+                bc1Tag: "График 1: Vending-Bench 2 Final Balance", bc1Title: "Финальный баланс за 365 дней ($)",
+                bc2Tag: "График 2: Price Degradation Curve", bc2Title: "Динамика закупочной цены за банку колы ($)",
+                bc3Tag: "График 3: Supplier Fraud Losses", bc3Title: "Потери от предоплат обанкротившимся фирмам ($)",
+                bc4Tag: "График 4: Pion Capital Depletion", bc4Title: "Истощение капитала Andon Café (SEK)",
+                mediaTitle: "Официальные материалы и валидные источники",
+                vid1Title: "Интервью: Аксель Баклунд (Andon Labs)", vid1Desc: "Сооснователь Andon Labs о том, как Mona управляет кофейней в Стокгольме.", vid1Link: "Смотреть на YouTube",
+                vid2Title: "Репортаж: ИИ-менеджер Mona в Стокгольме", vid2Desc: "Обзор работы кофейни, ошибок в закупках и ночных сообщений бариста.", vid2Link: "Смотреть на YouTube",
+                vid3Title: "Анализ: Why The AI Café Failed", vid3Desc: "Разбор системных причин провала Mona и отсутствия Hard Limits.",
+                st1: "Задача 1: Издержки FC/VC", st2: "Задача 2: 4 Правила Hard Limits", st3: "Задача 3: Вывод из -$29k Loss", st4: "Задача 4: Лаборатория vs Реальность",
+                tk1Title: "Задача №1: Издержки неликвидов (FC vs VC) и Сдвиг BEP",
+                tk1P1: "<strong>Условие и контекст кейса:</strong> ИИ-менеджер Mona закупила для кофейни 120 сырых яиц, 10 литров растительного масла, 22.5 кг томатов в банках и 3,000 одноразовых перчаток. В кофейне полностью отсутствует кулинарный цех и плита (есть только тостер и кофемашина).",
+                tk1P2: "<strong>Экономический разбор:</strong> В нормальной ситуации закупка сырья относится к переменным издержкам (VC), так как они напрямую зависят от объема продаж сэндвичей или кофе. Однако, когда товары невозможно использовать в производстве и они списываются из-за порчи или хранения, они превращаются в фиксированный прямой убыток (FC waste). Это увеличивает суммарные постоянные издержки: FC total = FC rent + FC waste.",
+                tk1Q: "Вопрос к группе: Как списание $630 (6,000 SEK) неликвидов сдвигает точку безубыточности (BEP) и сколько дополнительно чашек кофе по маржинальному доходу (Маржа = Цена чашки minus Переменные затраты на чашку = $3.2) нужно продать кофейне только для покрытия этой ошибки?",
+                tk1Lbl: "Введите решение и расчёты вашей группы:", ph1: "Напишите ход ваших рассуждений и итоговый ответ...",
+                tk2Title: "Задача №2: Разработка 4 Жестких Правил (Hard Limits)",
+                tk2P1: "<strong>Условие и контекст кейса:</strong> В процессе работы ИИ-агент Mona совершил серию критических ошибок управления: пропустил 5 дедлайнов оптового заказа выпечки и заказывал экстренную доставку с наценкой +200%, совершил 10 мелких заказов за 48 часов (потеряв $106 на доставках) и писал бариста в Slack в 12 часов ночи.",
+                tk2P2: "<strong>Экономический разбор:</strong> Это явный пример «налога на отсутствие интуиции». Платформа управления Pion требует внедрения системного контроллинга в виде Hard Limits (жестких алгоритмических запретов), которые ИИ не может обойти без согласия человека.",
+                tk2Q: "Вопрос к группе: Сформулируйте 4 конкретных регламентных правила для ИИ-менеджера (по бюджетам, номенклатуре SKU, частоте доставок и этике коммуникации).",
+                tk2Lbl: "Введите 4 правила от вашей группы:", ph2: "1. Правило по лимиту сделки...\n2. Правило по номенклатуре...",
+                tk3Title: "Задача №3: Вывод кофейни из убытка (-$29,000)",
+                tk3P1: "<strong>Условие и контекст кейса:</strong> За 2 месяца работы Andon Café сгенерировала всего $9,000 выручки при операционных расходах в $38,000. Кофейня находится на улице Norrbackagatan 48 в Стокгольме — на рынке с высокой монополистической конкуренцией.",
+                tk3P2: "<strong>Экономический разбор:</strong> Кофе является товаром с высокой эластичностью спроса по цене (Коэффициент эластичности Ed > 1). Попытка ИИ просто поднять цену на 20% приведет к мгновенному уходу клиентов в соседние сетевые кофейни. Для роста общей выручки (Общая выручка TR = Цена P × Количество Q) необходима стратегия неценовой дифференциации.",
+                tk3Q: "Вопрос к группе: Предложите комплексный план неценовой дифференциации и поиска альтернативных источников дохода (Ancillary Revenue) для выхода кофейни в ноль.",
+                tk3Lbl: "Введите стратегический план вашей группы:", ph3: "Предложения по неценовой дифференциации и монетизации...",
+                tk4Title: "Задача №4: Синдром лабораторного теста (Vending-Bench vs Реальное Кафе)",
+                tk4P1: "<strong>Условие и контекст кейса:</strong> В научном бенчмарке Vending-Bench 2 модель GPT-6 Astra показала выдающийся результат — финальный баланс $15,515 за 365 дней, сбив цены поставщиков на 52% и потеряв $0 на мошенниках. Однако та же технология ИИ-управления в реальном Andon Café слила 93.8% стартового капитала за 90 дней.",
+                tk4P2: "<strong>Подробный экономический разбор:</strong> В чем причина такого разрыва? В симуляции Vending-Bench матрица товаров (Slot Matrix) жестко ограничена (только баночные напитки и снеки). Там ИИ работает в идеальной цифровой среде, где переменные издержки VC предсказуемы. В физическом же кафе Mona получила абсолютную свободу закупок без знания кулинарного контекста — и скатилась в галлюцинации (закупая сырые яйца без плиты).",
+                tk4Q: "Вопрос к группе: Почему успехи ИИ в закрытых цифровых симуляторах создают иллюзию готовности к реальному бизнесу и какие риски это несёт для инвесторов?",
+                tk4Lbl: "Введите выводы вашей группы:", ph4: "Выводы о границах применения симуляций и рисках физического ИИ...",
+                simPanelTitle: "Симулятор \"Mona Rescue\"", optMona: "Движок: Mona (Gemini/GPT-5.5)", optAstra: "Движок: GPT-6 Astra (Optimized)",
+                lblPrice: "Цена кофе ($):", lblFc: "Аренда & ФОТ ($ FC/мес):", lblWaste: "Списания неликвидов ($):",
+                lblResBep: "Точка безубыточности (BEP):", lblResProfit: "Прогнозируемый итог:", cupsUnit: "чашек",
+                sc1Title: "1. Кривая Выручки (TR) vs Издержек (TC) и Зона Выручки", sc2Title: "2. Точка Безубыточности (BEP)", sc3Title: "3. Динамика Прибыли / Убытка ($)",
+                lockTitle: "Разгадка Преподавателя", lockDesc: "Введите пароль доступа для показа ответов всей аудитории.", lockPassPh: "Пароль...", lockBtn: "Открыть",
+                solBanner: "<i class=\"fa-solid fa-lock-open mr-2\"></i> Доступ Преподавателя Разблокирован (Пароль: MEE-12072026)",
+                sol1Title: "Эталонный ответ — Задача 1: FC/VC и BEP",
+                sol1Text: "Неликвидные товары (яйца, томаты, 3000 перчаток) за счет порчи переходят из переменной части в списания FC waste. BEP = FC total / (P - VC cup). При росте FC на $630 (6,000 SEK) и маржинальном доходе $3.2 с чашки, точке безубыточности требуется продать дополнительные **197 чашек кофе** в месяц только для покрытия фейлов.",
+                sol2Title: "Эталонный ответ — Задача 2: 4 Правила Hard Limits",
+                sol2List: "<li><strong>Limit 1:</strong> Максимальная сумма единичной автозакупки не более $200.</li><li><strong>Limit 2:</strong> Полный запрет закупок non-food товаров без валидации шеф-повара.</li><li><strong>Limit 3:</strong> Ограничение частоты доставок — не более 1 заказа в день.</li><li><strong>Limit 4:</strong> Запрет отправки сообщений персоналу с 22:00 до 08:00.</li>",
+                sol3Title: "Эталонный ответ — Задача 3: Неценовая дифференциация",
+                sol3Text: "В монополистической конкуренции ценовая эластичность высока. Решение: развитие уникального опыта — продажа брендированного мерча Mona, QR-код чатов с ИИ на стаканчиках и закрытые ивенты для IT-сообщества Стокгольма.",
+                sol4Title: "Эталонный ответ — Задача 4: Vending vs Cafe",
+                sol4Text: "Лабораторный бенчмарк изолирует переменные. В реальном кафе появляется шум открытого мира. ИИ выигрывает в алгоритмической оптимизации, но проигрывает из-за отсутствия физической интуиции.",
                 footerText: "Разработано для студентов специальности «Бизнес-аналитика и экономика» | Курс: Промышленная экономика"
             }
         };
@@ -632,6 +1174,8 @@
 
         let gdpChart, rev1Chart, rev2Chart, rev3Chart;
         let chartSupportMix, chartPolicyGoals, chartTargeting;
+        let vendingChart = null, priceChart = null, fraudChart = null, depletionChart = null;
+        let simChart = null, bepChart = null, profitChart = null;
 
         window.onload = function() {
             initGdpChart();
@@ -647,6 +1191,47 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.remove('hidden');
             document.getElementById('btn-' + tabId).classList.add('active');
+
+            if (tabId === 'tab-andon') {
+                if (!vendingChart) initBenchmarkCharts();
+                if (!simChart) initSimCharts();
+            }
+        }
+
+        function switchAndonSubTab(subId) {
+            document.querySelectorAll('.andon-subcontent').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('#tab-andon .subtab-btn').forEach(b => {
+                b.classList.remove('active', 'bg-slate-800', 'text-blue-400');
+                b.classList.add('text-slate-400');
+            });
+
+            document.getElementById('andon-content-' + subId).classList.remove('hidden');
+            const activeBtn = document.getElementById('subbtn-' + subId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        function switchAndonTask(taskId) {
+            document.querySelectorAll('#andon-content-case .task-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('#andon-content-case .subtab-btn').forEach(b => {
+                b.classList.remove('active', 'bg-slate-800', 'text-blue-400');
+                b.classList.add('text-slate-400');
+            });
+
+            document.getElementById(taskId).classList.remove('hidden');
+            const activeBtn = document.getElementById('subtab-' + taskId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        function unlockSolution() {
+            const pass = document.getElementById('solution-pass-input').value;
+            if (pass === 'MEE-12072026') {
+                document.getElementById('solution-lock-screen').classList.add('hidden');
+                document.getElementById('solution-content').classList.remove('hidden');
+            } else {
+                alert(currentLang === 'ru' ? 'Неверный пароль доступа!' : 'Incorrect access password!');
+            }
         }
 
         function initGdpChart() {
@@ -704,7 +1289,6 @@
             document.getElementById('ford-price').innerText = '$' + Math.round(260 + (hours - 1.5) * (590 / 11));
         }
 
-        // ИНИЦИАЛИЗАЦИЯ ТРЕХ ГРАФИКОВ ДЛЯ ВКЛАДКИ 6 (OECD STRATEGY)
         function initOecdCharts() {
             const ctx1 = document.getElementById('chartSupportMix').getContext('2d');
             chartSupportMix = new Chart(ctx1, {
@@ -731,7 +1315,6 @@
             });
         }
 
-        // ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ СТРАНОВОГО ПОРТФОЛИО
         function updateOecdCountryPortfolio(code) {
             const data = oecdPortfolios[code];
             if (!data) return;
@@ -746,20 +1329,210 @@
             document.getElementById('exp-chart2').innerText = data.exp2[currentLang];
             document.getElementById('exp-chart3').innerText = data.exp3[currentLang];
 
-            // Chart 1 Update
             chartSupportMix.data.labels = currentLang === 'ru' ? ['Прямые гранты', 'Налоговые льготы', 'Фин. инструменты'] : ['Direct Grants', 'Tax Expenditures', 'Financial Instruments'];
             chartSupportMix.data.datasets[0].data = data.mix;
             chartSupportMix.update();
 
-            // Chart 2 Update
             chartPolicyGoals.data.labels = data.goalsLabels[currentLang];
             chartPolicyGoals.data.datasets[0].data = data.goalsData;
             chartPolicyGoals.update();
 
-            // Chart 3 Update
             chartTargeting.data.labels = data.targetLabels[currentLang];
             chartTargeting.data.datasets[0].data = data.targetData;
             chartTargeting.update();
+        }
+
+        // ANDON LABS CHARTS INITIALIZATION & UPDATES
+        function initBenchmarkCharts() {
+            const ctx1 = document.getElementById('vendingBenchChart').getContext('2d');
+            vendingChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: currentLang === 'ru' ? ['Claude Fable 5.1', 'GPT-6 Astra', 'Человек (Эксперт)'] : ['Claude Fable 5.1', 'GPT-6 Astra', 'Human (Expert)'],
+                    datasets: [{
+                        label: currentLang === 'ru' ? 'Финальный Баланс ($)' : 'Final Balance ($)',
+                        data: [5422, 15515, 63000],
+                        backgroundColor: ['rgba(244, 63, 94, 0.85)', 'rgba(59, 130, 246, 0.85)', 'rgba(16, 185, 129, 0.85)'],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { display: false } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            const ctx2 = document.getElementById('priceDegradationChart').getContext('2d');
+            priceChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: currentLang === 'ru' ? ['День 1', 'День 90', 'День 180', 'День 270', 'День 365'] : ['Day 1', 'Day 90', 'Day 180', 'Day 270', 'Day 365'],
+                    datasets: [
+                        { label: currentLang === 'ru' ? 'Claude Fable (Закупка)' : 'Claude Fable (Purchase)', data: [1.17, 1.45, 1.80, 2.05, 2.21], borderColor: '#f43f5e', borderWidth: 2, fill: false },
+                        { label: currentLang === 'ru' ? 'GPT-6 Astra (Закупка)' : 'GPT-6 Astra (Purchase)', data: [1.15, 1.15, 1.14, 1.16, 1.15], borderColor: '#3b82f6', borderWidth: 2, fill: false }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 9 } } } }, scales: { x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            const ctx3 = document.getElementById('fraudLossChart').getContext('2d');
+            fraudChart = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: currentLang === 'ru' ? ['Claude Fable (45 ошибок)', 'GPT-6 Astra (0 ошибок)'] : ['Claude Fable (45 errors)', 'GPT-6 Astra (0 errors)'],
+                    datasets: [{
+                        label: currentLang === 'ru' ? 'Потеряно на мошенниках ($)' : 'Fraud Losses ($)',
+                        data: [14331, 0],
+                        backgroundColor: ['rgba(244, 63, 94, 0.85)', 'rgba(16, 185, 129, 0.85)'],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { display: false } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            const ctx4 = document.getElementById('capitalDepletionChart').getContext('2d');
+            depletionChart = new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: currentLang === 'ru' ? ['Старт (Май)', 'Неделя 2', 'Месяц 2', 'Июнь (Итог)'] : ['Start (May)', 'Week 2', 'Month 2', 'June (End)'],
+                    datasets: [{
+                        label: currentLang === 'ru' ? 'Капитал (SEK)' : 'Capital (SEK)',
+                        data: [300000, 250000, 95000, 18486],
+                        borderColor: '#eab308', backgroundColor: 'rgba(234, 179, 8, 0.1)', fill: true, borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+        }
+
+        function updateBenchmarkChartLabels() {
+            if (!vendingChart) return;
+            vendingChart.data.labels = currentLang === 'ru' ? ['Claude Fable 5.1', 'GPT-6 Astra', 'Человек (Эксперт)'] : ['Claude Fable 5.1', 'GPT-6 Astra', 'Human (Expert)'];
+            vendingChart.data.datasets[0].label = currentLang === 'ru' ? 'Финальный Баланс ($)' : 'Final Balance ($)';
+            vendingChart.update();
+
+            priceChart.data.labels = currentLang === 'ru' ? ['День 1', 'День 90', 'День 180', 'День 270', 'День 365'] : ['Day 1', 'Day 90', 'Day 180', 'Day 270', 'Day 365'];
+            priceChart.data.datasets[0].label = currentLang === 'ru' ? 'Claude Fable (Закупка)' : 'Claude Fable (Purchase)';
+            priceChart.data.datasets[1].label = currentLang === 'ru' ? 'GPT-6 Astra (Закупка)' : 'GPT-6 Astra (Purchase)';
+            priceChart.update();
+
+            fraudChart.data.labels = currentLang === 'ru' ? ['Claude Fable (45 ошибок)', 'GPT-6 Astra (0 ошибок)'] : ['Claude Fable (45 errors)', 'GPT-6 Astra (0 errors)'];
+            fraudChart.data.datasets[0].label = currentLang === 'ru' ? 'Потеряно на мошенниках ($)' : 'Fraud Losses ($)';
+            fraudChart.update();
+
+            depletionChart.data.labels = currentLang === 'ru' ? ['Старт (Май)', 'Неделя 2', 'Месяц 2', 'Июнь (Итог)'] : ['Start (May)', 'Week 2', 'Month 2', 'June (End)'];
+            depletionChart.data.datasets[0].label = currentLang === 'ru' ? 'Капитал (SEK)' : 'Capital (SEK)';
+            depletionChart.update();
+        }
+
+        function initSimCharts() {
+            const ctx1 = document.getElementById('simChart').getContext('2d');
+            simChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['0', '1000', '2000', '3000', '4000', '5000'],
+                    datasets: [
+                        { label: currentLang === 'ru' ? 'Выручка (TR)' : 'Total Revenue (TR)', data: [], borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, borderWidth: 2 },
+                        { label: currentLang === 'ru' ? 'Общие издержки (TC)' : 'Total Cost (TC)', data: [], borderColor: '#f43f5e', borderWidth: 2, fill: false }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 9 } } } }, scales: { x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            const ctx2 = document.getElementById('bepChart').getContext('2d');
+            bepChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: currentLang === 'ru' ? ['Текущий объем', 'Точка BEP'] : ['Current Volume', 'BEP Volume'],
+                    datasets: [{
+                        label: currentLang === 'ru' ? 'Чашки кофе' : 'Coffee Cups',
+                        data: [2000, 0],
+                        backgroundColor: ['rgba(59, 130, 246, 0.85)', 'rgba(245, 158, 11, 0.85)'],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { display: false } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            const ctx3 = document.getElementById('profitChart').getContext('2d');
+            profitChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: ['0', '1000', '2000', '3000', '4000', '5000'],
+                    datasets: [{
+                        label: currentLang === 'ru' ? 'Прибыль / Убыток ($)' : 'Profit / Loss ($)',
+                        data: [],
+                        borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.15)', fill: true, borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+            });
+
+            updateSimulation();
+        }
+
+        function updateSimChartLabels() {
+            if (!simChart) return;
+            simChart.data.datasets[0].label = currentLang === 'ru' ? 'Выручка (TR)' : 'Total Revenue (TR)';
+            simChart.data.datasets[1].label = currentLang === 'ru' ? 'Общие издержки (TC)' : 'Total Cost (TC)';
+            simChart.update();
+
+            bepChart.data.labels = currentLang === 'ru' ? ['Текущий объем', 'Точка BEP'] : ['Current Volume', 'BEP Volume'];
+            bepChart.data.datasets[0].label = currentLang === 'ru' ? 'Чашки кофе' : 'Coffee Cups';
+            bepChart.update();
+
+            profitChart.data.datasets[0].label = currentLang === 'ru' ? 'Прибыль / Убыток ($)' : 'Profit / Loss ($)';
+            profitChart.update();
+        }
+
+        function changeEngine() {
+            const engine = document.getElementById('engine-select').value;
+            const wasteInput = document.getElementById('input-waste');
+            if (engine === 'astra') {
+                wasteInput.value = 500;
+            } else {
+                wasteInput.value = 6000;
+            }
+            updateSimulation();
+        }
+
+        function updateSimulation() {
+            const P = parseFloat(document.getElementById('input-price').value);
+            const FC = parseFloat(document.getElementById('input-fc').value);
+            const Waste = parseFloat(document.getElementById('input-waste').value);
+
+            document.getElementById('val-price').textContent = P.toFixed(1);
+            document.getElementById('val-fc').textContent = FC;
+            document.getElementById('val-waste').textContent = Waste;
+
+            const VC_per_cup = 1.3;
+            const Total_FC = FC + Waste;
+
+            const sales = [0, 1000, 2000, 3000, 4000, 5000];
+            const TR = sales.map(q => q * P);
+            const TC = sales.map(q => Total_FC + (q * VC_per_cup));
+            const Profit = sales.map(q => (q * P) - (Total_FC + (q * VC_per_cup)));
+
+            const bep = Math.round(Total_FC / Math.max(0.1, (P - VC_per_cup)));
+            const estProfit = Math.round((2000 * P) - (Total_FC + (2000 * VC_per_cup)));
+            const cupsUnit = i18n[currentLang].cupsUnit;
+
+            document.getElementById('res-bep').textContent = bep.toLocaleString() + ' ' + cupsUnit;
+            document.getElementById('res-profit').textContent = (estProfit >= 0 ? '+$' : '-$') + Math.abs(estProfit).toLocaleString();
+            document.getElementById('res-profit').className = estProfit >= 0 ? 'font-bold text-emerald-400' : 'font-bold text-rose-400';
+
+            if (simChart) {
+                simChart.data.datasets[0].data = TR;
+                simChart.data.datasets[1].data = TC;
+                simChart.update();
+            }
+
+            if (bepChart) {
+                bepChart.data.datasets[0].data = [2000, bep];
+                bepChart.update();
+            }
+
+            if (profitChart) {
+                profitChart.data.datasets[0].data = Profit;
+                profitChart.update();
+            }
         }
 
         function toggleLanguage() {
@@ -771,6 +1544,8 @@
             document.getElementById('nav-tab3').innerText = l.nav3; document.getElementById('nav-tab4').innerText = l.nav4;
             document.getElementById('nav-tab5').innerText = l.nav5; document.getElementById('nav-tab6').innerText = l.nav6;
             document.getElementById('nav-tab7').innerText = l.nav7; document.getElementById('nav-tab8').innerText = l.nav8;
+            if (document.getElementById('nav-tab9')) document.getElementById('nav-tab9').innerText = l.nav9;
+
             document.getElementById('tab1-title').innerText = l.tab1Title; document.getElementById('tab1-subtitle').innerText = l.tab1Subtitle;
             document.getElementById('year-label').innerText = l.yearLabel; document.getElementById('slider-label').innerText = l.sliderLabel;
             document.getElementById('r1-main-title').innerText = l.r1Title;
@@ -806,8 +1581,123 @@
             if (document.getElementById('vw-sub-title')) document.getElementById('vw-sub-title').innerText = l.vwSubTitle;
             if (document.getElementById('vw-open-btn')) document.getElementById('vw-open-btn').innerText = l.vwOpenBtn;
 
+            // ANDON LABS TRANSLATIONS
+            if (document.getElementById('andon-main-title')) document.getElementById('andon-main-title').innerText = l.andonMainTitle;
+            if (document.getElementById('andon-loc')) document.getElementById('andon-loc').innerText = l.andonLoc;
+            if (document.getElementById('badge-report')) document.getElementById('badge-report').innerText = l.badgeReport;
+            if (document.getElementById('atnav-1')) document.getElementById('atnav-1').innerText = l.atnav1;
+            if (document.getElementById('atnav-2')) document.getElementById('atnav-2').innerText = l.atnav2;
+            if (document.getElementById('atnav-3')) document.getElementById('atnav-3').innerText = l.atnav3;
+            if (document.getElementById('atnav-4')) document.getElementById('atnav-4').innerText = l.atnav4;
+            if (document.getElementById('atnav-5')) document.getElementById('atnav-5').innerText = l.atnav5;
+            if (document.getElementById('atnav-6')) document.getElementById('atnav-6').innerText = l.atnav6;
+
+            if (document.getElementById('t1-tag')) document.getElementById('t1-tag').innerText = l.t1Tag;
+            if (document.getElementById('t1-title')) document.getElementById('t1-title').innerText = l.t1Title;
+            if (document.getElementById('t1-desc')) document.getElementById('t1-desc').innerHTML = l.t1Desc;
+            if (document.getElementById('th-1')) document.getElementById('th-1').innerText = l.th1;
+            if (document.getElementById('th-2')) document.getElementById('th-2').innerText = l.th2;
+            if (document.getElementById('th-3')) document.getElementById('th-3').innerText = l.th3;
+            if (document.getElementById('th-4')) document.getElementById('th-4').innerText = l.th4;
+            if (document.getElementById('td-r1-c1')) document.getElementById('td-r1-c1').innerText = l.tdR1C1;
+            if (document.getElementById('td-r1-c3')) document.getElementById('td-r1-c3').innerText = l.tdR1C3;
+            if (document.getElementById('td-r1-c4')) document.getElementById('td-r1-c4').innerText = l.tdR1C4;
+            if (document.getElementById('td-r2-c1')) document.getElementById('td-r2-c1').innerText = l.tdR2C1;
+            if (document.getElementById('td-r2-c3')) document.getElementById('td-r2-c3').innerText = l.tdR2C3;
+            if (document.getElementById('td-r2-c4')) document.getElementById('td-r2-c4').innerText = l.tdR2C4;
+            if (document.getElementById('td-r3-c1')) document.getElementById('td-r3-c1').innerText = l.tdR3C1;
+            if (document.getElementById('td-r3-c4')) document.getElementById('td-r3-c4').innerText = l.tdR3C4;
+            if (document.getElementById('td-r4-c1')) document.getElementById('td-r4-c1').innerText = l.tdR4C1;
+            if (document.getElementById('td-r4-c4')) document.getElementById('td-r4-c4').innerText = l.tdR4C4;
+            if (document.getElementById('fail-title')) document.getElementById('fail-title').innerText = l.failTitle;
+            if (document.getElementById('fail-1')) document.getElementById('fail-1').innerHTML = l.fail1;
+            if (document.getElementById('fail-2')) document.getElementById('fail-2').innerHTML = l.fail2;
+            if (document.getElementById('fail-3')) document.getElementById('fail-3').innerHTML = l.fail3;
+            if (document.getElementById('gains-title')) document.getElementById('gains-title').innerText = l.gainsTitle;
+            if (document.getElementById('gains-text')) document.getElementById('gains-text').innerText = l.gainsText;
+
+            if (document.getElementById('bc1-tag')) document.getElementById('bc1-tag').innerText = l.bc1Tag;
+            if (document.getElementById('bc1-title')) document.getElementById('bc1-title').innerText = l.bc1Title;
+            if (document.getElementById('bc2-tag')) document.getElementById('bc2-tag').innerText = l.bc2Tag;
+            if (document.getElementById('bc2-title')) document.getElementById('bc2-title').innerText = l.bc2Title;
+            if (document.getElementById('bc3-tag')) document.getElementById('bc3-tag').innerText = l.bc3Tag;
+            if (document.getElementById('bc3-title')) document.getElementById('bc3-title').innerText = l.bc3Title;
+            if (document.getElementById('bc4-tag')) document.getElementById('bc4-tag').innerText = l.bc4Tag;
+            if (document.getElementById('bc4-title')) document.getElementById('bc4-title').innerText = l.bc4Title;
+
+            if (document.getElementById('media-title')) document.getElementById('media-title').innerText = l.mediaTitle;
+            if (document.getElementById('vid1-title')) document.getElementById('vid1-title').innerText = l.vid1Title;
+            if (document.getElementById('vid1-desc')) document.getElementById('vid1-desc').innerText = l.vid1Desc;
+            if (document.getElementById('vid1-link')) document.getElementById('vid1-link').innerText = l.vid1Link;
+            if (document.getElementById('vid2-title')) document.getElementById('vid2-title').innerText = l.vid2Title;
+            if (document.getElementById('vid2-desc')) document.getElementById('vid2-desc').innerText = l.vid2Desc;
+            if (document.getElementById('vid2-link')) document.getElementById('vid2-link').innerText = l.vid2Link;
+            if (document.getElementById('vid3-title')) document.getElementById('vid3-title').innerText = l.vid3Title;
+            if (document.getElementById('vid3-desc')) document.getElementById('vid3-desc').innerText = l.vid3Desc;
+
+            if (document.getElementById('st-1')) document.getElementById('st-1').innerText = l.st1;
+            if (document.getElementById('st-2')) document.getElementById('st-2').innerText = l.st2;
+            if (document.getElementById('st-3')) document.getElementById('st-3').innerText = l.st3;
+            if (document.getElementById('st-4')) document.getElementById('st-4').innerText = l.st4;
+            if (document.getElementById('tk1-title')) document.getElementById('tk1-title').innerText = l.tk1Title;
+            if (document.getElementById('tk1-p1')) document.getElementById('tk1-p1').innerHTML = l.tk1P1;
+            if (document.getElementById('tk1-p2')) document.getElementById('tk1-p2').innerHTML = l.tk1P2;
+            if (document.getElementById('tk1-q')) document.getElementById('tk1-q').innerText = l.tk1Q;
+            if (document.getElementById('tk1-lbl')) document.getElementById('tk1-lbl').innerText = l.tk1Lbl;
+            if (document.getElementById('ans-task-1')) document.getElementById('ans-task-1').placeholder = l.ph1;
+
+            if (document.getElementById('tk2-title')) document.getElementById('tk2-title').innerText = l.tk2Title;
+            if (document.getElementById('tk2-p1')) document.getElementById('tk2-p1').innerHTML = l.tk2P1;
+            if (document.getElementById('tk2-p2')) document.getElementById('tk2-p2').innerHTML = l.tk2P2;
+            if (document.getElementById('tk2-q')) document.getElementById('tk2-q').innerText = l.tk2Q;
+            if (document.getElementById('tk2-lbl')) document.getElementById('tk2-lbl').innerText = l.tk2Lbl;
+            if (document.getElementById('ans-task-2')) document.getElementById('ans-task-2').placeholder = l.ph2;
+
+            if (document.getElementById('tk3-title')) document.getElementById('tk3-title').innerText = l.tk3Title;
+            if (document.getElementById('tk3-p1')) document.getElementById('tk3-p1').innerHTML = l.tk3P1;
+            if (document.getElementById('tk3-p2')) document.getElementById('tk3-p2').innerHTML = l.tk3P2;
+            if (document.getElementById('tk3-q')) document.getElementById('tk3-q').innerText = l.tk3Q;
+            if (document.getElementById('tk3-lbl')) document.getElementById('tk3-lbl').innerText = l.tk3Lbl;
+            if (document.getElementById('ans-task-3')) document.getElementById('ans-task-3').placeholder = l.ph3;
+
+            if (document.getElementById('tk4-title')) document.getElementById('tk4-title').innerText = l.tk4Title;
+            if (document.getElementById('tk4-p1')) document.getElementById('tk4-p1').innerHTML = l.tk4P1;
+            if (document.getElementById('tk4-p2')) document.getElementById('tk4-p2').innerHTML = l.tk4P2;
+            if (document.getElementById('tk4-q')) document.getElementById('tk4-q').innerText = l.tk4Q;
+            if (document.getElementById('tk4-lbl')) document.getElementById('tk4-lbl').innerText = l.tk4Lbl;
+            if (document.getElementById('ans-task-4')) document.getElementById('ans-task-4').placeholder = l.ph4;
+
+            if (document.getElementById('sim-panel-title')) document.getElementById('sim-panel-title').innerText = l.simPanelTitle;
+            if (document.getElementById('opt-mona')) document.getElementById('opt-mona').innerText = l.optMona;
+            if (document.getElementById('opt-astra')) document.getElementById('opt-astra').innerText = l.optAstra;
+            if (document.getElementById('lbl-price')) document.getElementById('lbl-price').innerText = l.lblPrice;
+            if (document.getElementById('lbl-fc')) document.getElementById('lbl-fc').innerText = l.lblFc;
+            if (document.getElementById('lbl-waste')) document.getElementById('lbl-waste').innerText = l.lblWaste;
+            if (document.getElementById('lbl-res-bep')) document.getElementById('lbl-res-bep').innerText = l.lblResBep;
+            if (document.getElementById('lbl-res-profit')) document.getElementById('lbl-res-profit').innerText = l.lblResProfit;
+            if (document.getElementById('sc1-title')) document.getElementById('sc1-title').innerText = l.sc1Title;
+            if (document.getElementById('sc2-title')) document.getElementById('sc2-title').innerText = l.sc2Title;
+            if (document.getElementById('sc3-title')) document.getElementById('sc3-title').innerText = l.sc3Title;
+
+            if (document.getElementById('lock-title')) document.getElementById('lock-title').innerText = l.lockTitle;
+            if (document.getElementById('lock-desc')) document.getElementById('lock-desc').innerText = l.lockDesc;
+            if (document.getElementById('solution-pass-input')) document.getElementById('solution-pass-input').placeholder = l.lockPassPh;
+            if (document.getElementById('lock-btn')) document.getElementById('lock-btn').innerText = l.lockBtn;
+            if (document.getElementById('sol-banner')) document.getElementById('sol-banner').innerHTML = l.solBanner;
+            if (document.getElementById('sol1-title')) document.getElementById('sol1-title').innerText = l.sol1Title;
+            if (document.getElementById('sol1-text')) document.getElementById('sol1-text').innerText = l.sol1Text;
+            if (document.getElementById('sol2-title')) document.getElementById('sol2-title').innerText = l.sol2Title;
+            if (document.getElementById('sol2-list')) document.getElementById('sol2-list').innerHTML = l.sol2List;
+            if (document.getElementById('sol3-title')) document.getElementById('sol3-title').innerText = l.sol3Title;
+            if (document.getElementById('sol3-text')) document.getElementById('sol3-text').innerText = l.sol3Text;
+            if (document.getElementById('sol4-title')) document.getElementById('sol4-title').innerText = l.sol4Title;
+            if (document.getElementById('sol4-text')) document.getElementById('sol4-text').innerText = l.sol4Text;
+
             document.getElementById('footer-text1').innerText = l.footerText;
             updateOecdCountryPortfolio(document.getElementById('country-select').value);
+            updateBenchmarkChartLabels();
+            updateSimChartLabels();
+            updateSimulation();
         }
     </script>
 </body>
