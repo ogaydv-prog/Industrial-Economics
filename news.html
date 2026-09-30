@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fcfbf9; color: #111111; }
@@ -17,25 +17,26 @@
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
 
-        /* FIXED FLIP CARD CONTAINER & TEXT CONTRAST */
+        /* OPTIMIZED FLIP CARD CONTAINER */
         .flip-card { perspective: 1000px; min-height: 520px; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 8px; }
         
-        /* DARK BACK CARD STYLING */
+        /* CONTRAST HIGH-READABILITY BACK CARD STYLING */
         .flip-card-back { 
             transform: rotateY(180deg); 
-            background-color: #1c1917 !important; 
-            color: #f5f5f4 !important; 
+            background-color: #ffffff !important; 
+            border: 2px solid #111111 !important;
+            color: #000000 !important; 
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         
-        .flip-card-back strong { color: #ffffff !important; font-weight: 700; }
-        .flip-card-back p { color: #e7e5e4 !important; margin-bottom: 0.75rem; line-height: 1.6; }
+        .flip-card-back strong { color: #000000 !important; font-weight: 800; }
+        .flip-card-back p { color: #111111 !important; font-weight: 500; margin-bottom: 0.75rem; line-height: 1.6; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
@@ -159,23 +160,23 @@
                         </div>
                     </div>
 
-                    <!-- BACK: ECONOMIC ANALYSIS -->
-                    <div class="flip-card-back p-6 border border-stone-800 rounded-lg">
-                        <div class="flex justify-between items-center border-b border-stone-700 pb-3 mb-4">
-                            <h3 class="text-base font-bold text-brand-red serif" id="analysis-card-title">
+                    <!-- BACK: ECONOMIC ANALYSIS (PURE BLACK TEXT ON WHITE BACKGROUND) -->
+                    <div class="flip-card-back p-6 border-2 border-stone-900 rounded-lg bg-white shadow-inner">
+                        <div class="flex justify-between items-center border-b-2 border-stone-900 pb-3 mb-4">
+                            <h3 class="text-base font-black text-brand-red serif" id="analysis-card-title">
                                 📝 Executive Commentary & Economic Insights
                             </h3>
-                            <button onclick="toggleCardFlip()" class="px-3 py-1 bg-brand-red hover:bg-stone-100 hover:text-stone-900 text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
+                            <button onclick="toggleCardFlip()" class="px-3 py-1 bg-stone-900 hover:bg-brand-red text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
                                 <i class="fa-solid fa-chart-line"></i>
                                 <span id="btn-flip-back">🔙 Back to Visual Chart</span>
                             </button>
                         </div>
                         
-                        <div class="text-stone-200 text-xs sm:text-sm leading-relaxed space-y-3 serif my-auto" id="analysis-card-text">
+                        <div class="text-black text-xs sm:text-sm leading-relaxed space-y-3 serif my-auto font-medium" id="analysis-card-text">
                             <!-- Dynamic text populated by JS -->
                         </div>
                         
-                        <div class="border-t border-stone-800 pt-3 mt-4 text-[11px] text-stone-400 italic">
+                        <div class="border-t border-stone-300 pt-3 mt-4 text-[11px] text-stone-700 font-bold italic">
                             Analysis based on IFR World Robotics 2026 Report & Euronews Economic Desk.
                         </div>
                     </div>
@@ -188,7 +189,7 @@
                 <h4 class="text-xs font-black uppercase tracking-wider text-stone-900 mb-2" id="dash-summary-title">
                     <i class="fa-solid fa-microchip text-brand-red mr-1"></i> Key Takeaway: Industrial Scale vs. Humanoid Reality Check
                 </h4>
-                <p class="text-xs text-stone-700 serif leading-relaxed" id="dash-summary-text">
+                <p class="text-xs text-stone-800 serif leading-relaxed font-medium" id="dash-summary-text">
                     While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B in 2025/2026, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.
                 </p>
             </div>
@@ -210,7 +211,7 @@
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art1-title">
                         Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art1-desc">
+                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art1-desc">
                         Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...
                     </p>
                 </div>
@@ -228,7 +229,7 @@
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art2-title">
                         Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art2-desc">
+                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art2-desc">
                         Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...
                     </p>
                 </div>
@@ -246,7 +247,7 @@
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art3-title">
                         Five million robots now work in factories as the hype around humanoid robots faces a reality check
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art3-desc">
+                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art3-desc">
                         Factory managers across Europe and Asia deploy 600,000 new industrial robots per year, while bipedal humanoid adoption remains constrained by high dexterity costs...
                     </p>
                 </div>
