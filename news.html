@@ -17,12 +17,12 @@
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
 
-        /* FLIP CARD CONTAINER STYLES */
-        .flip-card { perspective: 1000px; min-height: 480px; }
+        /* OPTIMIZED FLIP CARD STYLES FOR NO SCROLLBARS */
+        .flip-card { perspective: 1000px; min-height: 520px; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 8px; }
-        .flip-card-back { transform: rotateY(180deg); background-color: #1c1917; color: #f5f5f4; overflow-y: auto; }
+        .flip-card-back { transform: rotateY(180deg); background-color: #1c1917; color: #f5f5f4; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
@@ -76,7 +76,7 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- FEATURED INTERACTIVE DASHBOARD BLOCK (NEW SECTION) -->
+        <!-- FEATURED INTERACTIVE DASHBOARD BLOCK -->
         <!-- ========================================================= -->
         <section class="mb-12 bg-white border-2 border-stone-900 p-6 rounded-sm shadow-md">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-stone-300 pb-4 mb-6 gap-4">
@@ -141,29 +141,32 @@
                                 <span id="btn-flip-front">🔄 Read Economic Analysis</span>
                             </button>
                         </div>
-                        <div class="relative flex-grow min-h-[360px] w-full bg-white p-3 border border-stone-200 rounded">
+                        <div class="relative flex-grow min-h-[380px] w-full bg-white p-3 border border-stone-200 rounded">
                             <canvas id="activeDashChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- BACK: ECONOMIC ANALYSIS -->
+                    <!-- BACK: ECONOMIC ANALYSIS (FITTED WITHOUT SCROLL) -->
                     <div class="flip-card-back p-6 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center border-b border-stone-700 pb-3 mb-4">
-                                <h3 class="text-base font-bold text-brand-red serif" id="analysis-card-title">
-                                    📝 Executive Commentary & Economic Insights
-                                </h3>
-                                <button onclick="toggleCardFlip()" class="px-3 py-1 bg-brand-red hover:bg-stone-100 hover:text-stone-900 text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
-                                    <i class="fa-solid fa-chart-line"></i>
-                                    <span id="btn-flip-back">🔙 Back to Visual Chart</span>
-                                </button>
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center border-b border-stone-700 pb-3 mb-4">
+                                    <h3 class="text-base font-bold text-brand-red serif" id="analysis-card-title">
+                                        📝 Executive Commentary & Economic Insights
+                                    </h3>
+                                    <button onclick="toggleCardFlip()" class="px-3 py-1 bg-brand-red hover:bg-stone-100 hover:text-stone-900 text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <span id="btn-flip-back">🔙 Back to Visual Chart</span>
+                                    </button>
+                                </div>
+                                <div class="text-stone-200 text-xs sm:text-sm leading-relaxed space-y-3 serif" id="analysis-card-text">
+                                    <!-- Dynamic text populated by JS -->
+                                </div>
                             </div>
-                            <div class="text-stone-300 text-xs sm:text-sm leading-relaxed space-y-3 serif" id="analysis-card-text">
-                                <!-- Dynamic text populated by JS -->
+                            
+                            <div class="border-t border-stone-800 pt-3 mt-4 text-[11px] text-stone-400 italic">
+                                Analysis based on IFR World Robotics 2026 Report & Euronews Economic Desk.
                             </div>
-                        </div>
-                        <div class="border-t border-stone-800 pt-3 mt-4 text-[11px] text-stone-500 italic">
-                            Analysis based on IFR World Robotics 2026 Report & Euronews Economic Desk.
                         </div>
                     </div>
 
