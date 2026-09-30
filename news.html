@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Industrial Economics | Global Industrial News & Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +16,13 @@
         .brand-red { background-color: #e5001c; }
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
+
+        /* FLIP CARD CONTAINER STYLES */
+        .flip-card { perspective: 1000px; min-height: 480px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 8px; }
+        .flip-card-back { transform: rotateY(180deg); background-color: #1c1917; color: #f5f5f4; overflow-y: auto; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
@@ -32,9 +40,13 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
+                <div class="flex items-center space-x-1 border border-stone-300 rounded bg-stone-100 p-0.5 mr-2">
+                    <button onclick="setGlobalLang('en')" id="btn-lang-en" class="px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm">EN</button>
+                    <button onclick="setGlobalLang('ru')" id="btn-lang-ru" class="px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900">RU</button>
+                </div>
                 <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
-                    <span>Main Hub</span>
+                    <span id="lbl-main-hub">Main Hub</span>
                 </a>
                 <div class="border-l border-stone-300 pl-3 ml-1">
                     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
@@ -51,6 +63,8 @@
     </div>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- HEADER BLOCK -->
         <div class="border-b-2 border-stone-900 pb-6 mb-8">
             <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Industrial Sector Intelligence</span>
             <h1 class="text-3xl sm:text-4xl font-black text-stone-900 serif leading-tight">
@@ -61,60 +75,171 @@
             </p>
         </div>
 
-        <!-- СЕТКА НОВОСТЕЙ (3 ключевые индустриальные новости) -->
+        <!-- ========================================================= -->
+        <!-- FEATURED INTERACTIVE DASHBOARD BLOCK (NEW SECTION) -->
+        <!-- ========================================================= -->
+        <section class="mb-12 bg-white border-2 border-stone-900 p-6 rounded-sm shadow-md">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-stone-300 pb-4 mb-6 gap-4">
+                <div>
+                    <span class="inline-block bg-stone-900 text-white text-[10px] font-black uppercase tracking-widest px-2 py-0.5 mb-1.5">
+                        <i class="fa-solid fa-chart-pie mr-1 text-brand-red"></i> Featured Executive Dashboard
+                    </span>
+                    <h2 class="text-2xl font-black text-stone-900 serif" id="dash-main-title">
+                        World Robotics 2026: 5 Million Industrial Robots & Humanoid Feasibility Analysis
+                    </h2>
+                    <p class="text-xs text-stone-600 serif italic mt-1" id="dash-main-sub">
+                        Source: Euronews & International Federation of Robotics (IFR) Report (September 2026)
+                    </p>
+                </div>
+                
+                <!-- DASHBOARD TABS -->
+                <div class="flex flex-wrap gap-1 bg-stone-100 p-1 border border-stone-300 rounded">
+                    <button onclick="switchDashTab('share')" id="tab-btn-share" class="px-3 py-1.5 text-xs font-bold rounded bg-stone-900 text-white shadow-sm">Global Share %</button>
+                    <button onclick="switchDashTab('units')" id="tab-btn-units" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">Deployments (Units)</button>
+                    <button onclick="switchDashTab('growth')" id="tab-btn-growth" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">YoY Growth %</button>
+                    <button onclick="switchDashTab('forecast')" id="tab-btn-forecast" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">IFR Forecast 2029</button>
+                    <button onclick="switchDashTab('invest')" id="tab-btn-invest" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">Humanoids vs Industry</button>
+                </div>
+            </div>
+
+            <!-- KPI SUMMARY STRIP -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-stone-900">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi1-lbl">Global Operational Stock</span>
+                    <span class="text-xl font-black text-stone-900 serif">5,000,000</span>
+                    <span class="text-[11px] text-emerald-700 font-semibold block" id="kpi1-sub">+9% YoY (Historic Record)</span>
+                </div>
+                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-brand-red">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi2-lbl">Annual Installations</span>
+                    <span class="text-xl font-black text-stone-900 serif">600,000+</span>
+                    <span class="text-[11px] text-emerald-700 font-semibold block" id="kpi2-sub">+11% YoY Growth (2025)</span>
+                </div>
+                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-stone-900">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi3-lbl">China Market Share</span>
+                    <span class="text-xl font-black text-stone-900 serif">59.0%</span>
+                    <span class="text-[11px] text-stone-600 font-medium block" id="kpi3-sub">354,000 New Units Installed</span>
+                </div>
+                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-brand-red">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi4-lbl">Humanoids R&D Funding</span>
+                    <span class="text-xl font-black text-stone-900 serif">$3.8 Billion</span>
+                    <span class="text-[11px] text-stone-600 font-medium block" id="kpi4-sub">Vs $18.5B Industrial Market</span>
+                </div>
+            </div>
+
+            <!-- FLIP CARD CONTAINER FOR GRAPH & ANALYSIS -->
+            <div class="flip-card" id="featuredCard">
+                <div class="flip-card-inner">
+                    
+                    <!-- FRONT: CHART -->
+                    <div class="flip-card-front bg-stone-50 border border-stone-300 p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-base font-bold text-stone-900 serif" id="chart-card-title">
+                                1. Global Industrial Robotics Installations Share (%)
+                            </h3>
+                            <button onclick="toggleCardFlip()" class="px-3 py-1 bg-stone-900 hover:bg-brand-red text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5 shadow-sm">
+                                <i class="fa-solid fa-rotate-right"></i>
+                                <span id="btn-flip-front">🔄 Read Economic Analysis</span>
+                            </button>
+                        </div>
+                        <div class="relative flex-grow min-h-[360px] w-full bg-white p-3 border border-stone-200 rounded">
+                            <canvas id="activeDashChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- BACK: ECONOMIC ANALYSIS -->
+                    <div class="flip-card-back p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-stone-700 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-brand-red serif" id="analysis-card-title">
+                                    📝 Executive Commentary & Economic Insights
+                                </h3>
+                                <button onclick="toggleCardFlip()" class="px-3 py-1 bg-brand-red hover:bg-stone-100 hover:text-stone-900 text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <span id="btn-flip-back">🔙 Back to Visual Chart</span>
+                                </button>
+                            </div>
+                            <div class="text-stone-300 text-xs sm:text-sm leading-relaxed space-y-3 serif" id="analysis-card-text">
+                                <!-- Dynamic text populated by JS -->
+                            </div>
+                        </div>
+                        <div class="border-t border-stone-800 pt-3 mt-4 text-[11px] text-stone-500 italic">
+                            Analysis based on IFR World Robotics 2026 Report & Euronews Economic Desk.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- DETAILED INSIGHTS FOOTNOTE -->
+            <div class="mt-6 bg-stone-100 border border-stone-300 p-4 rounded-sm">
+                <h4 class="text-xs font-black uppercase tracking-wider text-stone-900 mb-2" id="dash-summary-title">
+                    <i class="fa-solid fa-microchip text-brand-red mr-1"></i> Key Takeaway: Industrial Scale vs. Humanoid Reality Check
+                </h4>
+                <p class="text-xs text-stone-700 serif leading-relaxed" id="dash-summary-text">
+                    While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B in 2025/2026, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.
+                </p>
+            </div>
+        </section>
+        <!-- ========================================================= -->
+
+
+        <!-- CURATED NEWS GRID (3 PRIMARY ARTICLES) -->
+        <div class="border-t-2 border-stone-900 pt-4 mb-4">
+            <h2 class="text-xl font-black text-stone-900 serif" id="sec-latest-news">Latest Industrial Sector Headlines</h2>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            <!-- Карточка 1: The Guardian (VW Restructuring) -->
+            <!-- Article 1: The Guardian (VW Restructuring) -->
             <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art1-title">
                         Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art1-desc">
                         Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
                     <a href="https://www.theguardian.com/business/2026/aug/25/vw-workers-boo-boss-as-he-urges-them-to-pull-together-amid-job-cuts" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span>Read Full Original Article →</span>
+                        <span class="lbl-read-full">Read Full Original Article →</span>
                     </a>
                 </div>
             </article>
 
-            <!-- Карточка 2: BBC News (Industrial Supply Chains & Tariffs) -->
+            <!-- Article 2: BBC News (Industrial Supply Chains & Tariffs) -->
             <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art2-title">
                         Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art2-desc">
                         Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <!-- Заменена ссылка с XML RSS на разделы новостей BBC Business -->
                     <a href="https://www.bbc.com/news/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span>Read Full Original Article →</span>
+                        <span class="lbl-read-full">Read Full Original Article →</span>
                     </a>
                 </div>
             </article>
 
-            <!-- Карточка 3: Euronews (Eurozone Industrial Output) -->
+            <!-- Article 3: Euronews (Robotics & Manufacturing Output) -->
             <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Eurozone industrial manufacturing output adapts to shifting energy constraints and automation
+                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art3-title">
+                        Five million robots now work in factories as the hype around humanoid robots faces a reality check
                     </h3>
-                    <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Factory managers across the euro zone recalibrate production lines and energy utilization as industrial policy metrics and automation investments evolve...
+                    <p class="text-xs text-stone-600 leading-relaxed mt-2 serif" id="art3-desc">
+                        Factory managers across Europe and Asia deploy 600,000 new industrial robots per year, while bipedal humanoid adoption remains constrained by high dexterity costs...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.euronews.com/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span>Read Full Original Article →</span>
+                    <a href="https://ru.euronews.com/2026/09/29/five-million-robots-now-work-in-factories-as-the-hype-around-humanoid-robots-faces-a-reali" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                        <span class="lbl-read-full">Read Full Original Article →</span>
                     </a>
                 </div>
             </article>
@@ -135,5 +260,211 @@
         </div>
     </footer>
 
+    <!-- DASHBOARD & BILINGUAL LOGIC -->
+    <script>
+        let currentLang = 'en';
+        let currentTab = 'share';
+        let dashChartInstance = null;
+
+        const translations = {
+            en: {
+                mainHub: "Main Hub",
+                dashTitle: "World Robotics 2026: 5 Million Industrial Robots & Humanoid Feasibility Analysis",
+                dashSub: "Source: Euronews & International Federation of Robotics (IFR) Report (September 2026)",
+                kpi1Lbl: "Global Operational Stock", kpi1Sub: "+9% YoY (Historic Record)",
+                kpi2Lbl: "Annual Installations", kpi2Sub: "+11% YoY Growth (2025)",
+                kpi3Lbl: "China Market Share", kpi3Sub: "354,000 New Units Installed",
+                kpi4Lbl: "Humanoids R&D Funding", kpi4Sub: "Vs $18.5B Industrial Market",
+                btnFlipFront: "🔄 Read Economic Analysis",
+                btnFlipBack: "🔙 Back to Visual Chart",
+                secLatestNews: "Latest Industrial Sector Headlines",
+                lblReadFull: "Read Full Original Article →",
+                dashSummaryTitle: "Key Takeaway: Industrial Scale vs. Humanoid Reality Check",
+                dashSummaryText: "While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B in 2025/2026, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.",
+                art1Title: "Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition",
+                art1Desc: "Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...",
+                art2Title: "Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks",
+                art2Desc: "Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...",
+                art3Title: "Five million robots now work in factories as the hype around humanoid robots faces a reality check",
+                art3Desc: "Factory managers across Europe and Asia deploy 600,000 new industrial robots per year, while bipedal humanoid adoption remains constrained by high dexterity costs...",
+                analysisTexts: {
+                    share: "<p><strong>Absolute Dominance of China:</strong> China accounts for 59% of all new industrial robots globally (354,000 units). Domestic Chinese suppliers secured over 55% of their home market (195,000 units). USA holds 6.4% (38,500 units), surpassing Japan (6.0%) for the first time. Germany represents 4.2% globally and 41% of all European Union installations.</p>",
+                    units: "<p><strong>USA Surpasses Japan in New Installs:</strong> The United States moved into 2nd place globally (+12% to 38.5k), edging past Japan (-19% to 36.2k). India demonstrated remarkable long-term growth (CAGR +27% between 2020–2025), deploying 10,500 units. Europe experienced a temporary slowdown: Germany (-8%), Italy (-11%), France (-8%), and Spain (-15%) reduced orders amid automotive sector contraction.</p>",
+                    growth: "<p><strong>Brazil's Automotive Robotics Surge (+38%):</strong> Growth in Brazil was driven by a massive 212% surge in automotive assembly robotics, fueled by investments from Chinese EV manufacturers (BYD, Great Wall). China continues robust expansion (+20%), while mature Asian and European markets undergo cyclical corrections.</p>",
+                    forecast: "<p><strong>Trajectory Towards 800k Units Annually:</strong> IFR projects accelerating automation. Deployments are forecast to rise to 655,000 units in 2026 (+9%) and surpass 806,000 units annually by 2029. Growth drivers include Generative AI, advanced computer vision, and lower integration costs.</p>",
+                    invest: "<p><strong>Reality Check vs Hype:</strong> Although venture investments in humanoid robotics (Tesla Optimus, Boston Dynamics, Figure) reached a record $3.8B, the sector remains under 17% of traditional industrial automation ($18.5B). Humanoids face severe technical hurdles: complex hand dexterity, power consumption, and unit costs prevent them from outperforming dedicated robotic arms on assembly lines.</p>"
+                }
+            },
+            ru: {
+                mainHub: "Главный хаб",
+                dashTitle: "World Robotics 2026: 5 Миллионов роботов и анализ реальности гуманоидов",
+                dashSub: "Источник: Отчет Euronews & International Federation of Robotics (IFR) (Сентябрь 2026)",
+                kpi1Lbl: "Глобальный парк роботов", kpi1Sub: "+9% YoY (Исторический рекорд)",
+                kpi2Lbl: "Установки за год", kpi2Sub: "+11% прирост (2025)",
+                kpi3Lbl: "Доля Китая на рынке", kpi3Sub: "354,000 новых установок",
+                kpi4Lbl: "Инвестиции в гуманоиды", kpi4Sub: "Против $18.5 млрд в пром. роботы",
+                btnFlipFront: "🔄 Читать экономический анализ",
+                btnFlipBack: "🔙 Вернуться к графику",
+                secLatestNews: "Свежие новости промышленного сектора",
+                lblReadFull: "Читать полную статью →",
+                dashSummaryTitle: "Ключевой вывод: Индустриальный масштаб vs Проверка реальностью гуманоидов",
+                dashSummaryText: "Хотя венчурные инвестиции в человекоподобных роботов (Tesla Optimus, Figure, Unitree) достигли $3.8 млрд в 2025/2026 гг., традиционные промышленные манипуляторы составляют свыше 98% объема рынка ($18.5 млрд). Импортозамещение в Китае (55% доля отечественных брендов) и автомобильный бум в Бразилии (+212% роботов в сборке электромобилей) показывают, где сегодня реально достигается рост производительности.",
+                art1Title: "Глава Volkswagen призывает к глубокой реструктуризации заводов на фоне жесткой конкуренции электромобилей из Китая",
+                art1Desc: "Давление на заводы в Вольфсбурге растет: руководство рассматривает сокращение штата для компенсации растущих европейских производственных издержек...",
+                art2Title: "Мировая промышленность сталкивается с тарифным давлением и узкими местами в цепочках поставок",
+                art2Desc: "Промышленные производители в Европе и Северной Америке отслеживают изменения торговой политики, влияющие на сырье и тяжелое машиностроение...",
+                art3Title: "Пять миллионов роботов работают на заводах, пока ажиотаж вокруг гуманоидов сталкивается с реальностью",
+                art3Desc: "Заводы в Европе и Азии устанавливают 600,000 новых промышленных роботов в год, в то время как внедрение гуманоидов сдерживается высокой стоимостью тонкой моторики...",
+                analysisTexts: {
+                    share: "<p><strong>Абсолютное доминирование Китая:</strong> На КНР приходится 59% всех новых промышленных роботов в мире (354,000 ед.). Китайские производители впервые закрепили за собой более 55% собственного внутреннего рынка (195,000 ед.). США занимают 6.4% (38,500 ед.), впервые обогнав Японию (6.0%). Германия обеспечивает 4.2% мировых установок и 41% всех роботов в Европейском Союзе.</p>",
+                    units: "<p><strong>США обогнали Японию по объемам установок:</strong> Соединенные Штаты вышли на 2-е место в мире (+12% до 38.5 тыс.), оттеснив Японию (-19% до 36.2 тыс.). Индия показала феноменальный долгосрочный рост (CAGR +27% за 2020–2025 гг.), установив 10,500 роботов. В Европе фиксируется спад: Германия (-8%), Италия (-11%), Франция (-8%) и Испания (-15%) снизили покупки из-за рецессии автопрома.</p>",
+                    growth: "<p><strong>Аномальный скачок робототехники в Бразилии (+38%):</strong> Прирост в Бразилии вызван гигантским скачком установок в автопроме (+212%), куда активно инвестируют китайские автоконцерны (BYD, Great Wall). Китай продолжает расти высокими темпами (+20%), в то время как традиционные гиганты испытывают коррекцию.</p>",
+                    forecast: "<p><strong>Устойчивый тренд к 800 тыс. роботов в год:</strong> IFR прогнозирует ускорение автоматизации. В 2026 году ожидается рост установок до 655,000 (+9%), а к 2029 году показатель превысит 806,000 роботов ежегодно. Драйверами выступают генеративный ИИ и компьютерное зрение.</p>",
+                    invest: "<p><strong>Реальность против Хайпа:</strong> Хотя венчурные инвестиции в человекоподобных роботов (Tesla Optimus, Boston Dynamics, Figure) достигли $3.8 млрд, этот сектор пока составляет менее 17% от объемов традиционной промышленной автоматизации ($18.5 млрд). Гуманоиды сталкиваются с техническим барьером тонкой моторики кистей и высокой стоимости.</p>"
+                }
+            }
+        };
+
+        function setGlobalLang(lang) {
+            currentLang = lang;
+            document.getElementById('btn-lang-en').className = lang === 'en' ? "px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm" : "px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900";
+            document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm" : "px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900";
+
+            const t = translations[lang];
+            document.getElementById('lbl-main-hub').innerText = t.mainHub;
+            document.getElementById('dash-main-title').innerText = t.dashTitle;
+            document.getElementById('dash-main-sub').innerText = t.dashSub;
+
+            document.getElementById('kpi1-lbl').innerText = t.kpi1Lbl; document.getElementById('kpi1-sub').innerText = t.kpi1Sub;
+            document.getElementById('kpi2-lbl').innerText = t.kpi2Lbl; document.getElementById('kpi2-sub').innerText = t.kpi2Sub;
+            document.getElementById('kpi3-lbl').innerText = t.kpi3Lbl; document.getElementById('kpi3-sub').innerText = t.kpi3Sub;
+            document.getElementById('kpi4-lbl').innerText = t.kpi4Lbl; document.getElementById('kpi4-sub').innerText = t.kpi4Sub;
+
+            document.getElementById('btn-flip-front').innerText = t.btnFlipFront;
+            document.getElementById('btn-flip-back').innerText = t.btnFlipBack;
+
+            document.getElementById('sec-latest-news').innerText = t.secLatestNews;
+            document.querySelectorAll('.lbl-read-full').forEach(el => el.innerText = t.lblReadFull);
+
+            document.getElementById('dash-summary-title').innerHTML = `<i class="fa-solid fa-microchip text-brand-red mr-1"></i> ${t.dashSummaryTitle}`;
+            document.getElementById('dash-summary-text').innerText = t.dashSummaryText;
+
+            document.getElementById('art1-title').innerText = t.art1Title; document.getElementById('art1-desc').innerText = t.art1Desc;
+            document.getElementById('art2-title').innerText = t.art2Title; document.getElementById('art2-desc').innerText = t.art2Desc;
+            document.getElementById('art3-title').innerText = t.art3Title; document.getElementById('art3-desc').innerText = t.art3Desc;
+
+            renderActiveChart();
+        }
+
+        function toggleCardFlip() {
+            document.getElementById('featuredCard').classList.toggle('flipped');
+        }
+
+        function switchDashTab(tabKey) {
+            currentTab = tabKey;
+            ['share', 'units', 'growth', 'forecast', 'invest'].forEach(k => {
+                const btn = document.getElementById(`tab-btn-${k}`);
+                if (k === tabKey) {
+                    btn.className = "px-3 py-1.5 text-xs font-bold rounded bg-stone-900 text-white shadow-sm";
+                } else {
+                    btn.className = "px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded";
+                }
+            });
+            renderActiveChart();
+        }
+
+        function renderActiveChart() {
+            if (dashChartInstance) dashChartInstance.destroy();
+            const ctx = document.getElementById('activeDashChart').getContext('2d');
+            const isRu = currentLang === 'ru';
+            const t = translations[currentLang];
+
+            // Update analysis text on flip card back
+            document.getElementById('analysis-card-text').innerHTML = t.analysisTexts[currentTab];
+
+            if (currentTab === 'share') {
+                document.getElementById('chart-card-title').innerText = isRu ? "1. Распределение мировых установок роботов (%)" : "1. Global Industrial Robotics Installations Share (%)";
+                dashChartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['China (59.0%)', 'USA (6.4%)', 'Japan (6.0%)', 'South Korea (5.0%)', 'Germany (4.2%)', 'India (1.75%)', 'Rest of World (17.65%)'],
+                        datasets: [{
+                            data: [59.0, 6.4, 6.0, 5.0, 4.2, 1.75, 17.65],
+                            backgroundColor: ['#e5001c', '#1c1917', '#d97706', '#059669', '#2563eb', '#db2777', '#78716c']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            } 
+            else if (currentTab === 'units') {
+                document.getElementById('chart-card-title').innerText = isRu ? "2. Установки роботов по странам (тыс. единиц, 2025)" : "2. Industrial Robot Deployments by Country (k Units, 2025)";
+                dashChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['China', 'USA', 'Japan', 'South Korea', 'Germany', 'India', 'Italy', 'Mexico', 'France', 'Brazil'],
+                        datasets: [{
+                            label: isRu ? 'Установки 2025 (тыс. ед.)' : 'Deployments 2025 (k units)',
+                            data: [354.0, 38.5, 36.2, 30.0, 25.0, 10.5, 7.8, 5.2, 4.5, 4.3],
+                            backgroundColor: '#e5001c'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            else if (currentTab === 'growth') {
+                document.getElementById('chart-card-title').innerText = isRu ? "3. Динамика прироста рынка по странам (% YoY)" : "3. Industrial Robotics Market YoY Growth (%)";
+                dashChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Brazil', 'China', 'India', 'USA', 'Canada', 'South Korea', 'Mexico', 'Germany', 'France', 'Italy', 'Spain', 'Japan'],
+                        datasets: [{
+                            label: '% YoY Growth',
+                            data: [38, 20, 15, 12, 5, -1, -7, -8, -8, -11, -15, -19],
+                            backgroundColor: (ctx) => ctx.raw >= 0 ? '#059669' : '#e5001c'
+                        }]
+                    },
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            else if (currentTab === 'forecast') {
+                document.getElementById('chart-card-title').innerText = isRu ? "4. Прогноз ежегодных установок IFR до 2029 года (тыс. ед.)" : "4. IFR Annual Installation Forecast to 2029 (k Units)";
+                dashChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2024', '2025', '2026 (F)', '2027 (F)', '2028 (F)', '2029 (F)'],
+                        datasets: [{
+                            label: isRu ? 'Ежегодные установки (тыс. ед.)' : 'Annual Deployments (k units)',
+                            data: [541, 600, 655, 705, 755, 806],
+                            borderColor: '#e5001c',
+                            backgroundColor: 'rgba(229, 0, 28, 0.1)',
+                            fill: true, tension: 0.3, borderWidth: 3
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+            else if (currentTab === 'invest') {
+                document.getElementById('chart-card-title').innerText = isRu ? "5. Сравнение объема рынка: Пром. Автоматизация vs Гуманоиды ($ млрд)" : "5. Market Size: Traditional Industrial Automation vs Humanoids ($B)";
+                dashChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            isRu ? 'Традиционная пром. автоматизация ($18.5B)' : 'Traditional Industrial Automation ($18.5B)',
+                            isRu ? 'Антропоморфные гуманоиды ($3.8B)' : 'Humanoid Robotics R&D ($3.8B)'
+                        ],
+                        datasets: [{
+                            data: [18.5, 3.8],
+                            backgroundColor: ['#1c1917', '#e5001c']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        window.onload = function() {
+            setGlobalLang('en');
+        };
+    </script>
 </body>
 </html>
