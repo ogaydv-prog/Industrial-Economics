@@ -55,8 +55,8 @@
             gap: 16px;
         }
 
-        /* Встроенный SVG логотип VW в шапке (работает без внешних PNG) */
-        .vw-logo-img {
+        /* Встроенный SVG Логотип VW */
+        .vw-logo {
             width: 48px;
             height: 48px;
             filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
@@ -160,7 +160,7 @@
             font-weight: bold;
         }
 
-        /* VOLKSWAGEN CUSTOM SLIDERS & KNOBS (Крупные ручки КПП с логотипом VW) */
+        /* СТИЛИЗАЦИЯ ПОЛЗУНКОВ ПОД ЗНАЧКИ VOLKSWAGEN */
         input[type=range] {
             -webkit-appearance: none !important;
             -moz-appearance: none !important;
@@ -169,7 +169,7 @@
             background: transparent;
         }
         input[type=range]:focus { outline: none; }
-        
+
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
             height: 8px;
@@ -180,41 +180,32 @@
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Увеличенные круглые ручки-значки VW (34px) */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none !important;
-            height: 34px !important;
-            width: 34px !important;
+            height: 26px !important;
+            width: 26px !important;
             border-radius: 50% !important;
-            background-color: #001e50 !important;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' stroke='%2393c5fd' stroke-width='6' fill='none'/><path d='M28 32L41 68H46L35 32H28Z' fill='%23ffffff'/><path d='M72 32L59 68H54L65 32H72Z' fill='%23ffffff'/><path d='M42 32L50 55L58 32H65L53 68H47L35 32H42Z' fill='%23ffffff'/><path d='M50 63L43 80H57L50 63Z' fill='%23ffffff'/></svg>") !important;
-            background-size: 75% 75% !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            border: 2px solid #60a5fa !important;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
+            border: 2px solid #93c5fd !important;
             cursor: pointer;
-            margin-top: -13px !important;
-            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9), 0 2px 6px rgba(0,0,0,0.8) !important;
+            margin-top: -9px !important;
+            box-shadow: 0 0 10px rgba(0, 91, 150, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         input[type=range]::-webkit-slider-thumb:hover {
             transform: scale(1.12);
-            box-shadow: 0 0 18px rgba(96, 165, 250, 1), 0 3px 10px rgba(0,0,0,0.9) !important;
+            box-shadow: 0 0 14px rgba(59, 130, 246, 0.9), inset 0 1px 2px rgba(255, 255, 255, 1) !important;
         }
 
         input[type=range]::-moz-range-thumb {
-            height: 34px !important;
-            width: 34px !important;
+            height: 26px !important;
+            width: 26px !important;
             border-radius: 50% !important;
-            background-color: #001e50 !important;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' stroke='%2393c5fd' stroke-width='6' fill='none'/><path d='M28 32L41 68H46L35 32H28Z' fill='%23ffffff'/><path d='M72 32L59 68H54L65 32H72Z' fill='%23ffffff'/><path d='M42 32L50 55L58 32H65L53 68H47L35 32H42Z' fill='%23ffffff'/><path d='M50 63L43 80H57L50 63Z' fill='%23ffffff'/></svg>") !important;
-            background-size: 75% 75% !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            border: 2px solid #60a5fa !important;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
+            border: 2px solid #93c5fd !important;
             cursor: pointer;
-            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9) !important;
+            box-shadow: 0 0 10px rgba(0, 91, 150, 0.8) !important;
         }
 
         /* MAIN CONTENT AREA */
@@ -430,7 +421,6 @@
             text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
         }
 
-        /* ANALYSIS BOX */
         .analysis-card {
             width: 100%;
             background: var(--panel-bg);
@@ -468,8 +458,8 @@
 
     <header>
         <div class="header-brand">
-            <!-- Встроенный SVG логотип Volkswagen (гарантированная отрисовка) -->
-            <svg class="vw-logo-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Встроенный SVG логотип Volkswagen -->
+            <svg class="vw-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="46" stroke="#93c5fd" stroke-width="5"/>
                 <circle cx="50" cy="50" r="40" stroke="#005b96" stroke-width="3"/>
                 <path d="M28 32L41 68H46L35 32H28Z" fill="#ffffff"/>
@@ -669,13 +659,11 @@
     </div>
 
     <script>
-        // Global Chart Defaults
         Chart.defaults.color = '#9ca3af';
         Chart.defaults.borderColor = '#232733';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
         let charts = {};
-
         const years = ['2026', '2027', '2028', '2029', '2030'];
 
         function initCharts() {
@@ -794,7 +782,6 @@
         }
 
         function calculateModel() {
-            // Read Slider Values
             const jobsCut = parseInt(document.getElementById('s-jobs').value);
             const plantsClosed = parseInt(document.getElementById('s-plants').value);
             const modelsCut = parseInt(document.getElementById('s-models').value);
@@ -804,7 +791,6 @@
             const ecoIndex = parseInt(document.getElementById('s-eco').value);
             const aiLevel = parseInt(document.getElementById('s-ai').value);
 
-            // Update UI Labels
             document.getElementById('v-jobs').innerText = jobsCut + 'k staff';
             document.getElementById('v-plants').innerText = plantsClosed + ' plants';
             document.getElementById('v-models').innerText = '-' + modelsCut + '%';
@@ -815,7 +801,6 @@
             const aiText = ['Low', 'Moderate', 'High', 'Aggressive', 'Full AI Integration'];
             document.getElementById('v-ai').innerText = aiText[aiLevel - 1];
 
-            // Simulation Math Arrays
             let dataFinanceMargin = [], dataFinanceProfit = [];
             let dataCapCapacity = [], dataCapSales = [];
             let dataSocialJobs = [], dataSocialConflict = [];
@@ -824,9 +809,8 @@
             let dataEsgPenalties = [], dataEsgInvest = [];
 
             for (let i = 0; i < 5; i++) {
-                let t = i / 4; // timeline 0 to 1
+                let t = i / 4;
 
-                // 1. Finance Calculations
                 let savingsFromJobs = (jobsCut * 0.08) * t; 
                 let savingsFromPlants = (plantsClosed * 0.6) * t;
                 let savingsFromLineup = (modelsCut * 0.04) * t;
@@ -844,19 +828,16 @@
                 dataFinanceMargin.push(currentMargin.toFixed(2));
                 dataFinanceProfit.push(currentProfit);
 
-                // 2. Capacity Calculations
                 let baseCap = 10.0 - (plantsClosed * 0.25 * t);
                 let baseSales = 8.5 + (chinaTrend * 0.03 * t) - (modelsCut * 0.01 * t);
                 dataCapCapacity.push(baseCap.toFixed(2));
                 dataCapSales.push(baseSales.toFixed(2));
 
-                // 3. Social Calculations
                 let currentJobs = 657 - (jobsCut * t);
                 let conflictLevel = Math.min(100, Math.max(10, (jobsCut * 0.8) + (plantsClosed * 12) - (currentMargin * 3)));
                 dataSocialJobs.push(currentJobs.toFixed(0));
                 dataSocialConflict.push(conflictLevel.toFixed(0));
 
-                // 4. Markets
                 let chinaVol = Math.max(1.0, 2.6 * (1 + (chinaTrend/100) * t));
                 let europeVol = 3.2 - (tariffs * 0.02);
                 let usaVol = 1.4 - (tariffs * 0.05);
@@ -866,19 +847,16 @@
                 dataUSA.push(usaVol.toFixed(2));
                 dataRow.push(rowVol.toFixed(2));
 
-                // 5. Lineup
                 let currentBev = Math.min(90, 20 + (bevShare - 20) * (t + 0.1));
                 dataBev.push(currentBev.toFixed(1));
                 dataIce.push((100 - currentBev).toFixed(1));
 
-                // 6. ESG
                 let penalties = Math.max(0.2, (ecoIndex * 0.5) - (currentBev * 0.04)).toFixed(2);
                 let invest = (2.0 + (bevShare * 0.05) + (aiLevel * 0.2)).toFixed(2);
                 dataEsgPenalties.push(penalties);
                 dataEsgInvest.push(invest);
             }
 
-            // Update Charts
             charts.finance.data.datasets[0].data = dataFinanceMargin;
             charts.finance.data.datasets[1].data = dataFinanceProfit;
             charts.finance.update();
@@ -901,7 +879,6 @@
             charts.lineup.data.datasets[1].data = dataIce;
             charts.lineup.update();
 
-            // Update Gauge & Needle
             charts.gauge.data.datasets[0].data = [bevShare, 100 - bevShare];
             charts.gauge.update();
             
@@ -913,7 +890,6 @@
             charts.esg.data.datasets[1].data = dataEsgInvest;
             charts.esg.update();
 
-            // Narrative Text Output
             updateNarrative(dataFinanceMargin[4], jobsCut, plantsClosed, chinaTrend, tariffs, dataSocialConflict[4]);
         }
 
@@ -947,7 +923,6 @@
             event.target.classList.add('active');
         }
 
-        // Event Listeners
         document.querySelectorAll('input[type=range]').forEach(s => {
             s.addEventListener('input', calculateModel);
         });
@@ -957,7 +932,6 @@
             calculateModel();
         };
 
-        // ПРИЕМ ПАРАМЕТРОВ ОТ ГЛАВНОГО ОКНА (case_p4.js)
         window.applyPresetParams = function(params, focusTab) {
             if (!params) return;
             if (params.jobs !== undefined) document.getElementById('s-jobs').value = params.jobs;
