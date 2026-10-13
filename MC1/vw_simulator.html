@@ -55,11 +55,10 @@
             gap: 16px;
         }
 
-        /* Загружаемый локальный логотип VW */
+        /* Встроенный SVG логотип VW в шапке (работает без внешних PNG) */
         .vw-logo-img {
             width: 48px;
             height: 48px;
-            object-fit: contain;
             filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
         }
 
@@ -150,7 +149,6 @@
             color: var(--text-main);
         }
 
-        /* Color classes for controls */
         .color-red { color: var(--accent-red) !important; }
         .color-green { color: var(--accent-green) !important; }
         .color-blue { color: var(--accent-blue) !important; }
@@ -162,9 +160,11 @@
             font-weight: bold;
         }
 
-        /* VOLKSWAGEN CUSTOM SLIDERS & KNOBS */
+        /* VOLKSWAGEN CUSTOM SLIDERS & KNOBS (Крупные ручки КПП с логотипом VW) */
         input[type=range] {
-            -webkit-appearance: none;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
             width: 100%;
             background: transparent;
         }
@@ -174,30 +174,47 @@
             width: 100%;
             height: 8px;
             cursor: pointer;
-            background: #10141e;
+            background: #10141e !important;
             border-radius: 4px;
-            border: 1px solid #232a3b;
+            border: 1px solid #232a3b !important;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Фирменный фольксвагеновский круглый значок-шарик на слайдере */
+        /* Увеличенные круглые ручки-значки VW (34px) */
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 26px;
-            width: 26px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%);
-            border: 2px solid #93c5fd;
+            -webkit-appearance: none !important;
+            height: 34px !important;
+            width: 34px !important;
+            border-radius: 50% !important;
+            background-color: #001e50 !important;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' stroke='%2393c5fd' stroke-width='6' fill='none'/><path d='M28 32L41 68H46L35 32H28Z' fill='%23ffffff'/><path d='M72 32L59 68H54L65 32H72Z' fill='%23ffffff'/><path d='M42 32L50 55L58 32H65L53 68H47L35 32H42Z' fill='%23ffffff'/><path d='M50 63L43 80H57L50 63Z' fill='%23ffffff'/></svg>") !important;
+            background-size: 75% 75% !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border: 2px solid #60a5fa !important;
             cursor: pointer;
-            margin-top: -9px;
-            box-shadow: 0 0 10px rgba(0, 91, 150, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.8);
-            position: relative;
+            margin-top: -13px !important;
+            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9), 0 2px 6px rgba(0,0,0,0.8) !important;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         input[type=range]::-webkit-slider-thumb:hover {
             transform: scale(1.12);
-            box-shadow: 0 0 14px rgba(59, 130, 246, 0.9), inset 0 1px 2px rgba(255, 255, 255, 1);
+            box-shadow: 0 0 18px rgba(96, 165, 250, 1), 0 3px 10px rgba(0,0,0,0.9) !important;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            height: 34px !important;
+            width: 34px !important;
+            border-radius: 50% !important;
+            background-color: #001e50 !important;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' stroke='%2393c5fd' stroke-width='6' fill='none'/><path d='M28 32L41 68H46L35 32H28Z' fill='%23ffffff'/><path d='M72 32L59 68H54L65 32H72Z' fill='%23ffffff'/><path d='M42 32L50 55L58 32H65L53 68H47L35 32H42Z' fill='%23ffffff'/><path d='M50 63L43 80H57L50 63Z' fill='%23ffffff'/></svg>") !important;
+            background-size: 75% 75% !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border: 2px solid #60a5fa !important;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9) !important;
         }
 
         /* MAIN CONTENT AREA */
@@ -451,8 +468,15 @@
 
     <header>
         <div class="header-brand">
-            <!-- Официальный загружаемый логотип Volkswagen из папки MC1/ -->
-            <img src="vw-logo.png" alt="Volkswagen AG" class="vw-logo-img">
+            <!-- Встроенный SVG логотип Volkswagen (гарантированная отрисовка) -->
+            <svg class="vw-logo-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="46" stroke="#93c5fd" stroke-width="5"/>
+                <circle cx="50" cy="50" r="40" stroke="#005b96" stroke-width="3"/>
+                <path d="M28 32L41 68H46L35 32H28Z" fill="#ffffff"/>
+                <path d="M72 32L59 68H54L65 32H72Z" fill="#ffffff"/>
+                <path d="M42 32L50 55L58 32H65L53 68H47L35 32H42Z" fill="#ffffff"/>
+                <path d="M50 63L43 80H57L50 63Z" fill="#ffffff"/>
+            </svg>
             <div class="header-title">
                 <h1>Volkswagen AG — Strategic Industrial Simulator (2026–2030)</h1>
                 <p>Macroeconomic Transformation, Cost Structure & Industrial Policy Modeling (BMWK / Lower Saxony Framework)</p>
@@ -463,7 +487,7 @@
 
     <div class="container">
         <div class="dashboard-body">
-            <!-- SIDEBAR CONTROLS (Все слайдеры по умолчанию в крайнем левом положении value=min) -->
+            <!-- SIDEBAR CONTROLS -->
             <div class="sidebar">
                 <div class="sidebar-header-blue">Restructuring Parameters</div>
 
