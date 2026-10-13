@@ -1,6 +1,6 @@
 /**
  * Industrial Economics • Case Study P4 Module (Volkswagen AG Simulator)
- * Personalised Case Tasks for AlmaU SDTE 2026 Students
+ * Personalised Case Tasks & Slider Audit Engine for AlmaU SDTE 2026
  */
 
 const CASE_STUDENTS_DATA = [
@@ -122,5 +122,31 @@ function renderCaseP4(studentIdx, lang = 'en') {
                 console.log("Iframe preset initialization:", e);
             }
         };
+    }
+}
+
+/**
+ * Audit Helper: Extracts current active slider states from the iframe
+ * Returns a score from 0 to 20 for grading_ai_engine.js
+ */
+function p4_getSliderScore() {
+    try {
+        const iframe = document.getElementById('vw-simulator-iframe');
+        if (!iframe || !iframe.contentWindow) return 15;
+
+        const doc = iframe.contentWindow.document;
+        if (!doc) return 15;
+
+        const jobs = parseInt(doc.getElementById('s-jobs')?.value || 0);
+        const plants = parseInt(doc.getElementById('s-plants')?.value || 0);
+        const bev = parseInt(doc.getElementById('s-bev')?.value || 35);
+
+        let score = 10;
+        if (jobs > 0 || plants > 0) score += 5;
+        if (bev !== 35) score += 5;
+
+        return Math.min(20, score);
+    } catch (e) {
+        return 15;
     }
 }
