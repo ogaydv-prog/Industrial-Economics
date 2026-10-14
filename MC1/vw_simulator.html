@@ -55,11 +55,11 @@
             gap: 16px;
         }
 
-        /* Встроенный SVG Логотип VW */
         .vw-logo {
-            width: 48px;
-            height: 48px;
-            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.8));
         }
 
         .header-title h1 {
@@ -160,7 +160,7 @@
             font-weight: bold;
         }
 
-        /* СТИЛИЗАЦИЯ ПОЛЗУНКОВ ПОД ЗНАЧКИ VOLKSWAGEN */
+        /* СТИЛИЗАЦИЯ ПОЛЗУНКОВ ПОД КАРТИНКУ vw-logo.png */
         input[type=range] {
             -webkit-appearance: none !important;
             -moz-appearance: none !important;
@@ -180,32 +180,41 @@
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
         }
 
+        /* КРУГЛАЯ РУЧКА C ЛОГОТИПОМ VW ИЗ ФАЙЛА vw-logo.png */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none !important;
-            height: 26px !important;
-            width: 26px !important;
+            height: 32px !important;
+            width: 32px !important;
             border-radius: 50% !important;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
-            border: 2px solid #93c5fd !important;
+            background-color: #001e50 !important;
+            background-image: url('vw-logo.png') !important;
+            background-size: contain !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border: 2px solid #60a5fa !important;
             cursor: pointer;
-            margin-top: -9px !important;
-            box-shadow: 0 0 10px rgba(0, 91, 150, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+            margin-top: -12px !important;
+            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9), 0 2px 6px rgba(0,0,0,0.8) !important;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.12);
-            box-shadow: 0 0 14px rgba(59, 130, 246, 0.9), inset 0 1px 2px rgba(255, 255, 255, 1) !important;
+            transform: scale(1.15);
+            box-shadow: 0 0 16px rgba(96, 165, 250, 1), 0 3px 8px rgba(0,0,0,0.9) !important;
         }
 
         input[type=range]::-moz-range-thumb {
-            height: 26px !important;
-            width: 26px !important;
+            height: 32px !important;
+            width: 32px !important;
             border-radius: 50% !important;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
-            border: 2px solid #93c5fd !important;
+            background-color: #001e50 !important;
+            background-image: url('vw-logo.png') !important;
+            background-size: contain !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border: 2px solid #60a5fa !important;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 91, 150, 0.8) !important;
+            box-shadow: 0 0 12px rgba(0, 91, 150, 0.9) !important;
         }
 
         /* MAIN CONTENT AREA */
@@ -458,15 +467,8 @@
 
     <header>
         <div class="header-brand">
-            <!-- Встроенный SVG логотип Volkswagen -->
-            <svg class="vw-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="46" stroke="#93c5fd" stroke-width="5"/>
-                <circle cx="50" cy="50" r="40" stroke="#005b96" stroke-width="3"/>
-                <path d="M28 32L41 68H46L35 32H28Z" fill="#ffffff"/>
-                <path d="M72 32L59 68H54L65 32H72Z" fill="#ffffff"/>
-                <path d="M42 32L50 55L58 32H65L53 68H47L35 32H42Z" fill="#ffffff"/>
-                <path d="M50 63L43 80H57L50 63Z" fill="#ffffff"/>
-            </svg>
+            <!-- ПРЯМАЯ ССЫЛКА НА ФАЙЛ Картинки ЛОГОТИПА -->
+            <img class="vw-logo" src="vw-logo.png" alt="Volkswagen Logo">
             <div class="header-title">
                 <h1>Volkswagen AG — Strategic Industrial Simulator (2026–2030)</h1>
                 <p>Macroeconomic Transformation, Cost Structure & Industrial Policy Modeling (BMWK / Lower Saxony Framework)</p>
@@ -508,9 +510,9 @@
                 <div class="control-group">
                     <div class="control-label color-green">
                         <span>BEV Share (Electric Vehicles)</span>
-                        <span class="control-value color-green" id="v-bev">10%</span>
+                        <span class="control-value color-green" id="v-bev">35%</span>
                     </div>
-                    <input type="range" id="s-bev" min="10" max="80" step="5" value="10">
+                    <input type="range" id="s-bev" min="10" max="80" step="5" value="35">
                 </div>
 
                 <div class="sidebar-header-red">External Inputs & Markets</div>
@@ -518,33 +520,33 @@
                 <div class="control-group">
                     <div class="control-label color-blue">
                         <span>China Sales Trend</span>
-                        <span class="control-value color-blue" id="v-china">-30%</span>
+                        <span class="control-value color-blue" id="v-china">-20%</span>
                     </div>
-                    <input type="range" id="s-china" min="-30" max="10" step="5" value="-30">
+                    <input type="range" id="s-china" min="-30" max="10" step="5" value="-20">
                 </div>
 
                 <div class="control-group">
                     <div class="control-label color-red">
                         <span>Trade Tariffs & Duties</span>
-                        <span class="control-value color-red" id="v-tariffs">€0B</span>
+                        <span class="control-value color-red" id="v-tariffs">€4B</span>
                     </div>
-                    <input type="range" id="s-tariffs" min="0" max="10" step="1" value="0">
+                    <input type="range" id="s-tariffs" min="0" max="10" step="1" value="4">
                 </div>
 
                 <div class="control-group">
                     <div class="control-label color-green">
                         <span>Eco-Regulations & CO2 (BMWK)</span>
-                        <span class="control-value color-green" id="v-eco">Index 1</span>
+                        <span class="control-value color-green" id="v-eco">Index 5</span>
                     </div>
-                    <input type="range" id="s-eco" min="1" max="10" step="1" value="1">
+                    <input type="range" id="s-eco" min="1" max="10" step="1" value="5">
                 </div>
 
                 <div class="control-group">
                     <div class="control-label color-purple">
                         <span>AI Efficiency & Optimization</span>
-                        <span class="control-value color-purple" id="v-ai">Low</span>
+                        <span class="control-value color-purple" id="v-ai">Moderate</span>
                     </div>
-                    <input type="range" id="s-ai" min="1" max="5" step="1" value="1">
+                    <input type="range" id="s-ai" min="1" max="5" step="1" value="2">
                 </div>
             </div>
 
@@ -635,7 +637,7 @@
                                     <span class="tick-label tick-100">100%</span>
                                 </div>
                             </div>
-                            <div class="gauge-value-box" id="gaugeVal">10% BEV</div>
+                            <div class="gauge-value-box" id="gaugeVal">35% BEV</div>
                         </div>
                     </div>
                 </div>
@@ -667,7 +669,6 @@
         const years = ['2026', '2027', '2028', '2029', '2030'];
 
         function initCharts() {
-            // 1. Finance Chart
             charts.finance = new Chart(document.getElementById('chartFinance'), {
                 type: 'line',
                 data: {
@@ -686,7 +687,6 @@
                 }
             });
 
-            // 2. Capacity Chart
             charts.capacity = new Chart(document.getElementById('chartCapacity'), {
                 type: 'bar',
                 data: {
@@ -699,7 +699,6 @@
                 options: { responsive: true, maintainAspectRatio: false }
             });
 
-            // 3. Social Chart
             charts.social = new Chart(document.getElementById('chartSocial'), {
                 type: 'line',
                 data: {
@@ -718,7 +717,6 @@
                 }
             });
 
-            // 4. Markets Chart
             charts.markets = new Chart(document.getElementById('chartMarkets'), {
                 type: 'bar',
                 data: {
@@ -733,7 +731,6 @@
                 options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
             });
 
-            // 5. Lineup Chart
             charts.lineup = new Chart(document.getElementById('chartLineup'), {
                 type: 'line',
                 data: {
@@ -746,13 +743,12 @@
                 options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 100, title: { display: true, text: '% of Total Portfolio' } } } }
             });
 
-            // 5b. Gauge Speedometer Chart
             charts.gauge = new Chart(document.getElementById('chartGauge'), {
                 type: 'doughnut',
                 data: {
                     labels: ['BEV (Electric)', 'ICE (Traditional)'],
                     datasets: [{
-                        data: [10, 90],
+                        data: [35, 65],
                         backgroundColor: ['#00ff88', '#ff2e55'],
                         borderWidth: 0,
                         circumference: 180,
@@ -767,7 +763,6 @@
                 }
             });
 
-            // 6. ESG Chart
             charts.esg = new Chart(document.getElementById('chartEsg'), {
                 type: 'bar',
                 data: {
