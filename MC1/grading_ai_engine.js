@@ -3,7 +3,7 @@
    AlmaU SDTE 2026 | Midterm Control 1
    ========================================================================== */
 
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbz-fH9jFhcBpC0g5DFh9mKhB9wSo4WKtYNsa1-Cqv06ND1-0GbNemCR4VH1j2uUefAY/exec";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzig8F-Hkl9EaLD9yhpS-5mqsn3ceiKo3IGBfK08wIUk4fF8dVjPbsRzDM-wlij8m-y/exec";
 
 function verifyTeacherKey() {
     toggleModal('teacher-modal', false);
@@ -35,11 +35,11 @@ function compileFinalToken() {
     const p4_words = p4_essay ? p4_essay.split(/\s+/).filter(w => w.length > 0).length : 0;
     const lowerEssay = p4_essay.toLowerCase();
 
-    // Жесткое требование: минимум 100 слов для полноценного анализа
+    // Жесткое требование: минимум 75 слов для полноценного анализа
     if (p4_words < 100) {
         notify(currentLang === 'en' 
-            ? `Executive Memo requires at least 100 words (Current: ${p4_words}).` 
-            : `Анализ кейса должен содержать не менее 100 слов (Сейчас: ${p4_words}).`, true);
+            ? `Executive Memo requires at least 75 words (Current: ${p4_words}).` 
+            : `Анализ кейса должен содержать не менее 75 слов (Сейчас: ${p4_words}).`, true);
         return;
     }
 
@@ -59,9 +59,9 @@ function compileFinalToken() {
     const hasNumbers = /\d+/.test(p4_essay);
 
     let textScore = 0;
-    if (p4_words >= 100 && keyMatches >= 5 && hasNumbers) {
+    if (p4_words >= 75 && keyMatches >= 5 && hasNumbers) {
         textScore = 50; // Идеальный детальный разбор с цифрами и терминологией
-    } else if (p4_words >= 100 && keyMatches >= 3) {
+    } else if (p4_words >= 75 && keyMatches >= 3) {
         textScore = 35; // Хороший связный ответ
     } else {
         textScore = 20; // Базовый текст без глубоких цифр
@@ -85,7 +85,7 @@ function compileFinalToken() {
     };
 
     const jsonStr = JSON.stringify(payload);
-    const internalToken = "IE14092026-" + btoa(encodeURIComponent(jsonStr));
+    const internalToken = "IE14092026" + btoa(encodeURIComponent(jsonStr));
 
     const pStudent = document.getElementById('p-student');
     const pVariant = document.getElementById('p-variant');
