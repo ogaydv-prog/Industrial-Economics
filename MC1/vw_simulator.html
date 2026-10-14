@@ -56,10 +56,10 @@
         }
 
         .vw-logo {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             object-fit: contain;
-            filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.8));
+            filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
         }
 
         .header-title h1 {
@@ -160,7 +160,7 @@
             font-weight: bold;
         }
 
-        /* СТИЛИЗАЦИЯ ПОЛЗУНКОВ */
+        /* КОМПАКТНЫЕ АККУРАТНЫЕ ПОЛЗУНКИ КАК НА СКРИНШОТЕ 2 */
         input[type=range] {
             -webkit-appearance: none !important;
             -moz-appearance: none !important;
@@ -180,41 +180,32 @@
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* КРУГЛАЯ БЕЛАЯ РУЧКА С ЛОГОТИПОМ VW */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none !important;
-            height: 32px !important;
-            width: 32px !important;
+            height: 20px !important;
+            width: 20px !important;
             border-radius: 50% !important;
-            background-color: #ffffff !important;
-            background-image: url('vw-logo.png') !important;
-            background-size: 80% 80% !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            border: 1px solid #d1d5db !important;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
+            border: 2px solid #93c5fd !important;
             cursor: pointer;
-            margin-top: -12px !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.2) !important;
+            margin-top: -6px !important;
+            box-shadow: 0 0 8px rgba(0, 91, 150, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         input[type=range]::-webkit-slider-thumb:hover {
             transform: scale(1.15);
-            box-shadow: 0 0 14px rgba(255, 255, 255, 0.8), 0 4px 10px rgba(0,0,0,0.6) !important;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.9) !important;
         }
 
         input[type=range]::-moz-range-thumb {
-            height: 32px !important;
-            width: 32px !important;
+            height: 20px !important;
+            width: 20px !important;
             border-radius: 50% !important;
-            background-color: #ffffff !important;
-            background-image: url('vw-logo.png') !important;
-            background-size: 80% 80% !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            border: 1px solid #d1d5db !important;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #005b96 55%, #001e50 100%) !important;
+            border: 2px solid #93c5fd !important;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 0 8px rgba(0, 91, 150, 0.8) !important;
         }
 
         /* MAIN CONTENT AREA */
