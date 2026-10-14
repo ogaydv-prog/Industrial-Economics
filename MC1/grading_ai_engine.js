@@ -35,8 +35,8 @@ function compileFinalToken() {
     const p4_words = p4_essay ? p4_essay.split(/\s+/).filter(w => w.length > 0).length : 0;
     const lowerEssay = p4_essay.toLowerCase();
 
-    // Жесткое требование: минимум 75 слов для полноценного анализа
-    if (p4_words < 100) {
+    // Требование: минимум 75 слов для полноценного анализа (ИСПРАВЛЕНО)
+    if (p4_words < 75) {
         notify(currentLang === 'en' 
             ? `Executive Memo requires at least 75 words (Current: ${p4_words}).` 
             : `Анализ кейса должен содержать не менее 75 слов (Сейчас: ${p4_words}).`, true);
@@ -80,12 +80,14 @@ function compileFinalToken() {
         p1_p2: p1_p2_answers,
         p3_essay: p4_essay,
         scoreP1P2: scoreP1P2,
+        sliderScore: sliderScore,
         scoreCase: scoreCase,
         score: calculatedScore
     };
 
     const jsonStr = JSON.stringify(payload);
-    const internalToken = "IE14092026" + btoa(encodeURIComponent(jsonStr));
+    // Добавлен пропущенный дефис (ИСПРАВЛЕНО)
+    const internalToken = "IE14092026-" + btoa(encodeURIComponent(jsonStr));
 
     const pStudent = document.getElementById('p-student');
     const pVariant = document.getElementById('p-variant');
@@ -118,6 +120,8 @@ function sendDirectToGoogleSheet(payload, token) {
             timestamp: payload.timestamp,
             studentName: payload.studentName,
             variant: payload.studentIdx + 1,
+            scoreP1P2: payload.scoreP1P2,
+            sliderScore: payload.sliderScore,
             score: payload.score,
             essay: payload.p3_essay,
             rawToken: token
