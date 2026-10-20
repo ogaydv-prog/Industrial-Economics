@@ -319,7 +319,7 @@
                     <div>
                         <h3 class="text-base font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-chart-column text-indigo-400"></i>
-                            Group Performance Graphic Overview
+                            Group Performance Graphic Overview & Bell Curve
                         </h3>
                         <p class="text-xs text-slate-400 mt-1">
                             Interactive comparison across Attendance, Activities, CA, Midterms, Exam, and Final Scores.
@@ -334,6 +334,7 @@
                         <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-orange-500"></span><span class="text-slate-300">MC2</span></div>
                         <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-rose-500"></span><span class="text-slate-300">Exam</span></div>
                         <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-violet-500"></span><span class="text-slate-300">Final</span></div>
+                        <div class="flex items-center gap-1"><span class="w-3 h-0.5 bg-cyan-400"></span><span class="text-cyan-400 font-bold">Bell Curve</span></div>
                     </div>
                 </div>
                 <div class="relative w-full h-80">
@@ -591,7 +592,7 @@
     </footer>
 
     <script>
-        // Список из 6 студентов группы Industrial Economics с внесенными баллами за MC1 (Рубежный контроль 1)
+        // Список из 5 действующих студентов группы Industrial Economics (Евгений Югай удален)
         const initialGroupStudents = [
             {
                 id: 'st-ie-1',
@@ -652,18 +653,6 @@
                 mc2: 0,
                 exam: 0,
                 attendanceHours: Array(45).fill(false)
-            },
-            {
-                id: 'st-ie-6',
-                name: 'Yevgeniy Yugay',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
-                mc1: 0,
-                ca2: 0,
-                mc2: 0,
-                exam: 0,
-                attendanceHours: Array(45).fill(false)
             }
         ];
 
@@ -704,7 +693,7 @@
         }
 
         function loadDatabase() {
-            const savedData = localStorage.getItem('almau_ie_students_v2');
+            const savedData = localStorage.getItem('almau_ie_students_v3');
             if (savedData) {
                 try {
                     students = JSON.parse(savedData);
@@ -719,7 +708,7 @@
         }
 
         function saveDatabase() {
-            localStorage.setItem('almau_ie_students_v2', JSON.stringify(students));
+            localStorage.setItem('almau_ie_students_v3', JSON.stringify(students));
         }
 
         // Weighted grade calculation formula: 10% Att, 10% Act, 10% CA1, 10% MC1, 10% CA2, 10% MC2, 40% Exam
@@ -1135,18 +1124,30 @@
         function initGroupChart() {
             const ctx = document.getElementById('groupPerformanceChart').getContext('2d');
             groupChart = new Chart(ctx, {
-                type: 'bar',
                 data: {
                     labels: [],
                     datasets: [
-                        { label: 'Att', data: [], backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'Act', data: [], backgroundColor: 'rgba(20, 184, 166, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'CA1', data: [], backgroundColor: 'rgba(59, 130, 246, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'MC1', data: [], backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'CA2', data: [], backgroundColor: 'rgba(99, 102, 241, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'MC2', data: [], backgroundColor: 'rgba(249, 115, 22, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'Exam', data: [], backgroundColor: 'rgba(244, 63, 94, 0.85)', borderRadius: 2, maxBarThickness: 12 },
-                        { label: 'Final', data: [], backgroundColor: 'rgba(139, 92, 246, 0.85)', borderRadius: 2, maxBarThickness: 14 }
+                        { type: 'bar', label: 'Att', data: [], backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'Act', data: [], backgroundColor: 'rgba(20, 184, 166, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'CA1', data: [], backgroundColor: 'rgba(59, 130, 246, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'MC1', data: [], backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'CA2', data: [], backgroundColor: 'rgba(99, 102, 241, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'MC2', data: [], backgroundColor: 'rgba(249, 115, 22, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'Exam', data: [], backgroundColor: 'rgba(244, 63, 94, 0.85)', borderRadius: 2, maxBarThickness: 12 },
+                        { type: 'bar', label: 'Final', data: [], backgroundColor: 'rgba(139, 92, 246, 0.85)', borderRadius: 2, maxBarThickness: 14 },
+                        { 
+                            type: 'line', 
+                            label: 'Bell Curve', 
+                            data: [], 
+                            borderColor: '#22d3ee', 
+                            backgroundColor: 'rgba(34, 211, 238, 0.1)', 
+                            borderWidth: 3, 
+                            tension: 0.4, 
+                            fill: false, 
+                            pointBackgroundColor: '#22d3ee', 
+                            pointRadius: 4, 
+                            pointHoverRadius: 6 
+                        }
                     ]
                 },
                 options: {
@@ -1175,7 +1176,12 @@
             groupChart.data.datasets[4].data = sorted.map(s => s.ca2 || 0);
             groupChart.data.datasets[5].data = sorted.map(s => s.mc2 || 0);
             groupChart.data.datasets[6].data = sorted.map(s => s.exam || 0);
-            groupChart.data.datasets[7].data = sorted.map(s => calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam));
+            
+            const finalScores = sorted.map(s => calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam));
+            groupChart.data.datasets[7].data = finalScores;
+            
+            // Bell Curve (огибающая линия по итоговым баллам группы)
+            groupChart.data.datasets[8].data = finalScores;
 
             groupChart.update();
         }
