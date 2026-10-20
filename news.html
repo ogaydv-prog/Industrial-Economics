@@ -8,22 +8,48 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fcfbf9; color: #111111; }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f1f5f9; }
         .serif { font-family: 'Merriweather', Georgia, serif; }
+        .font-mono-num { font-family: 'JetBrains Mono', monospace; }
         .brand-red { background-color: #e5001c; }
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
 
-        /* OPTIMIZED FLIP CARD CONTAINER */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* MAIN TOP NAVIGATION TABS */
+        .main-tab-btn {
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease-in-out;
+        }
+        .main-tab-btn.active {
+            border-bottom-color: #e5001c;
+            color: #ffffff;
+            background-color: #1e293b;
+        }
+
+        /* SUB DASHBOARD INNER TABS */
+        .sub-tab-btn {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .sub-tab-btn.active {
+            background-color: #1e293b;
+            color: #38bdf8;
+            border-bottom-color: #38bdf8;
+        }
+
+        /* FLIP CARD CONTAINER FOR ROBOTICS */
         .flip-card { perspective: 1000px; min-height: 520px; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 8px; }
-        
-        /* CONTRAST HIGH-READABILITY BACK CARD STYLING */
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 12px; }
         .flip-card-back { 
             transform: rotateY(180deg); 
             background-color: #ffffff !important; 
@@ -34,7 +60,6 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        
         .flip-card-back strong { color: #000000 !important; font-weight: 800; }
         .flip-card-back p { color: #111111 !important; font-weight: 500; margin-bottom: 0.75rem; line-height: 1.6; }
     </style>
@@ -42,363 +67,958 @@
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
     <!-- HEADER WITH HUB BUTTONS -->
-    <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md bg-opacity-95 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
-                <a href="index.html" class="brand-red text-white font-extrabold px-3 py-1.5 text-lg sm:text-xl tracking-tighter serif shadow-sm inline-block">
+                <a href="#" class="brand-red text-white font-extrabold px-3 py-1.5 text-lg sm:text-xl tracking-tighter serif shadow-sm inline-block rounded-sm">
                     The Industrial Economics
                 </a>
-                <div class="hidden md:block border-l border-stone-300 pl-4">
-                    <span class="text-xs font-bold tracking-widest text-stone-500 uppercase block">Academic Intelligence Hub</span>
-                    <span class="text-xs text-stone-700">AlmaU • School of Digital Technologies & Economics</span>
+                <div class="hidden md:block border-l border-slate-700 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase block">Academic Intelligence Hub</span>
+                    <span class="text-xs text-slate-300">AlmaU • School of Digital Technologies & Economics</span>
                 </div>
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <div class="flex items-center space-x-1 border border-stone-300 rounded bg-stone-100 p-0.5 mr-2">
-                    <button onclick="setGlobalLang('en')" id="btn-lang-en" class="px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm">EN</button>
-                    <button onclick="setGlobalLang('ru')" id="btn-lang-ru" class="px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900">RU</button>
+                <div class="flex items-center space-x-1 border border-slate-700 rounded bg-slate-950 p-0.5 mr-2">
+                    <button onclick="setGlobalLang('en')" id="btn-lang-en" class="px-2.5 py-1 text-xs font-bold rounded bg-brand-red text-white shadow-sm transition-all">EN</button>
+                    <button onclick="setGlobalLang('ru')" id="btn-lang-ru" class="px-2.5 py-1 text-xs font-bold rounded text-slate-400 hover:text-white transition-all">RU</button>
                 </div>
-                <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+                <a href="#" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center space-x-1.5 rounded-md">
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
                     <span id="lbl-main-hub">Main Hub</span>
                 </a>
-                <div class="border-l border-stone-300 pl-3 ml-1">
-                    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
+                <div class="border-l border-slate-700 pl-3 ml-1">
+                    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-slate-600 rounded-sm">
                 </div>
+            </div>
+        </div>
+
+        <!-- MAIN TOP TAB NAVIGATION -->
+        <div class="bg-slate-950 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 sm:space-x-4 overflow-x-auto custom-scrollbar text-xs font-bold">
+                <button onclick="switchMainTab('main-robotics')" id="btn-main-robotics" class="main-tab-btn active px-4 py-3 text-slate-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-robot text-brand-red"></i>
+                    <span id="lbl-mtab-1">1. World Robotics 2026 & Briefings</span>
+                </button>
+                <button onclick="switchMainTab('main-kazakhstan')" id="btn-main-kazakhstan" class="main-tab-btn px-4 py-3 text-slate-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-flag text-cyan-400"></i>
+                    <span id="lbl-mtab-2">2. Kazakhstan Trade & Export Dashboard</span>
+                </button>
+                <button onclick="switchMainTab('main-pandora')" id="btn-main-pandora" class="main-tab-btn px-4 py-3 text-slate-400 hover:text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-gem text-pink-400"></i>
+                    <span id="lbl-mtab-3">3. Pandora Vietnam Factory ESG Case</span>
+                </button>
             </div>
         </div>
     </header>
 
-    <div class="bg-stone-100 border-b border-stone-200 py-2">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-stone-600">
-            <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Multi-Source Automated Briefing</span>
-            <span class="serif italic">Updates Every Wednesday at 01:00 AM CET</span>
+    <div class="bg-slate-900 border-b border-slate-800 py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-slate-400">
+            <span class="font-semibold uppercase tracking-wider text-slate-300"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Multi-Source Executive Analytics Portal</span>
+            <span class="serif italic text-slate-400">Updated Weekly • The Economist Style Analytics</span>
         </div>
     </div>
 
+    <!-- MAIN BODY CONTENT -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        
-        <!-- HEADER BLOCK -->
-        <div class="border-b-2 border-stone-900 pb-6 mb-8">
-            <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Industrial Sector Intelligence</span>
-            <h1 class="text-3xl sm:text-4xl font-black text-stone-900 serif leading-tight">
-                Industrial Economics: Global Manufacturing, Supply Chains & Policy
-            </h1>
-            <p class="text-sm sm:text-base text-stone-600 mt-2 max-w-4xl leading-relaxed serif">
-                Curated industrial economics headlines covering plant restructuring, supply chain logistics, and heavy manufacturing from The Guardian, BBC News, and Euronews.
-            </p>
-        </div>
 
-        <!-- ========================================================= -->
-        <!-- FEATURED INTERACTIVE DASHBOARD BLOCK -->
-        <!-- ========================================================= -->
-        <section class="mb-12 bg-white border-2 border-stone-900 p-6 rounded-sm shadow-md">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-stone-300 pb-4 mb-6 gap-4">
-                <div>
-                    <span class="inline-block bg-stone-900 text-white text-[10px] font-black uppercase tracking-widest px-2 py-0.5 mb-1.5">
-                        <i class="fa-solid fa-chart-pie mr-1 text-brand-red"></i> Featured Executive Dashboard
-                    </span>
-                    <h2 class="text-2xl font-black text-stone-900 serif" id="dash-main-title">
-                        World Robotics 2026: 5 Million Industrial Robots & Humanoid Feasibility Analysis
-                    </h2>
-                    <p class="text-xs text-stone-600 serif italic mt-1" id="dash-main-sub">
-                        Source: Euronews & International Federation of Robotics (IFR) Report (September 2026)
-                    </p>
-                </div>
-                
-                <!-- DASHBOARD TABS -->
-                <div class="flex flex-wrap gap-1 bg-stone-100 p-1 border border-stone-300 rounded">
-                    <button onclick="switchDashTab('share')" id="tab-btn-share" class="px-3 py-1.5 text-xs font-bold rounded bg-stone-900 text-white shadow-sm">Global Share %</button>
-                    <button onclick="switchDashTab('units')" id="tab-btn-units" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">Deployments (Units)</button>
-                    <button onclick="switchDashTab('growth')" id="tab-btn-growth" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">YoY Growth %</button>
-                    <button onclick="switchDashTab('forecast')" id="tab-btn-forecast" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">IFR Forecast 2029</button>
-                    <button onclick="switchDashTab('invest')" id="tab-btn-invest" class="px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded">Humanoids vs Industry</button>
-                </div>
-            </div>
-
-            <!-- KPI SUMMARY STRIP -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-stone-900">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi1-lbl">Global Operational Stock</span>
-                    <span class="text-xl font-black text-stone-900 serif">5,000,000</span>
-                    <span class="text-[11px] text-emerald-700 font-semibold block" id="kpi1-sub">+9% YoY (Historic Record)</span>
-                </div>
-                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-brand-red">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi2-lbl">Annual Installations</span>
-                    <span class="text-xl font-black text-stone-900 serif">600,000+</span>
-                    <span class="text-[11px] text-emerald-700 font-semibold block" id="kpi2-sub">+11% YoY Growth (2025)</span>
-                </div>
-                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-stone-900">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi3-lbl">China Market Share</span>
-                    <span class="text-xl font-black text-stone-900 serif">59.0%</span>
-                    <span class="text-[11px] text-stone-600 font-medium block" id="kpi3-sub">354,000 New Units Installed</span>
-                </div>
-                <div class="bg-stone-50 border border-stone-200 p-3.5 rounded-sm border-l-4 border-brand-red">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 block" id="kpi4-lbl">Humanoids R&D Funding</span>
-                    <span class="text-xl font-black text-stone-900 serif">$3.8 Billion</span>
-                    <span class="text-[11px] text-stone-600 font-medium block" id="kpi4-sub">Vs $18.5B Industrial Market</span>
-                </div>
-            </div>
-
-            <!-- FLIP CARD CONTAINER FOR GRAPH & ANALYSIS -->
-            <div class="flip-card" id="featuredCard">
-                <div class="flip-card-inner">
-                    
-                    <!-- FRONT: CHART -->
-                    <div class="flip-card-front bg-stone-50 border border-stone-300 p-5 flex flex-col justify-between">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-base font-bold text-stone-900 serif" id="chart-card-title">
-                                1. Global Industrial Robotics Installations Share (%)
-                            </h3>
-                            <button onclick="toggleCardFlip()" class="px-3 py-1 bg-stone-900 hover:bg-brand-red text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5 shadow-sm">
-                                <i class="fa-solid fa-rotate-right"></i>
-                                <span id="btn-flip-front">🔄 Read Economic Analysis</span>
-                            </button>
-                        </div>
-                        <div class="relative flex-grow min-h-[380px] w-full bg-white p-3 border border-stone-200 rounded">
-                            <canvas id="activeDashChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- BACK: ECONOMIC ANALYSIS (PURE BLACK TEXT ON WHITE BACKGROUND) -->
-                    <div class="flip-card-back p-6 border-2 border-stone-900 rounded-lg bg-white shadow-inner">
-                        <div class="flex justify-between items-center border-b-2 border-stone-900 pb-3 mb-4">
-                            <h3 class="text-base font-black text-brand-red serif" id="analysis-card-title">
-                                📝 Executive Commentary & Economic Insights
-                            </h3>
-                            <button onclick="toggleCardFlip()" class="px-3 py-1 bg-stone-900 hover:bg-brand-red text-white text-xs font-bold rounded transition-colors flex items-center space-x-1.5">
-                                <i class="fa-solid fa-chart-line"></i>
-                                <span id="btn-flip-back">🔙 Back to Visual Chart</span>
-                            </button>
-                        </div>
-                        
-                        <div class="text-black text-xs sm:text-sm leading-relaxed space-y-3 serif my-auto font-medium" id="analysis-card-text">
-                            <!-- Dynamic text populated by JS -->
-                        </div>
-                        
-                        <div class="border-t border-stone-300 pt-3 mt-4 text-[11px] text-stone-700 font-bold italic">
-                            Analysis based on IFR World Robotics 2026 Report & Euronews Economic Desk.
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- DETAILED INSIGHTS FOOTNOTE -->
-            <div class="mt-6 bg-stone-100 border border-stone-300 p-4 rounded-sm">
-                <h4 class="text-xs font-black uppercase tracking-wider text-stone-900 mb-2" id="dash-summary-title">
-                    <i class="fa-solid fa-microchip text-brand-red mr-1"></i> Key Takeaway: Industrial Scale vs. Humanoid Reality Check
-                </h4>
-                <p class="text-xs text-stone-800 serif leading-relaxed font-medium" id="dash-summary-text">
-                    While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B in 2025/2026, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.
+        <!-- =================================================================== -->
+        <!-- TAB 1: WORLD ROBOTICS & LATEST BRIEFINGS -->
+        <!-- =================================================================== -->
+        <section id="main-robotics" class="main-tab-content space-y-8">
+            
+            <div class="border-b border-slate-800 pb-4">
+                <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Industrial Sector Intelligence</span>
+                <h1 class="text-2xl sm:text-3xl font-black text-white serif leading-tight">
+                    Industrial Economics: Global Manufacturing, Supply Chains & Policy
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-4xl leading-relaxed serif">
+                    Curated industrial economics headlines covering plant restructuring, supply chain logistics, and heavy manufacturing from The Guardian, BBC News, and Euronews.
                 </p>
             </div>
+
+            <!-- FEATURED INTERACTIVE DASHBOARD BLOCK (ROBOTICS) -->
+            <div class="bg-slate-900 border-2 border-slate-800 p-6 rounded-2xl shadow-2xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-4 mb-6 gap-4">
+                    <div>
+                        <span class="inline-block bg-brand-red text-white text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 mb-1.5 rounded">
+                            <i class="fa-solid fa-chart-pie mr-1"></i> Executive Briefing
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-black text-white serif" id="dash-main-title">
+                            World Robotics 2026: 5 Million Industrial Robots & Humanoid Feasibility Analysis
+                        </h2>
+                        <p class="text-xs text-slate-400 serif italic mt-1" id="dash-main-sub">
+                            Source: Euronews & International Federation of Robotics (IFR) Report
+                        </p>
+                    </div>
+                    
+                    <!-- DASHBOARD TABS -->
+                    <div class="flex flex-wrap gap-1 bg-slate-950 p-1 border border-slate-800 rounded-xl">
+                        <button onclick="switchDashTab('share')" id="tab-btn-share" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-800 text-white shadow-sm">Global Share %</button>
+                        <button onclick="switchDashTab('units')" id="tab-btn-units" class="px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white rounded-lg">Deployments (Units)</button>
+                        <button onclick="switchDashTab('growth')" id="tab-btn-growth" class="px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white rounded-lg">YoY Growth %</button>
+                        <button onclick="switchDashTab('forecast')" id="tab-btn-forecast" class="px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white rounded-lg">IFR Forecast 2029</button>
+                        <button onclick="switchDashTab('invest')" id="tab-btn-invest" class="px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white rounded-lg">Humanoids vs Industry</button>
+                    </div>
+                </div>
+
+                <!-- KPI STRIP -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl border-l-4 border-slate-400">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block" id="kpi1-lbl">Global Operational Stock</span>
+                        <span class="text-xl font-black text-white font-mono-num">5,000,000</span>
+                        <span class="text-[11px] text-emerald-400 font-semibold block" id="kpi1-sub">+9% YoY (Historic Record)</span>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl border-l-4 border-brand-red">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block" id="kpi2-lbl">Annual Installations</span>
+                        <span class="text-xl font-black text-white font-mono-num">600,000+</span>
+                        <span class="text-[11px] text-emerald-400 font-semibold block" id="kpi2-sub">+11% YoY Growth</span>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl border-l-4 border-slate-400">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block" id="kpi3-lbl">China Market Share</span>
+                        <span class="text-xl font-black text-white font-mono-num">59.0%</span>
+                        <span class="text-[11px] text-slate-400 font-medium block" id="kpi3-sub">354,000 New Units</span>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl border-l-4 border-brand-red">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block" id="kpi4-lbl">Humanoids R&D Funding</span>
+                        <span class="text-xl font-black text-white font-mono-num">$3.8 Billion</span>
+                        <span class="text-[11px] text-slate-400 font-medium block" id="kpi4-sub">Vs $18.5B Industrial Market</span>
+                    </div>
+                </div>
+
+                <!-- FLIP CARD CONTAINER -->
+                <div class="flip-card" id="featuredCard">
+                    <div class="flip-card-inner">
+                        <!-- FRONT: CHART -->
+                        <div class="flip-card-front bg-slate-950 border border-slate-800 p-5 flex flex-col justify-between rounded-xl">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-sm font-bold text-white serif" id="chart-card-title">
+                                    1. Global Industrial Robotics Installations Share (%)
+                                </h3>
+                                <button onclick="toggleCardFlip()" class="px-3 py-1 bg-brand-red hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors flex items-center space-x-1.5 shadow-sm">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                    <span id="btn-flip-front">🔄 Read Economic Analysis</span>
+                                </button>
+                            </div>
+                            <div class="relative flex-grow min-h-[380px] w-full bg-white p-3 border border-slate-200 rounded-xl">
+                                <canvas id="activeDashChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- BACK: ECONOMIC ANALYSIS -->
+                        <div class="flip-card-back p-6 border-2 border-stone-900 rounded-xl bg-white shadow-inner">
+                            <div class="flex justify-between items-center border-b-2 border-stone-900 pb-3 mb-4">
+                                <h3 class="text-base font-black text-brand-red serif" id="analysis-card-title">
+                                    📝 Executive Commentary & Economic Insights
+                                </h3>
+                                <button onclick="toggleCardFlip()" class="px-3 py-1 bg-stone-900 hover:bg-brand-red text-white text-xs font-bold rounded-lg transition-colors flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <span id="btn-flip-back">🔙 Back to Visual Chart</span>
+                                </button>
+                            </div>
+                            
+                            <div class="text-black text-xs sm:text-sm leading-relaxed space-y-3 serif my-auto font-medium" id="analysis-card-text">
+                                <!-- Dynamic text populated by JS -->
+                            </div>
+                            
+                            <div class="border-t border-stone-300 pt-3 mt-4 text-[11px] text-stone-700 font-bold italic">
+                                Analysis based on IFR World Robotics Report & Euronews Economic Desk.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTNOTE -->
+                <div class="mt-6 bg-slate-950 border border-slate-800 p-4 rounded-xl">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-white mb-2" id="dash-summary-title">
+                        <i class="fa-solid fa-microchip text-brand-red mr-1"></i> Key Takeaway: Industrial Scale vs. Humanoid Reality Check
+                    </h4>
+                    <p class="text-xs text-slate-300 serif leading-relaxed font-medium" id="dash-summary-text">
+                        While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CURATED NEWS GRID (3 PRIMARY ARTICLES) -->
+            <div class="border-t border-slate-800 pt-4">
+                <h2 class="text-lg font-black text-white serif mb-4" id="sec-latest-news">Latest Industrial Sector Headlines</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Article 1: Volkswagen & Made in Europe -->
+                <article class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-extrabold text-brand-red uppercase tracking-widest bg-red-950/60 px-2 py-0.5 rounded border border-red-800/40">The Guardian • Oct 2026</span>
+                        <h3 class="text-base font-bold text-white serif leading-snug mt-2" id="art1-title">
+                            Volkswagen boss backs EU plan to bolster domestic European industry amid EV competition
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2 serif" id="art1-desc">
+                            Oliver Blume supports 'Made in Europe' rules to reward real domestic value creation, as European automakers restructure production lines to counter lower-price Chinese EV imports...
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-800">
+                        <a href="https://www.theguardian.com/business/2026/oct/11/volkswagen-boss-backs-eu-plan-to-boost-domestic-european-industry" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                            <span class="lbl-read-full">Read Full Original Article →</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 2: Industrial Policy & Trade Barriers -->
+                <article class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-extrabold text-brand-red uppercase tracking-widest bg-red-950/60 px-2 py-0.5 rounded border border-red-800/40">The Guardian / BBC • Oct 2026</span>
+                        <h3 class="text-base font-bold text-white serif leading-snug mt-2" id="art2-title">
+                            Mercedes & auto giants warn excluding partners from 'Made in Europe' law will hurt supply chains
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2 serif" id="art2-desc">
+                            Ola Källenius cautions that overly rigid localization rules risk weakening automotive component supply chains on both sides of the Channel, as tariffs and input costs continue rising...
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-800">
+                        <a href="https://www.theguardian.com/business/manufacturing-sector" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                            <span class="lbl-read-full">Read Full Original Article →</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3: World Robotics & Factory Automation -->
+                <article class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-extrabold text-brand-red uppercase tracking-widest bg-red-950/60 px-2 py-0.5 rounded border border-red-800/40">Euronews • Oct 2026</span>
+                        <h3 class="text-base font-bold text-white serif leading-snug mt-2" id="art3-title">
+                            Five million robots now work in global factories as humanoid adoption faces economic reality check
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2 serif" id="art3-desc">
+                            IFR report confirms global stock hit 5 million units with 600,000 new annual deployments, while bipedal humanoids remain restricted by high capital expenditure and dexterity limits...
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-800">
+                        <a href="https://ru.euronews.com/2026/09/29/five-million-robots-now-work-in-factories-as-the-hype-around-humanoid-robots-faces-a-reali" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                            <span class="lbl-read-full">Read Full Original Article →</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
         </section>
-        <!-- ========================================================= -->
 
-
-        <!-- CURATED NEWS GRID (3 PRIMARY ARTICLES) -->
-        <div class="border-t-2 border-stone-900 pt-4 mb-4">
-            <h2 class="text-xl font-black text-stone-900 serif" id="sec-latest-news">Latest Industrial Sector Headlines</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- =================================================================== -->
+        <!-- TAB 2: KAZAKHSTAN TRADE & EXPORT DASHBOARD -->
+        <!-- =================================================================== -->
+        <section id="main-kazakhstan" class="main-tab-content hidden space-y-6">
             
-            <!-- Article 1: The Guardian (VW Restructuring) -->
-            <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
-                <div>
-                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art1-title">
-                        Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition
-                    </h3>
-                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art1-desc">
-                        Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...
-                    </p>
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-2xl">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl text-slate-950 font-black shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-chart-line text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span id="kz-txt-sub" class="text-[10px] font-bold tracking-widest text-cyan-400 uppercase bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/50">Trade Intelligence</span>
+                            <span class="text-[10px] font-semibold text-slate-400">| QazTrade Data</span>
+                        </div>
+                        <h1 id="kz-txt-title" class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-0.5 serif">
+                            Kazakhstan Export Diversification & Import Substitution
+                        </h1>
+                    </div>
                 </div>
-                <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/business/2026/aug/25/vw-workers-boo-boss-as-he-urges-them-to-pull-together-amid-job-cuts" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span class="lbl-read-full">Read Full Original Article →</span>
-                    </a>
+                <div class="flex items-center space-x-3 text-xs">
+                    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-right">
+                        <span id="kz-txt-turnover-lbl" class="text-slate-400 block text-[10px] uppercase font-medium">Total Trade Turnover</span>
+                        <span class="text-cyan-400 font-bold font-mono-num text-sm">~ €62.0 Billion</span>
+                    </div>
+                    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-right">
+                        <span id="kz-txt-surplus-lbl" class="text-slate-400 block text-[10px] uppercase font-medium">Trade Surplus</span>
+                        <span class="text-emerald-400 font-bold font-mono-num text-sm">> €7.5 Billion</span>
+                    </div>
                 </div>
-            </article>
+            </div>
 
-            <!-- Article 2: BBC News (Industrial Supply Chains & Tariffs) -->
-            <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
-                <div>
-                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art2-title">
-                        Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks
-                    </h3>
-                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art2-desc">
-                        Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...
-                    </p>
+            <!-- Kazakhstan Sub Tabs -->
+            <div class="bg-slate-900/80 border-b border-slate-800 rounded-xl overflow-hidden">
+                <div class="flex space-x-1 sm:space-x-2 overflow-x-auto custom-scrollbar text-xs font-semibold p-1">
+                    <button onclick="switchKzSubTab('kz-tab-overview')" id="btn-kz-tab-overview" class="sub-tab-btn active px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-globe text-cyan-400"></i>
+                        <span id="kz-tab-title-1">1. Foreign Trade & Flag Colors</span>
+                    </button>
+                    <button onclick="switchKzSubTab('kz-tab-dynamics')" id="btn-kz-tab-dynamics" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-arrow-trend-up text-amber-400"></i>
+                        <span id="kz-tab-title-2">2. Commodity Dynamics</span>
+                    </button>
+                    <button onclick="switchKzSubTab('kz-tab-processed')" id="btn-kz-tab-processed" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-gears text-indigo-400"></i>
+                        <span id="kz-tab-title-3">3. Processed Export (+18%)</span>
+                    </button>
+                    <button onclick="switchKzSubTab('kz-tab-agro')" id="btn-kz-tab-agro" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-seedling text-emerald-400"></i>
+                        <span id="kz-tab-title-4">4. Oilseed & Agriculture</span>
+                    </button>
+                    <button onclick="switchKzSubTab('kz-tab-investments')" id="btn-kz-tab-investments" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-handshake-angle text-rose-400"></i>
+                        <span id="kz-tab-title-5">5. Investments & Substitution</span>
+                    </button>
                 </div>
-                <div class="pt-4 font-sans">
-                    <a href="https://www.bbc.com/news/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span class="lbl-read-full">Read Full Original Article →</span>
-                    </a>
-                </div>
-            </article>
+            </div>
 
-            <!-- Article 3: Euronews (Robotics & Manufacturing Output) -->
-            <article class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
-                <div>
-                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
-                    <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1" id="art3-title">
-                        Five million robots now work in factories as the hype around humanoid robots faces a reality check
-                    </h3>
-                    <p class="text-xs text-stone-700 leading-relaxed mt-2 serif font-medium" id="art3-desc">
-                        Factory managers across Europe and Asia deploy 600,000 new industrial robots per year, while bipedal humanoid adoption remains constrained by high dexterity costs...
-                    </p>
+            <!-- KZ TAB 1: OVERVIEW & PARTNERS -->
+            <div id="kz-tab-overview" class="kz-sub-tab-content space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="kz-t1-card1-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">GDP Growth</p>
+                            <h3 class="text-2xl font-extrabold text-emerald-400 font-mono-num mt-1">+4.1%</h3>
+                            <p id="kz-t1-card1-sub" class="text-[10px] text-slate-500 mt-1">Driver: Manufacturing</p>
+                        </div>
+                        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20"><i class="fa-solid fa-chart-line text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="kz-t1-card2-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Import Volume</p>
+                            <h3 class="text-2xl font-extrabold text-sky-400 font-mono-num mt-1">€27.0 Billion</h3>
+                            <p id="kz-t1-card2-sub" class="text-[10px] text-sky-400 mt-1"><i class="fa-solid fa-arrow-up"></i> +5.4% YoY (44% Share)</p>
+                        </div>
+                        <div class="p-3 bg-sky-500/10 text-sky-400 rounded-xl border border-sky-500/20"><i class="fa-solid fa-boxes-packing text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="kz-t1-card3-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Crude Oil Share</p>
+                            <h3 class="text-2xl font-extrabold text-amber-400 font-mono-num mt-1">46.5%</h3>
+                            <p id="kz-t1-card3-sub" class="text-[10px] text-slate-500 mt-1">Primary Export Item</p>
+                        </div>
+                        <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl border border-amber-500/20"><i class="fa-solid fa-oil-well text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="kz-t1-card4-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">FDI Inflow</p>
+                            <h3 class="text-2xl font-extrabold text-violet-400 font-mono-num mt-1">€18.0 Billion</h3>
+                            <p id="kz-t1-card4-sub" class="text-[10px] text-violet-400 mt-1"><i class="fa-solid fa-arrow-up"></i> +14.4% YoY</p>
+                        </div>
+                        <div class="p-3 bg-violet-500/10 text-violet-400 rounded-xl border border-violet-500/20"><i class="fa-solid fa-sack-dollar text-xl"></i></div>
+                    </div>
                 </div>
-                <div class="pt-4 font-sans">
-                    <a href="https://ru.euronews.com/2026/09/29/five-million-robots-now-work-in-factories-as-the-hype-around-humanoid-robots-faces-a-reali" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
-                        <span class="lbl-read-full">Read Full Original Article →</span>
-                    </a>
-                </div>
-            </article>
 
-        </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Top Partners Chart -->
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 id="kz-t1-chart-title" class="text-sm font-bold text-white serif flex items-center gap-2">
+                                    <i class="fa-solid fa-flag text-cyan-400"></i> Top 10 Trade Partners of Kazakhstan (National Flag Colors)
+                                </h3>
+                                <p id="kz-t1-chart-sub" class="text-[11px] text-slate-400">Volume Index by Country</p>
+                            </div>
+                            <span id="kz-t1-chart-badge" class="text-[10px] font-bold bg-cyan-950 text-cyan-400 border border-cyan-800 px-2.5 py-1 rounded-full">China #1</span>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-inner relative h-72">
+                            <canvas id="kzPartnersChart"></canvas>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex flex-wrap justify-between gap-2">
+                            <span id="kz-t1-foot-left"><strong class="text-slate-200">Flag Colors:</strong> 🇨🇳 China (Red), 🇷🇺 Russia (Blue), 🇮🇹 Italy (Green), 🇹🇷 Turkey (Red)</span>
+                            <span id="kz-t1-foot-right"><strong class="text-slate-200">Also:</strong> 🇫🇷 France, 🇺🇿 Uzbekistan, 🇳🇱 Netherlands, 🇩🇪 Germany, 🇺🇸 USA, 🇰🇷 S. Korea</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-cyan-400 mb-3">
+                                <i class="fa-solid fa-bullseye text-base"></i>
+                                <h4 id="kz-t1-box-head" class="text-xs font-bold uppercase tracking-wider">Strategic Imperative</h4>
+                            </div>
+                            <h3 id="kz-t1-box-title" class="text-base font-extrabold text-white leading-snug serif">
+                                Transforming Import Dependency into Investor Opportunities
+                            </h3>
+                            <p id="kz-t1-box-desc" class="text-xs text-slate-400 mt-3 leading-relaxed serif">
+                                Kazakhstan accounts for ~<strong class="text-amber-300">2% of global oil supply</strong> and leads in uranium/chrome exports. The core goal is domestic production, import substitution, and non-resource export expansion.
+                            </p>
+                        </div>
+                        <div class="mt-6 space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <h5 id="kz-t1-subhead-list" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Key Sectors for Import Substitution:</h5>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div id="kz-t1-item-1" class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-microchip text-sky-400 text-[10px]"></i> Machinery</div>
+                                <div id="kz-t1-item-2" class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-pills text-rose-400 text-[10px]"></i> Pharmaceuticals</div>
+                                <div id="kz-t1-item-3" class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-wheat-awn text-emerald-400 text-[10px]"></i> Agro-Processing</div>
+                                <div id="kz-t1-item-4" class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-helmet-safety text-amber-400 text-[10px]"></i> Construction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KZ TAB 2: COMMODITY DYNAMICS -->
+            <div id="kz-tab-dynamics" class="kz-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 id="kz-t2-chart-title" class="text-sm font-bold text-white serif flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-line-down text-rose-400"></i> Shifts in Kazakhstan Commodity Exports
+                                </h3>
+                                <p id="kz-t2-chart-sub" class="text-[11px] text-slate-400">Contraction in traditional trade surplus segments</p>
+                            </div>
+                            <span id="kz-t2-chart-badge" class="text-[10px] font-bold bg-rose-950 text-rose-400 border border-rose-800 px-2.5 py-1 rounded-full">Declining Raw Share</span>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-inner relative h-72">
+                            <canvas id="kzRawDynamicsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 id="kz-t2-geo-title" class="text-sm font-bold text-white serif mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-compass text-amber-400"></i> Geographical Export Shifts
+                            </h3>
+                            <p id="kz-t2-geo-sub" class="text-[11px] text-slate-400 mb-4">Growth in new destinations vs raw contractions</p>
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center"><span>Singapore</span><span class="text-emerald-400 font-bold font-mono-num">+2.9x</span></div>
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center"><span>United Kingdom</span><span class="text-emerald-400 font-bold font-mono-num">+2.5x</span></div>
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center"><span>Turkey</span><span class="text-emerald-400 font-bold font-mono-num">+94.0%</span></div>
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center"><span>France</span><span class="text-emerald-400 font-bold font-mono-num">+45.0%</span></div>
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center"><span>Uzbekistan</span><span class="text-emerald-400 font-bold font-mono-num">+40.0%</span></div>
+                                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center border-l-2 border-l-rose-500"><span>Italy (17% KZ Export)</span><span class="text-rose-400 font-bold font-mono-num">-15.0%</span></div>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 italic">*Italy's demand remains heavily focused on crude oil, whereas non-resource exports diversify elsewhere.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KZ TAB 3: PROCESSED EXPORT -->
+            <div id="kz-tab-processed" class="kz-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-900 border border-indigo-800/50 rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-400 text-xs font-bold mb-4"><i class="fa-solid fa-industry"></i> Manufacturing Sector</div>
+                            <h2 class="text-2xl font-extrabold text-white serif">Growth in Processed Goods Export</h2>
+                            <div class="text-4xl font-black text-indigo-400 font-mono-num my-4">+18.0%</div>
+                            <p class="text-xs text-slate-300 leading-relaxed serif">Exports of processed products surged by double digits (+18%). High demand for finished imports creates a launchpad for local manufacturing expansion.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800/80"><span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block mb-1">Primary Export Items:</span><p class="text-xs text-slate-300">Crude Oil (46.5%), Copper, Uranium, Ferroalloys, Wheat.</p></div>
+                    </div>
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-sm font-bold text-white serif mb-1 flex items-center gap-2"><i class="fa-solid fa-chart-simple text-indigo-400"></i> Export Growth of Processed Agro Goods (€ M)</h3>
+                            <p class="text-[11px] text-slate-400 mb-4">Key non-resource export drivers</p>
+                            <div class="bg-white rounded-xl p-4 shadow-inner relative h-64"><canvas id="kzProcessedChart"></canvas></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-4 pt-3 border-t border-slate-800">
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center"><span class="text-[10px] text-slate-400 block font-medium uppercase">Animal Feed</span><span class="text-lg font-bold text-indigo-400 font-mono-num">€378M</span><span class="text-[10px] text-emerald-400 block mt-0.5"><i class="fa-solid fa-arrow-up"></i> +80% YoY</span></div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center"><span class="text-[10px] text-slate-400 block font-medium uppercase">Sunflower Oil</span><span class="text-lg font-bold text-amber-400 font-mono-num">€460M</span><span class="text-[10px] text-emerald-400 block mt-0.5"><i class="fa-solid fa-arrow-up"></i> +57% YoY</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KZ TAB 4: AGRO & OILSEED -->
+            <div id="kz-tab-agro" class="kz-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-emerald-400 mb-3"><i class="fa-solid fa-seedling text-lg"></i><h4 class="text-xs font-bold uppercase tracking-wider">Oilseed Flagship</h4></div>
+                            <h3 class="text-lg font-extrabold text-white serif">Target Export for Fats & Oils by 2028</h3>
+                            <div class="text-3xl font-black text-emerald-400 font-mono-num my-3">€1.3 Billion</div>
+                            <p class="text-xs text-slate-400 leading-relaxed serif">An increase of <strong class="text-emerald-300">+60%</strong> over current levels. Kazakhstan ranks among Top-3 global sunflower meal suppliers to the EU.</p>
+                        </div>
+                        <div class="bg-emerald-950/30 p-4 rounded-xl border border-emerald-800/40 mt-6 space-y-2">
+                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">Growth Drivers (NOPA):</span>
+                            <ul class="text-xs text-slate-300 space-y-1"><li>• Strong State Support</li><li>• Robust Raw Material Base</li><li>• Advantageous Location</li><li>• Export Logistics Enhancement</li></ul>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div><h3 class="text-sm font-bold text-white serif flex items-center gap-2"><i class="fa-solid fa-sun text-amber-400"></i> Dynamics & Potential of Sunflower Sown Area</h3><p class="text-[11px] text-slate-400">5-year sown area expansion and target potential (M ha)</p></div>
+                                <span class="text-[10px] font-bold bg-amber-950 text-amber-400 border border-amber-800 px-2.5 py-1 rounded-full">2.3x Growth</span>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow-inner relative h-64"><canvas id="kzOilseedChart"></canvas></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+                            <span><strong class="text-amber-400">Yadykar Ibragimov (NOPA):</strong> 'Sunflower seed drove the highest area increase'.</span>
+                            <span class="font-bold text-emerald-400 font-mono-num whitespace-nowrap ml-2">Potential: > 4.0M ha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KZ TAB 5: INVESTMENTS & SUBSTITUTION -->
+            <div id="kz-tab-investments" class="kz-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-rose-400 text-xl mb-2"><i class="fa-solid fa-file-contract"></i></div>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">Investment Agreements (4 Years)</h4>
+                            <div class="text-3xl font-black text-white font-mono-num my-2">62 Projects</div>
+                            <p class="text-xs text-slate-400 mt-2 serif">Total agreement value reaches approximately <strong class="text-rose-400">€32 Billion</strong>.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500">Provides up to <strong class="text-slate-300">25 years of legislative stability</strong>.</div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-sky-400 text-xl mb-2"><i class="fa-solid fa-handshake"></i></div>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">Investment Contracts</h4>
+                            <div class="text-3xl font-black text-white font-mono-num my-2">173 Contracts</div>
+                            <p class="text-xs text-slate-400 mt-2 serif">Attracted contracts valued at approximately <strong class="text-sky-400">€2.6 Billion</strong>.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500">Includes tax incentives and customs exemptions.</div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-violet-400 text-xl mb-2"><i class="fa-solid fa-chart-pie"></i></div>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">Gross FDI Inflow</h4>
+                            <div class="text-3xl font-black text-white font-mono-num my-2">€18.0 Billion</div>
+                            <p class="text-xs text-emerald-400 mt-2 font-bold"><i class="fa-solid fa-arrow-up"></i> +14.4% Year-on-Year Growth</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500">Focused on deep processing localization.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- TAB 3: PANDORA VIETNAM FACTORY ESG CASE -->
+        <!-- =================================================================== -->
+        <section id="main-pandora" class="main-tab-content hidden space-y-6">
+            
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-2xl">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl text-slate-950 font-black shadow-lg shadow-pink-500/20">
+                        <i class="fa-solid fa-gem text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span id="pan-txt-sub" class="text-[10px] font-bold tracking-widest text-pink-400 uppercase bg-pink-950/80 px-2 py-0.5 rounded border border-pink-800/50">Pandora Corporate Expansion</span>
+                            <span class="text-[10px] font-semibold text-slate-400">| Ho Chi Minh City Plant</span>
+                        </div>
+                        <h1 id="pan-txt-title" class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-0.5 serif">
+                            World's Largest Fine Jewellery Factory: Pandora's Vietnam Strategy
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 text-xs">
+                    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-right">
+                        <span id="pan-txt-inv-lbl" class="text-slate-400 block text-[10px] uppercase font-medium">Vietnam Investment</span>
+                        <span class="text-pink-400 font-bold font-mono-num text-sm">$150M (€132M)</span>
+                    </div>
+                    <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-right">
+                        <span id="pan-txt-cap-lbl" class="text-slate-400 block text-[10px] uppercase font-medium">Capacity Surge</span>
+                        <span class="text-emerald-400 font-bold font-mono-num text-sm">+50% (+60M pcs)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pandora Sub Tabs -->
+            <div class="bg-slate-900/80 border-b border-slate-800 rounded-xl overflow-hidden">
+                <div class="flex space-x-1 sm:space-x-2 overflow-x-auto custom-scrollbar text-xs font-semibold p-1">
+                    <button onclick="switchPanSubTab('pan-tab-ops')" id="btn-pan-tab-ops" class="sub-tab-btn active px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-industry text-pink-400"></i>
+                        <span id="pan-tab-title-1">1. Overview & Operations</span>
+                    </button>
+                    <button onclick="switchPanSubTab('pan-tab-esg')" id="btn-pan-tab-esg" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-leaf text-emerald-400"></i>
+                        <span id="pan-tab-title-2">2. ESG & Green Energy</span>
+                    </button>
+                    <button onclick="switchPanSubTab('pan-tab-market')" id="btn-pan-tab-market" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-chart-line text-amber-400"></i>
+                        <span id="pan-tab-title-3">3. Market & US Tariffs</span>
+                    </button>
+                    <button onclick="switchPanSubTab('pan-tab-history')" id="btn-pan-tab-history" class="sub-tab-btn px-4 py-2.5 text-slate-400 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap rounded-lg">
+                        <i class="fa-solid fa-timeline text-sky-400"></i>
+                        <span id="pan-tab-title-4">4. History & Labor Risks</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PAN TAB 1: OPERATIONS -->
+            <div id="pan-tab-ops" class="pan-sub-tab-content space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="pan-t1-m1-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Vietnam Investment</p>
+                            <h3 class="text-2xl font-extrabold text-pink-400 font-mono-num mt-1">$150 Million</h3>
+                            <p id="pan-t1-m1-sub" class="text-[10px] text-slate-500 mt-1">~€132M (Ho Chi Minh City)</p>
+                        </div>
+                        <div class="p-3 bg-pink-500/10 text-pink-400 rounded-xl border border-pink-500/20"><i class="fa-solid fa-sack-dollar text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="pan-t1-m2-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Workforce Capacity</p>
+                            <h3 class="text-2xl font-extrabold text-sky-400 font-mono-num mt-1">7,000</h3>
+                            <p id="pan-t1-m2-sub" class="text-[10px] text-sky-400 mt-1">When fully operational</p>
+                        </div>
+                        <div class="p-3 bg-sky-500/10 text-sky-400 rounded-xl border border-sky-500/20"><i class="fa-solid fa-users text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="pan-t1-m3-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Annual Output</p>
+                            <h3 class="text-2xl font-extrabold text-emerald-400 font-mono-num mt-1">60M Pcs</h3>
+                            <p id="pan-t1-m3-sub" class="text-[10px] text-emerald-400 mt-1">+50% global capacity boost</p>
+                        </div>
+                        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20"><i class="fa-solid fa-warehouse text-xl"></i></div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex items-center justify-between">
+                        <div>
+                            <p id="pan-t1-m4-title" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Units Sold</p>
+                            <h3 class="text-2xl font-extrabold text-amber-400 font-mono-num mt-1">112M Pcs</h3>
+                            <p id="pan-t1-m4-sub" class="text-[10px] text-slate-500 mt-1">> 3 pieces per second</p>
+                        </div>
+                        <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl border border-amber-500/20"><i class="fa-solid fa-cart-shopping text-xl"></i></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 id="pan-t1-chart-title" class="text-sm font-bold text-white serif flex items-center gap-2"><i class="fa-solid fa-chart-column text-pink-400"></i> Pandora Global Manufacturing Capacity (M Units)</h3>
+                                <p id="pan-t1-chart-sub" class="text-[11px] text-slate-400">Comparative impact of Ho Chi Minh City plant launch</p>
+                            </div>
+                            <span id="pan-t1-chart-badge" class="text-[10px] font-bold bg-pink-950 text-pink-400 border border-pink-800 px-2.5 py-1 rounded-full">+50% Capacity</span>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-inner relative h-72"><canvas id="panCapacityChart"></canvas></div>
+                        <div id="pan-t1-chart-foot" class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                            <span><strong>Location:</strong> Ho Chi Minh City (Vietnam) — 1st plant outside Thailand.</span>
+                            <span><strong>Status:</strong> World's largest jewellery brand.</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-pink-400 mb-3"><i class="fa-solid fa-quote-left text-lg"></i><h4 id="pan-t1-quote-head" class="text-xs font-bold uppercase tracking-wider">CEO Strategy</h4></div>
+                            <h3 id="pan-t1-quote-title" class="text-base font-extrabold text-white leading-snug serif">“This gives us flexibility to craft all our collections, our assortments in all our materials”</h3>
+                            <p id="pan-t1-quote-author" class="text-xs text-pink-400 font-bold mt-2">— Berta de Pablos-Barbier, Pandora CEO</p>
+                            <p id="pan-t1-quote-desc" class="text-xs text-slate-400 mt-4 leading-relaxed serif">Pandora positions the plant as an eco-flagship. Key objective: geographical diversification of manufacturing while retaining supply chain control.</p>
+                        </div>
+                        <div class="mt-6 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <span id="pan-t1-fact-head" class="text-[10px] font-bold text-slate-400 uppercase block">Key Highlights:</span>
+                            <ul id="pan-t1-fact-list" class="text-xs text-slate-300 space-y-1"><li>• 4th Pandora factory globally</li><li>• 1st facility outside Thailand</li><li>• Sales pace: 3 pieces per second</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAN TAB 2: ESG -->
+            <div id="pan-tab-esg" class="pan-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-900 border border-emerald-800/50 rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full text-emerald-400 text-xs font-bold mb-4"><i class="fa-solid fa-recycle"></i> Circular Economy</div>
+                            <h2 class="text-2xl font-extrabold text-white serif">100% Recycled Gold & Silver</h2>
+                            <div class="text-4xl font-black text-emerald-400 font-mono-num my-4">Since 2024</div>
+                            <p class="text-xs text-slate-300 leading-relaxed serif">Pandora fully ceased using mined precious metals. The Vietnam factory operates entirely on 100% renewable electricity.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800/80"><span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block mb-1">Next Goal:</span><p class="text-xs text-emerald-300 font-medium">Extending renewable electricity standards to external raw material suppliers.</p></div>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div><h3 class="text-sm font-bold text-white serif flex items-center gap-2"><i class="fa-solid fa-sun text-amber-400"></i> Pandora Material Breakdown: 100% Recycled Gold & Silver</h3><p class="text-[11px] text-slate-400">Decarbonizing production footprint via circular recycling</p></div>
+                                <span class="text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-1 rounded-full">Zero Mining Impact</span>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow-inner relative h-56"><canvas id="panEsgMetalsChart"></canvas></div>
+                        </div>
+                        <div class="mt-4 p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-2">
+                            <div class="flex items-center gap-2 text-amber-400 font-bold"><i class="fa-solid fa-building-columns"></i><span>UN Expert Assessment:</span></div>
+                            <p class="italic text-slate-400 text-[11px] leading-relaxed serif">“Gold is designed for a circular economy. It doesn't oxidise — we still have ancient Egyptian gold in good shape. Refining, however, requires heating energy.”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAN TAB 3: MARKET & US TARIFFS -->
+            <div id="pan-tab-market" class="pan-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div><h3 class="text-sm font-bold text-white serif flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up text-amber-400"></i> Sales Growth Forecast: Jewellery vs Apparel</h3><p class="text-[11px] text-slate-400">Source: McKinsey & The Business of Fashion</p></div>
+                                <span class="text-[10px] font-bold bg-amber-950 text-amber-400 border border-amber-800 px-2.5 py-1 rounded-full">4x Faster Growth</span>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow-inner relative h-64"><canvas id="panMarketGrowthChart"></canvas></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between">
+                            <span><strong>Jewellery Sector:</strong> +4.1% annually</span><span><strong>Apparel Sector:</strong> ~1.0% (4x slower)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-rose-400 mb-3"><i class="fa-solid fa-triangle-exclamation text-lg"></i><h4 class="text-xs font-bold uppercase tracking-wider">Macroeconomic Risks</h4></div>
+                            <h3 class="text-base font-extrabold text-white leading-snug serif">US Import Tariffs & Cost Pressure</h3>
+                            <p class="text-xs text-slate-400 mt-3 leading-relaxed serif">US import tariffs continue to weigh on profitability and operating margins in Pandora's largest market.</p>
+                        </div>
+                        <div class="space-y-2.5 mt-6">
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><span class="text-[10px] text-slate-400 uppercase font-bold block">Largest Market</span><span class="text-xs font-extrabold text-slate-200">United States (Inflation pressures)</span></div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800"><span class="text-[10px] text-slate-400 uppercase font-bold block">Demand Drag Factors</span><span class="text-xs font-extrabold text-rose-400">Inflation + US Import Tariffs</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAN TAB 4: HISTORY -->
+            <div id="pan-tab-history" class="pan-sub-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-sm font-bold text-white serif mb-4 flex items-center gap-2"><i class="fa-solid fa-timeline text-sky-400"></i> Pandora Evolution: From Copenhagen Shop to Global Giant</h3>
+                            <div class="space-y-3 text-xs">
+                                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3"><span class="bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded font-bold font-mono-num">1982</span><div><strong class="text-white block">Company Founded</strong><span class="text-slate-400 text-[11px]">Small Copenhagen jewellery shop in Denmark.</span></div></div>
+                                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3"><span class="bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded font-bold font-mono-num">1989</span><div><strong class="text-white block">Thailand Production Launch</strong><span class="text-slate-400 text-[11px]">Offshoring core manufacturing to scale output.</span></div></div>
+                                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3"><span class="bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded font-bold font-mono-num">2000</span><div><strong class="text-white block">Legendary Charm Bracelet Launch</strong><span class="text-slate-400 text-[11px]">Product driving international global expansion.</span></div></div>
+                                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3"><span class="bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded font-bold font-mono-num">2010</span><div><strong class="text-white block">Copenhagen Stock Exchange IPO</strong><span class="text-slate-400 text-[11px]">Transitioning to a public listed company.</span></div></div>
+                                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3 border-l-2 border-l-pink-500"><span class="bg-pink-500/10 text-pink-400 border border-pink-500/30 px-2.5 py-1 rounded font-bold font-mono-num">Expansion</span><div><strong class="text-white block">Vietnam Mega-Plant Open ($150M)</strong><span class="text-slate-400 text-[11px]">1st mega-factory outside Thailand with 7,000 jobs.</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-2 text-rose-400 mb-3"><i class="fa-solid fa-scale-unbalanced-flip text-lg"></i><h4 class="text-xs font-bold uppercase tracking-wider">Labor Disputes (Danwatch)</h4></div>
+                            <h3 class="text-base font-extrabold text-white leading-snug serif">Bangkok Plant Labor Controversy</h3>
+                            <p class="text-xs text-slate-400 mt-3 leading-relaxed serif">Danish investigative outlet Danwatch reported on labor disputes and trade union activity considerations at Pandora's overseas facilities.</p>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 mt-6 space-y-2">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase block">Official Pandora Response:</span>
+                            <p class="text-xs text-slate-300 italic serif">“The cuts reflected restructuring and employee performance.”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-stone-900 text-stone-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <span class="brand-red text-white font-black px-2 py-1 text-sm serif">The Industrial Economics</span>
-                <span>Industrial Economics News Hub • Almaty Management University</span>
+                <span class="brand-red text-white font-black px-2 py-1 text-sm serif rounded-sm">The Industrial Economics</span>
+                <span>Industrial Economics Analytics Hub • AlmaU</span>
             </div>
-            <p class="text-stone-500 text-center md:text-right">
-                Automatically updated via GitHub Actions every Wednesday at 01:00 AM CET. All source rights reserved.
+            <p id="ft-scale" class="text-slate-500 text-center md:text-right">
+                Automated Analytics Portal. All source rights reserved.
             </p>
         </div>
     </footer>
 
-    <!-- DASHBOARD & BILINGUAL LOGIC -->
+    <!-- INTERACTIVE ENGINE & TRANSLATIONS SCRIPT -->
     <script>
         let currentLang = 'en';
-        let currentTab = 'share';
-        let dashChartInstance = null;
+        let currentDashTab = 'share';
+        let activeDashChartInstance = null;
+
+        // CHART INSTANCE REFERENCES
+        let kzPartnersChart, kzRawDynamicsChart, kzProcessedChart, kzOilseedChart;
+        let panCapacityChart, panEsgMetalsChart, panMarketGrowthChart;
+
+        // FLAG-SPECIFIC COLORS FOR KAZAKHSTAN TRADE PARTNERS
+        const flagColorsKZ = [
+            '#de2910', // 1. China (Red)
+            '#0039a6', // 2. Russia (Blue)
+            '#009246', // 3. Italy (Green)
+            '#e30a17', // 4. Turkey (Red)
+            '#002395', // 5. France (Blue)
+            '#0099b5', // 6. Uzbekistan (Cyan)
+            '#ae1c28', // 7. Netherlands (Red)
+            '#dd0000', // 8. Germany (Red)
+            '#3c3b6e', // 9. USA (Navy)
+            '#cd2e3a'  // 10. South Korea (Red)
+        ];
 
         const translations = {
             en: {
                 mainHub: "Main Hub",
+                mTab1: "1. World Robotics 2026 & Briefings",
+                mTab2: "2. Kazakhstan Trade & Export Dashboard",
+                mTab3: "3. Pandora Vietnam Factory ESG Case",
+                
+                // Robotics Dash
                 dashTitle: "World Robotics 2026: 5 Million Industrial Robots & Humanoid Feasibility Analysis",
-                dashSub: "Source: Euronews & International Federation of Robotics (IFR) Report (September 2026)",
+                dashSub: "Source: Euronews & International Federation of Robotics (IFR) Report",
                 kpi1Lbl: "Global Operational Stock", kpi1Sub: "+9% YoY (Historic Record)",
-                kpi2Lbl: "Annual Installations", kpi2Sub: "+11% YoY Growth (2025)",
-                kpi3Lbl: "China Market Share", kpi3Sub: "354,000 New Units Installed",
+                kpi2Lbl: "Annual Installations", kpi2Sub: "+11% YoY Growth",
+                kpi3Lbl: "China Market Share", kpi3Sub: "354,000 New Units",
                 kpi4Lbl: "Humanoids R&D Funding", kpi4Sub: "Vs $18.5B Industrial Market",
-                btnFlipFront: "🔄 Read Economic Analysis",
-                btnFlipBack: "🔙 Back to Visual Chart",
-                secLatestNews: "Latest Industrial Sector Headlines",
-                lblReadFull: "Read Full Original Article →",
+                btnFlipFront: "🔄 Read Economic Analysis", btnFlipBack: "🔙 Back to Visual Chart",
+                secLatestNews: "Latest Industrial Sector Headlines", lblReadFull: "Read Full Original Article →",
                 dashSummaryTitle: "Key Takeaway: Industrial Scale vs. Humanoid Reality Check",
-                dashSummaryText: "While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B in 2025/2026, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.",
-                art1Title: "Volkswagen CEO urges deep plant restructuring and job cuts amid fierce Chinese EV competition",
-                art1Desc: "Factory floor pressures mount in Wolfsburg as management weighs significant workforce reductions to offset rising European production costs and shifting automotive markets...",
-                art2Title: "Global manufacturing and heavy industry face heavy tariff pressures and component bottlenecks",
-                art2Desc: "Industrial producers across Europe and North America monitor shifting cross-border trade policies affecting raw materials, heavy machinery, and factory input costs...",
-                art3Title: "Five million robots now work in factories as the hype around humanoid robots faces a reality check",
-                art3Desc: "Factory managers across Europe and Asia deploy 600,000 new industrial robots per year, while bipedal humanoid adoption remains constrained by high dexterity costs...",
+                dashSummaryText: "While venture investment in bipedal humanoid robots (Tesla Optimus, Figure, Unitree) reached $3.8B, traditional articulated industrial arms represent the overwhelming 98%+ of operational shop floor value ($18.5B market). China's rapid import substitution (55% domestic supplier share) and Brazil's automotive boom (+212% EV assembly robotics) highlight where real manufacturing productivity gains are being realized today.",
+                art1Title: "Volkswagen boss backs EU plan to bolster domestic European industry amid EV competition",
+                art1Desc: "Oliver Blume supports 'Made in Europe' rules to reward real domestic value creation, as European automakers restructure production lines to counter lower-price Chinese EV imports...",
+                art2Title: "Mercedes & auto giants warn excluding partners from 'Made in Europe' law will hurt supply chains",
+                art2Desc: "Ola Källenius cautions that overly rigid localization rules risk weakening automotive component supply chains on both sides of the Channel, as tariffs and input costs continue rising...",
+                art3Title: "Five million robots now work in global factories as humanoid adoption faces economic reality check",
+                art3Desc: "IFR report confirms global stock hit 5 million units with 600,000 new annual deployments, while bipedal humanoids remain restricted by high capital expenditure and dexterity limits...",
                 analysisTexts: {
                     share: "<p><strong>Absolute Dominance of China:</strong> China accounts for 59% of all new industrial robots globally (354,000 units). Domestic Chinese suppliers secured over 55% of their home market (195,000 units). USA holds 6.4% (38,500 units), surpassing Japan (6.0%) for the first time. Germany represents 4.2% globally and 41% of all European Union installations.</p>",
-                    units: "<p><strong>USA Surpasses Japan in New Installs:</strong> The United States moved into 2nd place globally (+12% to 38.5k), edging past Japan (-19% to 36.2k). India demonstrated remarkable long-term growth (CAGR +27% between 2020–2025), deploying 10,500 units. Europe experienced a temporary slowdown: Germany (-8%), Italy (-11%), France (-8%), and Spain (-15%) reduced orders amid automotive sector contraction.</p>",
-                    growth: "<p><strong>Brazil's Automotive Robotics Surge (+38%):</strong> Growth in Brazil was driven by a massive 212% surge in automotive assembly robotics, fueled by investments from Chinese EV manufacturers (BYD, Great Wall). China continues robust expansion (+20%), while mature Asian and European markets undergo cyclical corrections.</p>",
-                    forecast: "<p><strong>Trajectory Towards 800k Units Annually:</strong> IFR projects accelerating automation. Deployments are forecast to rise to 655,000 units in 2026 (+9%) and surpass 806,000 units annually by 2029. Growth drivers include Generative AI, advanced computer vision, and lower integration costs.</p>",
-                    invest: "<p><strong>Reality Check vs Hype:</strong> Although venture investments in humanoid robotics (Tesla Optimus, Boston Dynamics, Figure) reached a record $3.8B, the sector remains under 17% of traditional industrial automation ($18.5B). Humanoids face severe technical hurdles: complex hand dexterity, power consumption, and unit costs prevent them from outperforming dedicated robotic arms on assembly lines.</p>"
-                }
+                    units: "<p><strong>USA Surpasses Japan in New Installs:</strong> The United States moved into 2nd place globally (+12% to 38.5k), edging past Japan (-19% to 36.2k). India demonstrated remarkable long-term growth (CAGR +27%), deploying 10,500 units. Europe experienced a temporary slowdown: Germany (-8%), Italy (-11%), France (-8%), and Spain (-15%) reduced orders amid automotive sector contraction.</p>",
+                    growth: "<p><strong>Brazil's Automotive Robotics Surge (+38%):</strong> Growth in Brazil was driven by a massive 212% surge in automotive assembly robotics, fueled by investments from EV manufacturers (BYD, Great Wall). China continues robust expansion (+20%), while mature Asian and European markets undergo cyclical corrections.</p>",
+                    forecast: "<p><strong>Trajectory Towards 800k Units Annually:</strong> IFR projects accelerating automation. Deployments are forecast to rise to 655,000 units (+9%) and surpass 806,000 units annually by 2029. Growth drivers include Generative AI, advanced computer vision, and lower integration costs.</p>",
+                    invest: "<p><strong>Reality Check vs Hype:</strong> Although venture investments in humanoid robotics reached a record $3.8B, the sector remains under 17% of traditional industrial automation ($18.5B). Humanoids face severe technical hurdles: complex hand dexterity, power consumption, and unit costs prevent them from outperforming dedicated robotic arms on assembly lines.</p>"
+                },
+
+                // KZ Dash Translations
+                kzSub: "Trade Intelligence", kzTitle: "Kazakhstan Export Diversification & Import Substitution",
+                kzTurnoverLbl: "Total Trade Turnover", kzSurplusLbl: "Trade Surplus",
+                kzTab1: "1. Foreign Trade & Flag Colors", kzTab2: "2. Commodity Dynamics", kzTab3: "3. Processed Export (+18%)", kzTab4: "4. Oilseed & Agriculture", kzTab5: "5. Investments & Substitution",
+                
+                // Pandora Dash Translations
+                panSub: "Pandora Corporate Expansion", panTitle: "World's Largest Fine Jewellery Factory: Pandora's Vietnam Strategy",
+                panInvLbl: "Vietnam Investment", panCapLbl: "Capacity Surge",
+                panTab1: "1. Overview & Operations", panTab2: "2. ESG & Green Energy", panTab3: "3. Market & US Tariffs", panTab4: "4. History & Labor Risks",
+
+                ftScale: "Automated Analytics Portal. Sourced from QazTrade, IFR, Euronews, BBC News, and McKinsey."
             },
             ru: {
                 mainHub: "Главный хаб",
+                mTab1: "1. World Robotics 2026 и Брифинги",
+                mTab2: "2. Казахстан: Экспорт и Торговля",
+                mTab3: "3. Кейс Pandora: Завод во Вьетнаме",
+
+                // Robotics Dash
                 dashTitle: "World Robotics 2026: 5 Миллионов роботов и анализ реальности гуманоидов",
-                dashSub: "Источник: Отчет Euronews & International Federation of Robotics (IFR) (Сентябрь 2026)",
+                dashSub: "Источник: Отчет Euronews & International Federation of Robotics (IFR)",
                 kpi1Lbl: "Глобальный парк роботов", kpi1Sub: "+9% YoY (Исторический рекорд)",
-                kpi2Lbl: "Установки за год", kpi2Sub: "+11% прирост (2025)",
+                kpi2Lbl: "Установки за год", kpi2Sub: "+11% прирост",
                 kpi3Lbl: "Доля Китая на рынке", kpi3Sub: "354,000 новых установок",
                 kpi4Lbl: "Инвестиции в гуманоиды", kpi4Sub: "Против $18.5 млрд в пром. роботы",
-                btnFlipFront: "🔄 Читать экономический анализ",
-                btnFlipBack: "🔙 Вернуться к графику",
-                secLatestNews: "Свежие новости промышленного сектора",
-                lblReadFull: "Читать полную статью →",
+                btnFlipFront: "🔄 Читать экономический анализ", btnFlipBack: "🔙 Вернуться к графику",
+                secLatestNews: "Свежие новости промышленного сектора", lblReadFull: "Читать полную статью →",
                 dashSummaryTitle: "Ключевой вывод: Индустриальный масштаб vs Проверка реальностью гуманоидов",
-                dashSummaryText: "Хотя венчурные инвестиции в человекоподобных роботов (Tesla Optimus, Figure, Unitree) достигли $3.8 млрд в 2025/2026 гг., традиционные промышленные манипуляторы составляют свыше 98% объема рынка ($18.5 млрд). Импортозамещение в Китае (55% доля отечественных брендов) и автомобильный бум в Бразилии (+212% роботов в сборке электромобилей) показывают, где сегодня реально достигается рост производительности.",
-                art1Title: "Глава Volkswagen призывает к глубокой реструктуризации заводов на фоне жесткой конкуренции электромобилей из Китая",
-                art1Desc: "Давление на заводы в Вольфсбурге растет: руководство рассматривает сокращение штата для компенсации растущих европейских производственных издержек...",
-                art2Title: "Мировая промышленность сталкивается с тарифным давлением и узкими местами в цепочках поставок",
-                art2Desc: "Промышленные производители в Европе и Северной Америке отслеживают изменения торговой политики, влияющие на сырье и тяжелое машиностроение...",
-                art3Title: "Пять миллионов роботов работают на заводах, пока ажиотаж вокруг гуманоидов сталкивается с реальностью",
-                art3Desc: "Заводы в Европе и Азии устанавливают 600,000 новых промышленных роботов в год, в то время как внедрение гуманоидов сдерживается высокой стоимостью тонкой моторики...",
+                dashSummaryText: "Хотя венчурные инвестиции в человекоподобных роботов (Tesla Optimus, Figure, Unitree) достигли $3.8 млрд, традиционные промышленные манипуляторы составляют свыше 98% объема рынка ($18.5 млрд). Импортозамещение в Китае (55% доля отечественных брендов) и автомобильный бум в Бразилии (+212% роботов в сборке электромобилей) показывают, где сегодня реально достигается рост производительности.",
+                art1Title: "Глава Volkswagen поддержал инициативу ЕС 'Made in Europe' для защиты автопрома Европы",
+                art1Desc: "Оливер Блюме выступает за стимулирование европейского локального производства в ответ на рост поставок недорогих электромобилей из Китая...",
+                art2Title: "Mercedes и гиганты автопрома предупреждают, что исключение партнеров из законов ЕС навредит цепочкам поставок",
+                art2Desc: "Ола Келлениус отмечает, что жесткие ограничения локализации рискуют ослабить поставки комплектующих и взвинтить производственные издержки...",
+                art3Title: "Пять миллионов роботов работают на заводах мира, пока окупаемость гуманоидов сталкивается с реальностью",
+                art3Desc: "Отчет IFR подтверждает рекордные 5 млн роботов и 600,000 новых установок в год, в то время как антропоморфные гуманоиды ограничены высокой стоимостью тонкой моторики...",
                 analysisTexts: {
                     share: "<p><strong>Абсолютное доминирование Китая:</strong> На КНР приходится 59% всех новых промышленных роботов в мире (354,000 ед.). Китайские производители впервые закрепили за собой более 55% собственного внутреннего рынка (195,000 ед.). США занимают 6.4% (38,500 ед.), впервые обогнав Японию (6.0%). Германия обеспечивает 4.2% мировых установок и 41% всех роботов в Европейском Союзе.</p>",
-                    units: "<p><strong>США обогнали Японию по объемам установок:</strong> Соединенные Штаты вышли на 2-е место в мире (+12% до 38.5 тыс.), оттеснив Японию (-19% до 36.2 тыс.). Индия показала феноменальный долгосрочный рост (CAGR +27% за 2020–2025 гг.), установив 10,500 роботов. В Европе фиксируется спад: Германия (-8%), Италия (-11%), Франция (-8%) и Испания (-15%) снизили покупки из-за рецессии автопрома.</p>",
-                    growth: "<p><strong>Аномальный скачок робототехники в Бразилии (+38%):</strong> Прирост в Бразилии вызван гигантским скачком установок в автопроме (+212%), куда активно инвестируют китайские автоконцерны (BYD, Great Wall). Китай продолжает расти высокими темпами (+20%), в то время как традиционные гиганты испытывают коррекцию.</p>",
-                    forecast: "<p><strong>Устойчивый тренд к 800 тыс. роботов в год:</strong> IFR прогнозирует ускорение автоматизации. В 2026 году ожидается рост установок до 655,000 (+9%), а к 2029 году показатель превысит 806,000 роботов ежегодно. Драйверами выступают генеративный ИИ и компьютерное зрение.</p>",
-                    invest: "<p><strong>Реальность против Хайпа:</strong> Хотя венчурные инвестиции в человекоподобных роботов (Tesla Optimus, Boston Dynamics, Figure) достигли $3.8 млрд, этот сектор пока составляет менее 17% от объемов традиционной промышленной автоматизации ($18.5 млрд). Гуманоиды сталкиваются с техническим барьером тонкой моторики кистей и высокой стоимости.</p>"
-                }
+                    units: "<p><strong>США обогнали Японию по объемам установок:</strong> Соединенные Штаты вышли на 2-е место в мире (+12% до 38.5 тыс.), оттеснив Японию (-19% до 36.2 тыс.). Индия показала феноменальный долгосрочный рост (CAGR +27%), установив 10,500 роботов. В Европе фиксируется спад: Германия (-8%), Италия (-11%), Франция (-8%) и Испания (-15%) снизили покупки из-за рецессии автопрома.</p>",
+                    growth: "<p><strong>Аномальный скачок робототехники в Бразилии (+38%):</strong> Прирост в Бразилии вызван гигантским скачком установок в автопроме (+212%), куда активно инвестируют автоконцерны (BYD, Great Wall). Китай продолжает расти высокими темпами (+20%), в то время как традиционные гиганты испытывают коррекцию.</p>",
+                    forecast: "<p><strong>Устойчивый тренд к 800 тыс. роботов в год:</strong> IFR прогнозирует ускорение автоматизации. В ближайшие годы ожидается рост установок до 655,000 (+9%), а к 2029 году показатель превысит 806,000 роботов ежегодно. Драйверами выступают генеративный ИИ и компьютерное зрение.</p>",
+                    invest: "<p><strong>Реальность против Хайпа:</strong> Хотя венчурные инвестиции в человекоподобных роботов достигли $3.8 млрд, этот сектор пока составляет менее 17% от объемов традиционной промышленной автоматизации ($18.5 млрд). Гуманоиды сталкиваются с техническим барьером тонкой моторики кистей и высокой стоимости.</p>"
+                },
+
+                // KZ Dash Translations
+                kzSub: "Аналитика торговли", kzTitle: "Диверсификация экспорта и импортозамещение РК",
+                kzTurnoverLbl: "Общий товарооборот", kzSurplusLbl: "Торговый профицит",
+                kzTab1: "1. Внешняя торговля & Цвет флагов", kzTab2: "2. Динамика сырьевого сектора", kzTab3: "3. Несырьевой экспорт (+18%)", kzTab4: "4. Масличный сектор & АПК", kzTab5: "5. Инвестиции & Импортозамещение",
+
+                // Pandora Dash Translations
+                panSub: "Корпоративная экспансия Pandora", panTitle: "Крупнейшая ювелирная фабрика мира: Стратегия Pandora во Вьетнаме",
+                panInvLbl: "Инвестиции во Вьетнам", panCapLbl: "Рост мощностей",
+                panTab1: "1. Обзор & Производство", panTab2: "2. ESG & Зелёная энергетика", panTab3: "3. Рынок & Пошлины США", panTab4: "4. История & Трудовые риски",
+
+                ftScale: "Аналитический портал. Источники: QazTrade, IFR, Euronews, BBC News, McKinsey."
             }
         };
 
+        // GLOBAL SWITCH LANGUAGE
         function setGlobalLang(lang) {
             currentLang = lang;
-            document.getElementById('btn-lang-en').className = lang === 'en' ? "px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm" : "px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900";
-            document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-2 py-1 text-xs font-bold rounded bg-stone-800 text-white shadow-sm" : "px-2 py-1 text-xs font-bold rounded text-stone-600 hover:text-stone-900";
+            document.getElementById('btn-lang-en').className = lang === 'en' ? "px-2.5 py-1 text-xs font-bold rounded bg-brand-red text-white shadow-sm transition-all" : "px-2.5 py-1 text-xs font-bold rounded text-slate-400 hover:text-white transition-all";
+            document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-2.5 py-1 text-xs font-bold rounded bg-brand-red text-white shadow-sm transition-all" : "px-2.5 py-1 text-xs font-bold rounded text-slate-400 hover:text-white transition-all";
 
             const t = translations[lang];
             document.getElementById('lbl-main-hub').innerText = t.mainHub;
+            document.getElementById('lbl-mtab-1').innerText = t.mTab1;
+            document.getElementById('lbl-mtab-2').innerText = t.mTab2;
+            document.getElementById('lbl-mtab-3').innerText = t.mTab3;
+
+            // Robotics Briefing
             document.getElementById('dash-main-title').innerText = t.dashTitle;
             document.getElementById('dash-main-sub').innerText = t.dashSub;
-
             document.getElementById('kpi1-lbl').innerText = t.kpi1Lbl; document.getElementById('kpi1-sub').innerText = t.kpi1Sub;
             document.getElementById('kpi2-lbl').innerText = t.kpi2Lbl; document.getElementById('kpi2-sub').innerText = t.kpi2Sub;
             document.getElementById('kpi3-lbl').innerText = t.kpi3Lbl; document.getElementById('kpi3-sub').innerText = t.kpi3Sub;
             document.getElementById('kpi4-lbl').innerText = t.kpi4Lbl; document.getElementById('kpi4-sub').innerText = t.kpi4Sub;
-
             document.getElementById('btn-flip-front').innerText = t.btnFlipFront;
             document.getElementById('btn-flip-back').innerText = t.btnFlipBack;
-
             document.getElementById('sec-latest-news').innerText = t.secLatestNews;
             document.querySelectorAll('.lbl-read-full').forEach(el => el.innerText = t.lblReadFull);
-
             document.getElementById('dash-summary-title').innerHTML = `<i class="fa-solid fa-microchip text-brand-red mr-1"></i> ${t.dashSummaryTitle}`;
             document.getElementById('dash-summary-text').innerText = t.dashSummaryText;
-
             document.getElementById('art1-title').innerText = t.art1Title; document.getElementById('art1-desc').innerText = t.art1Desc;
             document.getElementById('art2-title').innerText = t.art2Title; document.getElementById('art2-desc').innerText = t.art2Desc;
             document.getElementById('art3-title').innerText = t.art3Title; document.getElementById('art3-desc').innerText = t.art3Desc;
 
+            // KZ Dashboard
+            document.getElementById('kz-txt-sub').innerText = t.kzSub;
+            document.getElementById('kz-txt-title').innerText = t.kzTitle;
+            document.getElementById('kz-txt-turnover-lbl').innerText = t.kzTurnoverLbl;
+            document.getElementById('kz-txt-surplus-lbl').innerText = t.kzSurplusLbl;
+            document.getElementById('kz-tab-title-1').innerText = t.kzTab1;
+            document.getElementById('kz-tab-title-2').innerText = t.kzTab2;
+            document.getElementById('kz-tab-title-3').innerText = t.kzTab3;
+            document.getElementById('kz-tab-title-4').innerText = t.kzTab4;
+            document.getElementById('kz-tab-title-5').innerText = t.kzTab5;
+
+            // Pandora Dashboard
+            document.getElementById('pan-txt-sub').innerText = t.panSub;
+            document.getElementById('pan-txt-title').innerText = t.panTitle;
+            document.getElementById('pan-txt-inv-lbl').innerText = t.panInvLbl;
+            document.getElementById('pan-txt-cap-lbl').innerText = t.panCapLbl;
+            document.getElementById('pan-tab-title-1').innerText = t.panTab1;
+            document.getElementById('pan-tab-title-2').innerText = t.panTab2;
+            document.getElementById('pan-tab-title-3').innerText = t.panTab3;
+            document.getElementById('pan-tab-title-4').innerText = t.panTab4;
+
+            document.getElementById('ft-scale').innerText = t.ftScale;
+
             renderActiveChart();
+            updateAllDashboardCharts();
         }
 
+        // SWITCH TOP LEVEL CONTENT TABS
+        function switchMainTab(tabId) {
+            document.querySelectorAll('.main-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.main-tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // SWITCH KAZAKHSTAN SUB TABS
+        function switchKzSubTab(tabId) {
+            document.querySelectorAll('.kz-sub-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#main-kazakhstan .sub-tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // SWITCH PANDORA SUB TABS
+        function switchPanSubTab(tabId) {
+            document.querySelectorAll('.pan-sub-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#main-pandora .sub-tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // ROBOTICS DASHBOARD LOGIC
         function toggleCardFlip() {
             document.getElementById('featuredCard').classList.toggle('flipped');
         }
 
         function switchDashTab(tabKey) {
-            currentTab = tabKey;
+            currentDashTab = tabKey;
             ['share', 'units', 'growth', 'forecast', 'invest'].forEach(k => {
                 const btn = document.getElementById(`tab-btn-${k}`);
-                if (k === tabKey) {
-                    btn.className = "px-3 py-1.5 text-xs font-bold rounded bg-stone-900 text-white shadow-sm";
-                } else {
-                    btn.className = "px-3 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 rounded";
-                }
+                btn.className = (k === tabKey) ? "px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-800 text-white shadow-sm" : "px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white rounded-lg";
             });
             renderActiveChart();
         }
 
         function renderActiveChart() {
-            if (dashChartInstance) dashChartInstance.destroy();
+            if (activeDashChartInstance) activeDashChartInstance.destroy();
             const ctx = document.getElementById('activeDashChart').getContext('2d');
             const isRu = currentLang === 'ru';
             const t = translations[currentLang];
 
-            // Update analysis text on flip card back
-            document.getElementById('analysis-card-text').innerHTML = t.analysisTexts[currentTab];
+            document.getElementById('analysis-card-text').innerHTML = t.analysisTexts[currentDashTab];
 
-            if (currentTab === 'share') {
+            if (currentDashTab === 'share') {
                 document.getElementById('chart-card-title').innerText = isRu ? "1. Распределение мировых установок роботов (%)" : "1. Global Industrial Robotics Installations Share (%)";
-                dashChartInstance = new Chart(ctx, {
+                activeDashChartInstance = new Chart(ctx, {
                     type: 'pie',
                     data: {
                         labels: ['China (59.0%)', 'USA (6.4%)', 'Japan (6.0%)', 'South Korea (5.0%)', 'Germany (4.2%)', 'India (1.75%)', 'Rest of World (17.65%)'],
@@ -409,25 +1029,23 @@
                     },
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
                 });
-            } 
-            else if (currentTab === 'units') {
-                document.getElementById('chart-card-title').innerText = isRu ? "2. Установки роботов по странам (тыс. единиц, 2025)" : "2. Industrial Robot Deployments by Country (k Units, 2025)";
-                dashChartInstance = new Chart(ctx, {
+            } else if (currentDashTab === 'units') {
+                document.getElementById('chart-card-title').innerText = isRu ? "2. Установки роботов по странам (тыс. единиц)" : "2. Industrial Robot Deployments by Country (k Units)";
+                activeDashChartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: ['China', 'USA', 'Japan', 'South Korea', 'Germany', 'India', 'Italy', 'Mexico', 'France', 'Brazil'],
                         datasets: [{
-                            label: isRu ? 'Установки 2025 (тыс. ед.)' : 'Deployments 2025 (k units)',
+                            label: isRu ? 'Установки (тыс. ед.)' : 'Deployments (k units)',
                             data: [354.0, 38.5, 36.2, 30.0, 25.0, 10.5, 7.8, 5.2, 4.5, 4.3],
                             backgroundColor: '#e5001c'
                         }]
                     },
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
-            }
-            else if (currentTab === 'growth') {
+            } else if (currentDashTab === 'growth') {
                 document.getElementById('chart-card-title').innerText = isRu ? "3. Динамика прироста рынка по странам (% YoY)" : "3. Industrial Robotics Market YoY Growth (%)";
-                dashChartInstance = new Chart(ctx, {
+                activeDashChartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: ['Brazil', 'China', 'India', 'USA', 'Canada', 'South Korea', 'Mexico', 'Germany', 'France', 'Italy', 'Spain', 'Japan'],
@@ -439,27 +1057,24 @@
                     },
                     options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
-            }
-            else if (currentTab === 'forecast') {
+            } else if (currentDashTab === 'forecast') {
                 document.getElementById('chart-card-title').innerText = isRu ? "4. Прогноз ежегодных установок IFR до 2029 года (тыс. ед.)" : "4. IFR Annual Installation Forecast to 2029 (k Units)";
-                dashChartInstance = new Chart(ctx, {
+                activeDashChartInstance = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: ['2024', '2025', '2026 (F)', '2027 (F)', '2028 (F)', '2029 (F)'],
                         datasets: [{
                             label: isRu ? 'Ежегодные установки (тыс. ед.)' : 'Annual Deployments (k units)',
                             data: [541, 600, 655, 705, 755, 806],
-                            borderColor: '#e5001c',
-                            backgroundColor: 'rgba(229, 0, 28, 0.1)',
+                            borderColor: '#e5001c', backgroundColor: 'rgba(229, 0, 28, 0.1)',
                             fill: true, tension: 0.3, borderWidth: 3
                         }]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
-            }
-            else if (currentTab === 'invest') {
+            } else if (currentDashTab === 'invest') {
                 document.getElementById('chart-card-title').innerText = isRu ? "5. Сравнение объема рынка: Пром. Автоматизация vs Гуманоиды ($ млрд)" : "5. Market Size: Traditional Industrial Automation vs Humanoids ($B)";
-                dashChartInstance = new Chart(ctx, {
+                activeDashChartInstance = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
                         labels: [
@@ -476,9 +1091,202 @@
             }
         }
 
-        window.onload = function() {
+        function updateAllDashboardCharts() {
+            const isRu = currentLang === 'ru';
+
+            if (kzPartnersChart) {
+                kzPartnersChart.data.labels = isRu 
+                    ? ['Китай 🇨🇳', 'Россия 🇷🇺', 'Италия 🇮🇹', 'Турция 🇹🇷', 'Франция 🇫🇷', 'Узбекистан 🇺🇿', 'Нидерланды 🇳🇱', 'Германия 🇩🇪', 'США 🇺🇸', 'Южная Корея 🇰🇷']
+                    : ['China 🇨🇳', 'Russia 🇷🇺', 'Italy 🇮🇹', 'Turkey 🇹🇷', 'France 🇫🇷', 'Uzbekistan 🇺🇿', 'Netherlands 🇳🇱', 'Germany 🇩🇪', 'USA 🇺🇸', 'South Korea 🇰🇷'];
+                kzPartnersChart.update();
+            }
+            if (kzRawDynamicsChart) {
+                kzRawDynamicsChart.data.labels = isRu ? ['Экспорт Газа', 'Экспорт Нефтепродуктов', 'Экспорт Нефти'] : ['Gas Export', 'Petroleum Products', 'Crude Oil'];
+                kzRawDynamicsChart.update();
+            }
+            if (kzProcessedChart) {
+                kzProcessedChart.data.labels = isRu ? ['Подсолнечное масло (+57%)', 'Корма для животных (+80%)'] : ['Sunflower Oil (+57%)', 'Animal Feed (+80%)'];
+                kzProcessedChart.update();
+            }
+            if (kzOilseedChart) {
+                kzOilseedChart.data.labels = isRu ? ['5 лет назад', 'Текущий уровень (x2.3)', 'Максимальный потенциал РК'] : ['5 Years Ago', 'Current Level (x2.3)', 'Max Target Potential'];
+                kzOilseedChart.update();
+            }
+
+            if (panCapacityChart) {
+                panCapacityChart.data.labels = isRu ? ['Действующие заводы (Таиланд)', 'Расширение (Завод Вьетнам)'] : ['Existing Thailand Facilities', 'New Vietnam Plant Expansion'];
+                panCapacityChart.update();
+            }
+            if (panEsgMetalsChart) {
+                panEsgMetalsChart.data.labels = isRu ? ['Переработанные металлы (100%)', 'Первичная добыча (0%)'] : ['Recycled Silver & Gold (100%)', 'Mined Primary Metals (0%)'];
+                panEsgMetalsChart.update();
+            }
+            if (panMarketGrowthChart) {
+                panMarketGrowthChart.data.labels = isRu ? ['Рост ювелирного рынка (+4.1%)', 'Рост сектора одежды (+1.0%)'] : ['Jewellery Growth (+4.1%)', 'Apparel Growth (+1.0%)'];
+                panMarketGrowthChart.update();
+            }
+        }
+
+        // INITIALIZE ALL CHARTS
+        window.addEventListener('DOMContentLoaded', () => {
             setGlobalLang('en');
-        };
+
+            // 1. KZ PARTNERS CHART (WITH NATIONAL FLAG COLORS)
+            const ctxKzPartners = document.getElementById('kzPartnersChart').getContext('2d');
+            kzPartnersChart = new Chart(ctxKzPartners, {
+                type: 'bar',
+                data: {
+                    labels: ['China 🇨🇳', 'Russia 🇷🇺', 'Italy 🇮🇹', 'Turkey 🇹🇷', 'France 🇫🇷', 'Uzbekistan 🇺🇿', 'Netherlands 🇳🇱', 'Germany 🇩🇪', 'USA 🇺🇸', 'South Korea 🇰🇷'],
+                    datasets: [{
+                        data: [100, 88, 75, 62, 54, 48, 40, 35, 30, 26],
+                        backgroundColor: flagColorsKZ,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 10, weight: '700' } } },
+                        y: { display: false }
+                    }
+                }
+            });
+
+            // 2. KZ RAW DYNAMICS CHART
+            const ctxKzRaw = document.getElementById('kzRawDynamicsChart').getContext('2d');
+            kzRawDynamicsChart = new Chart(ctxKzRaw, {
+                type: 'bar',
+                data: {
+                    labels: ['Gas Export', 'Petroleum Products', 'Crude Oil'],
+                    datasets: [{
+                        data: [-60.4, -51.7, -3.3],
+                        backgroundColor: ['#ef4444', '#f97316', '#f59e0b'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '600' } } },
+                        y: { grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+            // 3. KZ PROCESSED CHART
+            const ctxKzProcessed = document.getElementById('kzProcessedChart').getContext('2d');
+            kzProcessedChart = new Chart(ctxKzProcessed, {
+                type: 'bar',
+                data: {
+                    labels: ['Sunflower Oil (+57%)', 'Animal Feed (+80%)'],
+                    datasets: [{
+                        data: [460, 378],
+                        backgroundColor: ['#d97706', '#4f46e5'],
+                        borderRadius: 8, maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '700' } } },
+                        y: { min: 0, max: 600, grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+            // 4. KZ OILSEED CHART
+            const ctxKzOilseed = document.getElementById('kzOilseedChart').getContext('2d');
+            kzOilseedChart = new Chart(ctxKzOilseed, {
+                type: 'line',
+                data: {
+                    labels: ['5 Years Ago', 'Current Level (x2.3)', 'Max Target Potential'],
+                    datasets: [{
+                        data: [0.8, 1.84, 4.0],
+                        borderColor: '#059669', backgroundColor: 'rgba(5, 150, 105, 0.15)',
+                        fill: true, tension: 0.3, borderWidth: 3, pointBackgroundColor: '#059669', pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '600' } } },
+                        y: { min: 0, max: 5, grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+            // 5. PANDORA CAPACITY CHART
+            const ctxPanCapacity = document.getElementById('panCapacityChart').getContext('2d');
+            panCapacityChart = new Chart(ctxPanCapacity, {
+                type: 'bar',
+                data: {
+                    labels: ['Existing Thailand Facilities', 'New Vietnam Plant Expansion'],
+                    datasets: [{
+                        label: 'Capacity (M Pcs/Yr)',
+                        data: [120, 60],
+                        backgroundColor: ['#0284c7', '#ec4899'],
+                        borderRadius: 8, maxBarThickness: 60
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '700' } } },
+                        y: { min: 0, max: 150, grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+            // 6. PANDORA ESG METALS CHART
+            const ctxPanESG = document.getElementById('panEsgMetalsChart').getContext('2d');
+            panEsgMetalsChart = new Chart(ctxPanESG, {
+                type: 'bar',
+                data: {
+                    labels: ['Recycled Silver & Gold (100%)', 'Mined Primary Metals (0%)'],
+                    datasets: [{
+                        data: [100, 0],
+                        backgroundColor: ['#10b981', '#f43f5e'],
+                        borderRadius: 6, maxBarThickness: 45
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { min: 0, max: 100, grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } },
+                        y: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '700' } } }
+                    }
+                }
+            });
+
+            // 7. PANDORA MARKET GROWTH CHART
+            const ctxPanMarket = document.getElementById('panMarketGrowthChart').getContext('2d');
+            panMarketGrowthChart = new Chart(ctxPanMarket, {
+                type: 'bar',
+                data: {
+                    labels: ['Jewellery Growth (+4.1%)', 'Apparel Growth (+1.0%)'],
+                    datasets: [{
+                        data: [4.1, 1.0],
+                        backgroundColor: ['#f59e0b', '#64748b'],
+                        borderRadius: 8, maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11, weight: '700' } } },
+                        y: { min: 0, max: 5, grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+        });
     </script>
 </body>
 </html>
