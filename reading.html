@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,76 +9,427 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Стили для встроенного симулятора QazIndustry */
+        .qaz-scope {
+          --bg:#07111f;--panel:#0d1b2d;--panel2:#12243a;--line:#243b55;--ink:#e8f0f8;--muted:#91a4ba;
+          --cyan:#27c7e7;--blue:#4189ff;--green:#3dd49b;--amber:#f4b84a;--red:#ff6b70;--violet:#a889ff;
+          --shadow:0 18px 48px rgba(0,0,0,.28);
+          background: radial-gradient(circle at 12% -10%,rgba(39,199,231,.12),transparent 34%),var(--bg);
+          color:var(--ink);
+          border-radius: 20px;
+          padding: 20px 0;
+        }
+        .qaz-scope.light{--bg:#eef3f8;--panel:#fff;--panel2:#f5f8fb;--line:#d5e0eb;--ink:#15263a;--muted:#64778a;--shadow:0 12px 32px rgba(30,55,80,.11)}
+        .qaz-scope *{box-sizing:border-box}
+        .qaz-scope .shell{width:min(1450px,100%);margin:auto;padding:0 24px}
+        .qaz-scope .header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);border-radius:14px}
+        .qaz-scope .topbar{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+        .qaz-scope .brand{display:flex;gap:13px;align-items:center}
+        .qaz-scope .mark{width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#061322;font-weight:950;box-shadow:0 0 0 5px rgba(39,199,231,.1)}
+        .qaz-scope h1{font-size:clamp(18px,2vw,28px);line-height:1.1;margin:0;color:var(--ink)}
+        .qaz-scope .subtitle{font-size:12px;color:var(--muted);margin-top:5px}
+        .qaz-scope .actions{display:flex;gap:8px;align-items:center}
+        .qaz-scope .btn,.qaz-scope .tab{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:9px 13px;cursor:pointer;font:inherit;font-size:12px;font-weight:800}
+        .qaz-scope .btn:hover{border-color:var(--cyan)}
+        .qaz-scope .lang{display:flex;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:11px}
+        .qaz-scope .lang button{border:0;color:var(--muted);background:transparent;padding:7px 10px;border-radius:8px;font-weight:900;cursor:pointer}
+        .qaz-scope .lang button.active{color:#07111f;background:var(--cyan)}
+        .qaz-scope .tabs{display:flex;gap:5px;overflow:auto;padding-bottom:0}
+        .qaz-scope .tab{--tab-color:var(--cyan);white-space:nowrap;border-radius:11px 11px 0 0;border-bottom:3px solid var(--tab-color);color:var(--tab-color);padding:11px 15px;background:color-mix(in srgb,var(--tab-color) 8%,var(--panel));opacity:.72}
+        .qaz-scope .tab:hover{opacity:1;border-color:var(--tab-color);background:color-mix(in srgb,var(--tab-color) 15%,var(--panel))}
+        .qaz-scope .tab.active{opacity:1;background:color-mix(in srgb,var(--tab-color) 22%,var(--panel2));color:var(--ink);box-shadow:inset 0 -3px var(--tab-color),0 -4px 18px color-mix(in srgb,var(--tab-color) 22%,transparent)}
+        .qaz-scope main{padding-top:24px!important;padding-bottom:54px!important}
+        .qaz-scope .view{display:none;animation:fade .25s ease}
+        .qaz-scope .view.active{display:block}
+        @keyframes fade{from{opacity:.4;transform:translateY(4px)}}
+        .qaz-scope .hero{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,rgba(39,199,231,.12),transparent 40%),var(--panel);box-shadow:var(--shadow);margin-bottom:18px}
+        .qaz-scope .eyebrow{text-transform:uppercase;letter-spacing:.13em;color:var(--cyan);font-size:10px;font-weight:950}
+        .qaz-scope .hero h2{font-size:clamp(23px,3vw,38px);margin:8px 0;color:var(--ink)}
+        .qaz-scope .hero p{color:var(--muted);max-width:950px;line-height:1.6;margin:0;font-size:14px}
+        .qaz-scope .notice{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid color-mix(in srgb,var(--amber) 55%,var(--line));background:rgba(244,184,74,.08);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.5}
+        .qaz-scope .notice strong{color:var(--amber)}
+        .qaz-scope .grid{display:grid;gap:16px}
+        .qaz-scope .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .qaz-scope .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+        .qaz-scope .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+        .qaz-scope .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+        .qaz-scope .card h3,.qaz-scope .card h4{margin:0 0 8px;color:var(--ink)}
+        .qaz-scope .card p{color:var(--muted);font-size:13px;line-height:1.55}
+        .qaz-scope .section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 12px}
+        .qaz-scope .section-title h3{font-size:18px;margin:0;color:var(--ink)}
+        .qaz-scope .section-title p{font-size:11px;color:var(--muted);margin:0}
+        .qaz-scope .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900;background:var(--panel2);border:1px solid var(--line);color:var(--muted)}
+        .qaz-scope .badge.ok{color:var(--green);border-color:rgba(61,212,155,.4)}
+        .qaz-scope .badge.pause{color:var(--amber);border-color:rgba(244,184,74,.5)}
+        .qaz-scope .badge.info{color:var(--cyan);border-color:rgba(39,199,231,.4)}
+        .qaz-scope .num{font-size:28px;font-weight:950;letter-spacing:-.03em;color:var(--ink)}
+        .qaz-scope .cyan{color:var(--cyan)}.qaz-scope .green{color:var(--green)}.qaz-scope .amber{color:var(--amber)}.qaz-scope .red{color:var(--red)}.qaz-scope .violet{color:var(--violet)}
+        .qaz-scope .flip{perspective:1200px;min-height:236px;cursor:pointer}.qaz-scope .flip:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:16px}
+        .qaz-scope .flip-inner{position:relative;width:100%;height:236px;transition:transform .55s;transform-style:preserve-3d}
+        .qaz-scope .flip.flipped .flip-inner{transform:rotateY(180deg)}
+        .qaz-scope .flip-face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:16px;padding:19px;background:var(--panel);box-shadow:var(--shadow);overflow:auto}
+        .qaz-scope .flip-back{transform:rotateY(180deg);background:linear-gradient(135deg,rgba(39,199,231,.09),transparent),var(--panel2)}
+        .qaz-scope .icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(39,199,231,.12);color:var(--cyan);font-size:20px;margin-bottom:24px}
+        .qaz-scope .flip h3{margin:0 0 8px;color:var(--ink)}
+        .qaz-scope .flip p,.qaz-scope .flip li{font-size:12px;line-height:1.5;color:var(--muted)}
+        .qaz-scope .flip ul{padding-left:17px}
+        .qaz-scope .hint{position:absolute;right:15px;bottom:13px;color:var(--cyan);font-size:10px;font-weight:900}
+        .qaz-scope .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:stage}
+        .qaz-scope .stage{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px}
+        .qaz-scope .stage:before{counter-increment:stage;content:counter(stage);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--cyan);color:#07111f;font-weight:950;margin-bottom:12px}
+        .qaz-scope .stage:not(:last-child):after{content:"→";position:absolute;right:-12px;top:47%;z-index:2;color:var(--cyan);font-size:20px}
+        .qaz-scope .stage strong{display:block;color:var(--ink)}.qaz-scope .stage span{font-size:11px;color:var(--muted)}
+        .qaz-scope .support-layout,.qaz-scope .sim-layout{display:grid;grid-template-columns:minmax(310px,.85fr) minmax(0,1.45fr);gap:16px}
+        .qaz-scope .side-list{display:flex;flex-direction:column;gap:8px}
+        .qaz-scope .measure-btn{width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);border-left:5px solid var(--series,var(--cyan));border-radius:12px;color:var(--ink);padding:13px;cursor:pointer}
+        .qaz-scope .measure-btn.active{border-color:var(--series,var(--cyan));box-shadow:inset 4px 0 var(--series,var(--cyan))}
+        .qaz-scope .measure-btn small{display:block;color:var(--muted);margin-top:4px}
+        .qaz-scope .detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+        .qaz-scope .detail{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px}
+        .qaz-scope .detail b{display:block;color:var(--series,var(--cyan));font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+        .qaz-scope .detail span{font-size:12px;line-height:1.45;color:var(--muted)}
+        .qaz-scope .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--cyan);background:#06101d;border:1px solid #1a3855;border-radius:10px;padding:10px 12px;font-size:12px}
+        .qaz-scope.light .formula{background:#edf5fb}
+        .qaz-scope .two-status{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .qaz-scope .statusbox{padding:14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
+        .qaz-scope .statusbox label{display:block;font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:900}
+        .qaz-scope .statusbox strong{font-size:22px;display:block;margin-top:4px}
+        .qaz-scope label.field{display:block;font-size:11px;color:var(--muted);font-weight:800}
+        .qaz-scope .field input,.qaz-scope .field select{width:100%;margin-top:6px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:10px}
+        .qaz-scope .checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .qaz-scope .check{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:11px;color:var(--ink)}
+        .qaz-scope .check input{accent-color:var(--cyan)}
+        .qaz-scope .cost-row{display:grid;grid-template-columns:1.1fr .7fr;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+        .qaz-scope .cost-row label{font-size:11px;color:var(--ink)}
+        .qaz-scope .cost-row input{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:9px;padding:8px;text-align:right}
+        .qaz-scope .result-table{width:100%;border-collapse:collapse;font-size:11px;color:var(--ink)}
+        .qaz-scope .result-table th,.qaz-scope .result-table td{text-align:left;padding:9px 7px;border-bottom:1px solid var(--line)}
+        .qaz-scope .result-table th{color:var(--muted);text-transform:uppercase;font-size:9px;letter-spacing:.06em}
+        .qaz-scope .result-table td:last-child,.qaz-scope .result-table th:last-child{text-align:right}
+        .qaz-scope .route{display:flex;gap:8px;align-items:stretch;overflow:auto}
+        .qaz-scope .route-step{min-width:145px;flex:1;border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:12px;color:var(--ink)}
+        .qaz-scope .route-step b{font-size:11px}.qaz-scope .route-step span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+        .qaz-scope .route-arrow{align-self:center;color:var(--cyan)}
+        .qaz-scope .warning-list{margin:0;padding-left:17px;color:var(--muted);font-size:11px;line-height:1.6}
+        .qaz-scope .chart-wrap{height:270px;position:relative}
+        .qaz-scope .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .qaz-scope .compare .card{border-top:4px solid var(--cyan)}
+        .qaz-scope .compare .card:last-child{border-top-color:var(--green)}
+        .qaz-scope .compare ul,.qaz-scope .clean-list{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:12px;line-height:1.7}
+        .qaz-scope .decision{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .qaz-scope .decision button{min-height:105px;border:1px solid var(--line);border-radius:13px;background:var(--panel2);color:var(--ink);cursor:pointer;text-align:left;padding:14px}
+        .qaz-scope .decision button.active{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
+        .qaz-scope .decision b{display:block}.qaz-scope .decision span{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+        .qaz-scope .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+        .qaz-scope .flow-node{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px;position:relative;color:var(--ink)}
+        .qaz-scope .flow-node:not(:last-child):after{content:"›";position:absolute;right:-8px;top:35%;z-index:2;color:var(--cyan);font-size:25px}
+        .qaz-scope .flow-node b{font-size:11px}.qaz-scope .flow-node span{display:block;font-size:10px;color:var(--muted);margin-top:5px}
+        .qaz-scope .myth{border-left:4px solid var(--red)}
+        .qaz-scope .truth{border-left:4px solid var(--green)}
+        .qaz-scope .glossary details{border-bottom:1px solid var(--line);padding:10px 0;color:var(--ink)}
+        .qaz-scope .glossary summary{font-size:12px;font-weight:900;cursor:pointer}
+        .qaz-scope .glossary p{margin:7px 0;color:var(--muted)}
+        .qaz-scope .source{display:flex;gap:10px;align-items:start;padding:10px;border-bottom:1px solid var(--line)}
+        .qaz-scope .source a{color:var(--cyan);font-weight:800;text-decoration:none;font-size:12px}
+        .qaz-scope .source span{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+        .qaz-scope .footer{border-top:1px solid var(--line);padding:20px 0;color:var(--muted);font-size:10px}
+        .qaz-scope .kicker{font-size:11px;color:var(--muted);line-height:1.5}
+        .qaz-scope .hidden{display:none!important}
+        .qaz-scope .screenreader{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}
+        .qaz-scope .viz-dashboard{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}
+        .qaz-scope .viz-panel{background:linear-gradient(145deg,rgba(39,199,231,.045),transparent 55%),var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+        .qaz-scope .viz-panel h3{margin:0;color:var(--ink)}
+        .qaz-scope .viz-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}
+        .qaz-scope .viz-head p{margin:4px 0 0;color:var(--muted);font-size:11px}
+        .qaz-scope .viz-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--muted)}
+        .qaz-scope .viz-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+        .qaz-scope .viz-chart{min-height:280px;position:relative}
+        .qaz-scope .viz-chart.sm{min-height:230px}
+        .qaz-scope .architecture{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr;align-items:center;gap:4px;min-height:285px}
+        .qaz-scope .arch-col{display:grid;gap:9px}
+        .qaz-scope .arch-node{padding:12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:11px;position:relative;color:var(--ink)}
+        .qaz-scope .arch-node strong{display:block;margin-bottom:4px}.qaz-scope .arch-node span{color:var(--muted);font-size:10px}
+        .qaz-scope .arch-node.primary{background:linear-gradient(135deg,rgba(39,199,231,.2),rgba(65,137,255,.1));border-color:rgba(39,199,231,.55)}
+        .qaz-scope .arch-node.impact{background:linear-gradient(135deg,rgba(61,212,155,.19),rgba(39,199,231,.08));border-color:rgba(61,212,155,.5)}
+        .qaz-scope .arch-arrow{font-size:24px;text-align:center;color:var(--cyan)}
+        .qaz-scope .logic-loop{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(168,137,255,.1);color:var(--violet);font-size:10px;text-align:center}
+        .qaz-scope .heatmap{display:grid;grid-template-columns:minmax(125px,1.4fr) repeat(4,1fr);gap:5px;align-items:stretch}
+        .qaz-scope .heatmap>div{min-height:38px;border-radius:8px;padding:7px;display:grid;place-items:center;text-align:center;font-size:9px}
+        .qaz-scope .heat-label{justify-items:start!important;text-align:left!important;color:var(--muted);background:var(--panel2)}
+        .qaz-scope .heat-head{color:var(--ink);font-weight:900}
+        .qaz-scope .heat-0{background:rgba(145,164,186,.07);color:var(--muted)}
+        .qaz-scope .heat-1{background:rgba(39,199,231,.14);color:var(--cyan)}
+        .qaz-scope .heat-2{background:rgba(61,212,155,.28);color:var(--green);font-weight:950}
+        .qaz-scope .gauge{--p:40;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--series,var(--cyan)) calc(var(--p)*1%),rgba(145,164,186,.12) 0);position:relative;flex:none}
+        .qaz-scope .gauge:after{content:"";position:absolute;inset:12px;border-radius:50%;background:var(--panel)}
+        .qaz-scope .gauge strong{position:relative;z-index:1;font-size:23px;color:var(--ink)}
+        .qaz-scope .measure-visual{display:flex;align-items:center;gap:18px;margin:15px 0}
+        .qaz-scope .cap-track{height:11px;border-radius:8px;background:rgba(145,164,186,.13);overflow:hidden;flex:1}
+        .qaz-scope .cap-fill{height:100%;border-radius:8px;background:var(--series,var(--cyan))}
+        .qaz-scope .funnel{display:flex;align-items:stretch;gap:7px;margin-top:13px}
+        .qaz-scope .funnel-step{flex:1;min-height:70px;clip-path:polygon(0 0,100% 8%,88% 100%,12% 100%);padding:12px 14px;text-align:center;background:rgba(145,164,186,.12);font-size:10px;color:var(--muted);transition:.25s}
+        .qaz-scope .funnel-step.pass{background:rgba(61,212,155,.25);color:var(--green)}
+        .qaz-scope .funnel-step.fail{background:rgba(255,107,112,.22);color:var(--red)}
+        .qaz-scope .funnel-step.warn{background:rgba(244,184,74,.2);color:var(--amber)}
+        .qaz-scope .funnel-step b{display:block;font-size:11px;margin-bottom:4px}
+        .qaz-scope .zone-controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        .qaz-scope .zone-plot{position:relative;height:310px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);margin:20px 20px 42px 54px;background:linear-gradient(rgba(145,164,186,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(145,164,186,.07) 1px,transparent 1px);background-size:25% 25%}
+        .qaz-scope .zone-plot:before{content:attr(data-y);position:absolute;left:-50px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left top;color:var(--muted);font-size:10px;white-space:nowrap}
+        .qaz-scope .zone-plot:after{content:attr(data-x);position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:10px;white-space:nowrap}
+        .qaz-scope .zone-area{position:absolute;border-radius:50%;display:grid;place-items:center;text-align:center;font-size:10px;font-weight:900;color:var(--ink);opacity:.85}
+        .qaz-scope .zone-area.sez{width:42%;height:43%;right:4%;top:5%;background:rgba(39,199,231,.23)}
+        .qaz-scope .zone-area.iz{width:45%;height:42%;left:8%;top:12%;background:rgba(61,212,155,.2)}
+        .qaz-scope .zone-area.market{width:52%;height:40%;left:24%;bottom:4%;background:rgba(168,137,255,.18)}
+        .qaz-scope .zone-dot{position:absolute;width:19px;height:19px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(244,184,74,.18);transform:translate(-50%,50%);transition:left .25s,bottom .25s;z-index:3}
+        .qaz-scope .sankey{display:grid;grid-template-columns:1fr 55px 1fr 55px 1fr;align-items:center;min-height:265px}
+        .qaz-scope .sank-col{display:grid;gap:12px}
+        .qaz-scope .sank-node{padding:13px;border-radius:11px;background:var(--panel2);border:1px solid var(--line);font-size:11px;text-align:center;color:var(--ink)}
+        .qaz-scope .sank-band{height:44px;background:linear-gradient(90deg,rgba(39,199,231,.08),rgba(39,199,231,.5),rgba(61,212,155,.1));clip-path:polygon(0 25%,100% 0,100% 100%,0 75%)}
+        .qaz-scope .sank-band.thin{height:25px}
+        .qaz-scope .curve-controls{display:grid;grid-template-columns:1fr 180px;gap:14px;align-items:center}
+        .qaz-scope .metric-band{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+        .qaz-scope .metric-bar{padding:12px;background:var(--panel2);border-radius:11px;color:var(--ink)}
+        .qaz-scope .metric-bar b{font-size:10px;color:var(--muted);display:block}
+        .qaz-scope .metric-bar strong{font-size:20px}
+        .qaz-scope .metric-bar .bar{height:7px;background:rgba(145,164,186,.13);border-radius:6px;margin-top:8px}
+        .qaz-scope .metric-bar .bar i{display:block;height:100%;border-radius:6px;background:var(--cyan)}
+        .qaz-scope .road-visual{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;align-items:start;margin:20px 0}
+        .qaz-scope .road-stage{position:relative;text-align:center}
+        .qaz-scope .road-stage:before{content:attr(data-step);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--panel2);border:2px solid var(--cyan);color:var(--cyan);font-weight:950;margin:0 auto 9px}
+        .qaz-scope .road-stage:not(:last-child):after{content:"";position:absolute;top:20px;left:calc(50% + 23px);width:calc(100% - 18px);height:2px;background:linear-gradient(90deg,var(--cyan),var(--green))}
+        .qaz-scope .road-stage b{font-size:11px;color:var(--ink)}.qaz-scope .road-stage span{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+        .qaz-scope .axis-note{font-size:10px;color:var(--muted);margin-top:8px}
+        .qaz-scope .native-bars{display:grid;gap:12px}
+        .qaz-scope .native-row{display:grid;grid-template-columns:minmax(135px,1.25fr) minmax(160px,3fr) 62px;gap:10px;align-items:center;font-size:10px}
+        .qaz-scope .native-label{color:var(--ink)}
+        .qaz-scope .native-track{height:18px;border-radius:8px;background:rgba(145,164,186,.12);overflow:hidden}
+        .qaz-scope .native-fill{height:100%;border-radius:8px;background:var(--series,var(--cyan));min-width:2px}
+        .qaz-scope .native-value{text-align:right;font-weight:900;color:var(--ink)}
+        .qaz-scope .native-stack{height:22px;display:flex;border-radius:7px;overflow:hidden;background:rgba(145,164,186,.1)}
+        .qaz-scope .native-stack i{display:block;height:100%}
+        .qaz-scope .native-stack .available{background:var(--green)}
+        .qaz-scope .native-stack .paused{background:var(--amber)}
+        .qaz-scope .native-stack .own{background:var(--line)}
+        .qaz-scope .native-axis{display:flex;justify-content:space-between;margin:8px 72px 0 145px;color:var(--muted);font-size:9px}
+        .qaz-scope .native-donut-wrap{display:grid;grid-template-columns:190px 1fr;align-items:center;gap:18px;min-height:245px}
+        .qaz-scope .native-donut{--share:20;width:176px;height:176px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--share)*1%),var(--line) 0);display:grid;place-items:center;position:relative}
+        .qaz-scope .native-donut:after{content:"";position:absolute;inset:28px;border-radius:50%;background:var(--panel)}
+        .qaz-scope .native-donut strong,.qaz-scope .native-donut span{position:relative;z-index:1}
+        .qaz-scope .native-donut strong{font-size:27px;color:var(--ink)}
+        .qaz-scope .native-donut span{font-size:10px;color:var(--muted)}
+        .qaz-scope .native-donut-center{display:grid;place-items:center;text-align:center}
+        .qaz-scope .native-key{display:grid;gap:12px;color:var(--ink)}
+        .qaz-scope .native-key div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;font-size:11px}
+        .qaz-scope .native-key i{width:10px;height:10px;border-radius:3px}
+        .qaz-scope .native-key b{text-align:right}
+        .qaz-scope .native-curve{width:100%;height:auto;min-height:225px;display:block}
+        .qaz-scope .native-curve .gridline{stroke:var(--line);stroke-width:1}
+        .qaz-scope .native-curve .axis{stroke:var(--muted);stroke-width:1}
+        .qaz-scope .native-curve .curve-a{stroke:var(--cyan);fill:none;stroke-width:3}
+        .qaz-scope .native-curve .curve-b{stroke:var(--green);fill:none;stroke-width:3}
+        .qaz-scope .native-curve .curve-c{stroke:var(--amber);fill:none;stroke-width:3;stroke-dasharray:6 5}
+        .qaz-scope .native-curve text{fill:var(--muted);font-size:10px}
+        .qaz-scope .native-curve .marker{fill:var(--amber);stroke:var(--panel);stroke-width:3}
+        .qaz-scope .native-curve .area{fill:rgba(244,184,74,.12)}
+        .qaz-scope .policy-lanes{display:grid;grid-template-columns:130px repeat(5,1fr);gap:6px;margin-top:16px}
+        .qaz-scope .lane-cell{padding:9px;border-radius:8px;background:var(--panel2);font-size:9px;color:var(--muted);text-align:center}
+        .qaz-scope .lane-head{color:var(--ink);font-weight:900;text-align:left}
+        .qaz-scope.light .arch-node,.qaz-scope.light .metric-bar,.qaz-scope.light .sank-node{box-shadow:0 4px 14px rgba(30,55,80,.06)}
+        @media(max-width:1050px){.qaz-scope .g4{grid-template-columns:repeat(2,1fr)}.qaz-scope .support-layout,.qaz-scope .sim-layout,.qaz-scope .viz-dashboard{grid-template-columns:1fr}.qaz-scope .flow{grid-template-columns:repeat(3,1fr)}.qaz-scope .flow-node:after{display:none}.qaz-scope .metric-band{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:720px){.qaz-scope .shell{padding:0 13px}.qaz-scope .topbar{align-items:flex-start;padding:12px 0}.qaz-scope .subtitle{display:none}.qaz-scope .actions{flex-wrap:wrap;justify-content:flex-end}.qaz-scope .g2,.qaz-scope .g3,.qaz-scope .g4,.qaz-scope .detail-grid,.qaz-scope .compare,.qaz-scope .decision,.qaz-scope .ladder{grid-template-columns:1fr}.qaz-scope .stage:after{display:none}.qaz-scope .flip,.qaz-scope .flip-inner{min-height:250px;height:250px}.qaz-scope .two-status{grid-template-columns:1fr}.qaz-scope .checks{grid-template-columns:1fr}.qaz-scope .flow{grid-template-columns:1fr}.qaz-scope .chart-wrap,.qaz-scope .viz-chart{height:245px}.qaz-scope .architecture{grid-template-columns:1fr}.qaz-scope .arch-arrow{transform:rotate(90deg)}.qaz-scope .heatmap{grid-template-columns:minmax(105px,1.3fr) repeat(4,1fr)}.qaz-scope .heatmap>div{font-size:8px;padding:5px}.qaz-scope .funnel{display:grid;grid-template-columns:1fr 1fr}.qaz-scope .funnel-step{clip-path:none;border-radius:9px}.qaz-scope .zone-controls,.qaz-scope .curve-controls{grid-template-columns:1fr}.qaz-scope .metric-band{grid-template-columns:1fr 1fr}.qaz-scope .road-visual{grid-template-columns:1fr;gap:10px}.qaz-scope .road-stage{text-align:left;display:grid;grid-template-columns:50px 1fr;align-items:center}.qaz-scope .road-stage:before{margin:0}.qaz-scope .road-stage:after{display:none}.qaz-scope .sankey{grid-template-columns:1fr}.qaz-scope .sank-band{transform:rotate(90deg);width:45px;margin:8px auto}.qaz-scope .measure-visual{align-items:flex-start;flex-wrap:wrap}}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
 
     <!-- HEADER -->
-    <header class="bg-[#001e50] text-white py-6 px-4 shadow-lg">
+    <header class="bg-[#001e50] text-white py-6 px-4 shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
                 <img src="https://ogaydv-prog.github.io/Industrial-Economics/almau.jpg" alt="AlmaU Logo" class="h-12 w-auto rounded-lg bg-white p-1">
                 <div>
-                    <h1 class="text-2xl font-black tracking-tight uppercase">Industrial Economics Readings</h1>
-                    <p class="text-xs text-slate-300 font-medium">Textbooks, Policy Documents & Key Materials | AlmaU 2026</p>
+                    <h1 class="text-2xl font-black tracking-tight uppercase">Industrial Economics Hub</h1>
+                    <p class="text-xs text-slate-300 font-medium">Textbooks, Policy Documents & Interactive Simulators | AlmaU 2026</p>
                 </div>
             </div>
-            <a href="index.html" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition border border-slate-500">
-                ← Main Hub
-            </a>
+            
+            <div class="flex items-center gap-3">
+                <!-- Вкладки верхнего уровня -->
+                <nav class="flex bg-slate-900/60 p-1 rounded-xl border border-slate-700">
+                    <button id="mainTabStrategy" onclick="switchMainTab('strategy')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-sm">
+                        01 · Стратегия / Readings
+                    </button>
+                    <button id="mainTabSimulator" onclick="switchMainTab('simulator')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white">
+                        02 · Симулятор QazIndustry
+                    </button>
+                </nav>
+
+                <a href="index.html" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition border border-slate-500">
+                    ← Main Hub
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-7xl w-full mx-auto px-4 py-10 flex-grow space-y-8">
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl w-full mx-auto px-4 py-8 flex-grow space-y-8">
 
-        <!-- SECTION TITLE -->
-        <div class="border-b border-slate-200 pb-4 flex justify-between items-end">
-            <div>
-                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Required & Supplementary Readings</span>
-                <h2 class="text-2xl font-extrabold text-[#001e50]">Course Reading Materials</h2>
+        <!-- ВКТАДКА 1: СТРАТЕГИЯ / READINGS (ВАШ ИСХОДНЫЙ СЕТЧАТЫЙ СПИСОК) -->
+        <section id="main-view-strategy" class="space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex justify-between items-end">
+                <div>
+                    <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Required & Supplementary Readings</span>
+                    <h2 class="text-2xl font-extrabold text-[#001e50]">Course Reading Materials</h2>
+                </div>
+                <span class="text-xs text-slate-500 font-medium">Updated: 2026</span>
             </div>
-            <span class="text-xs text-slate-500 font-medium">Updated: 2026</span>
-        </div>
 
-        <!-- READINGS GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <!-- DOCUMENT 1: Industrial Strategy -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4 border-l-4 border-l-blue-900">
-                <div class="space-y-3">
-                    <div class="flex justify-between items-start">
-                        <span class="px-2.5 py-1 bg-blue-50 text-blue-900 rounded-lg text-[11px] font-bold uppercase">
-                            <i class="fa-solid fa-file-pdf mr-1 text-red-500"></i> Policy Document
-                        </span>
-                        <span class="text-[11px] text-slate-400 font-semibold">PDF</span>
+                <!-- DOCUMENT 1: Industrial Strategy -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4 border-l-4 border-l-blue-900">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start">
+                            <span class="px-2.5 py-1 bg-blue-50 text-blue-900 rounded-lg text-[11px] font-bold uppercase">
+                                <i class="fa-solid fa-file-pdf mr-1 text-red-500"></i> Policy Document
+                            </span>
+                            <span class="text-[11px] text-slate-400 font-semibold">PDF</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug">
+                            Стратегия индустриализации (Industrialization Strategy)
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Ключевой аналитический документ и методологические материалы по формированию и реализации промышленной политики.
+                        </p>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base leading-snug">
-                        Стратегия индустриализации (Industrialization Strategy)
-                    </h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Ключевой аналитический документ и методологические материалы по формированию и реализации промышленной политики.
-                    </p>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-medium text-slate-500">Google Drive Document</span>
+                        <a href="https://drive.google.com/file/d/1yJ8ewrLRkIsK4Qrl5GWXRvfjn9PrqWaW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#001e50] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Document
+                        </a>
+                    </div>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-[11px] font-medium text-slate-500">Google Drive Document</span>
-                    <a href="https://drive.google.com/file/d/1yJ8ewrLRkIsK4Qrl5GWXRvfjn9PrqWaW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#001e50] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Document
-                    </a>
+                <!-- PLACEHOLDER FOR FUTURE READINGS -->
+                <div class="bg-slate-100/60 rounded-2xl border border-dashed border-slate-300 p-6 flex flex-col items-center justify-center text-center space-y-2 min-h-[220px]">
+                    <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 mb-1">
+                        <i class="fa-solid fa-plus text-lg"></i>
+                    </div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase">Upcoming Reading Material</h4>
+                    <p class="text-[11px] text-slate-400 max-w-[200px]">Additional readings and documents will be uploaded here.</p>
                 </div>
+
             </div>
+        </section>
 
-            <!-- PLACEHOLDER FOR FUTURE READINGS -->
-            <div class="bg-slate-100/60 rounded-2xl border border-dashed border-slate-300 p-6 flex flex-col items-center justify-center text-center space-y-2 min-h-[220px]">
-                <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 mb-1">
-                    <i class="fa-solid fa-plus text-lg"></i>
+        <!-- ВКЛАДКА 2: СИМУЛЯТОР QAZINDUSTRY (ПОЛНЫЙ ИНТЕРАКТИВНЫЙ НАВИГАТОР) -->
+        <section id="main-view-simulator" class="hidden">
+            <div class="qaz-scope" id="qazScope">
+              <header class="header">
+                <div class="shell topbar">
+                  <div class="brand"><div class="mark">QI</div><div><h1 data-t="title">Индустриальная стратегия: от закона до проекта</h1><div class="subtitle" data-t="subtitle">Расширенный учебный навигатор по инструментам QazIndustry · данные проверены 27.10.2026</div></div></div>
+                  <div class="actions"><button class="btn" id="themeBtn">◐ <span data-t="theme">Тема</span></button><div class="lang"><button id="ruBtn" class="active">РУС</button><button id="enBtn">ENG</button></div></div>
                 </div>
-                <h4 class="text-xs font-bold text-slate-500 uppercase">Upcoming Reading Material</h4>
-                <p class="text-[11px] text-slate-400 max-w-[200px]">Additional readings and documents will be uploaded here.</p>
-            </div>
+                <nav class="shell tabs" aria-label="Навигация">
+                  <button class="tab active" style="--tab-color:#27c7e7" data-view="policy">01 · <span data-t="tabPolicy">Архитектура</span></button>
+                  <button class="tab" style="--tab-color:#4189ff" data-view="support">02 · <span data-t="tabSupport">Меры поддержки</span></button>
+                  <button class="tab" style="--tab-color:#3dd49b" data-view="simulator">03 · <span data-t="tabSimulator">Симулятор проекта</span></button>
+                  <button class="tab" style="--tab-color:#f4b84a" data-view="regions">04 · <span data-t="tabRegions">СЭЗ и регионы</span></button>
+                  <button class="tab" style="--tab-color:#a889ff" data-view="value">05 · <span data-t="tabValue">КТП и кооперация</span></button>
+                  <button class="tab" style="--tab-color:#ff6b70" data-view="roadmap">06 · <span data-t="tabRoadmap">Маршрут и источники</span></button>
+                </nav>
+              </header>
 
-        </div>
+              <main class="shell">
+                <section class="view active" id="view-policy">
+                  <div class="hero"><div class="eyebrow" data-t="policyEyebrow">Логика промышленной политики</div><h2 data-t="policyTitle">Система исправления барьеров</h2><p data-t="policyLead">Закон задаёт цели и правила, институты превращают их в инструменты, а предприятие получает поддержку только под подтверждённые затраты и условия. Нажмите на карточки: на обороте — экономический смысл и практическое применение.</p></div>
+                  <div class="grid g4" id="flipGrid"></div>
+                  <div class="section-title"><h3 data-t="transitionTitle">Переход к более высокой добавленной стоимости</h3><p data-t="transitionSub">Поддержка — средство перехода, а не самоцель</p></div>
+                  <div class="ladder" id="ladder"></div>
+                  <div class="viz-dashboard">
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="architectureTitle">Архитектура промышленной политики</h3><p id="architectureSub">От общественной цели — к проверяемому результату предприятия</p></div><span class="badge info">SYSTEM MAP</span></div><div class="architecture" id="architectureMap"></div><div class="logic-loop" id="architectureLoop"></div><div class="policy-lanes" id="policyLanes"></div></div>
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="heatmapTitle">Матрица «барьер → инструмент»</h3><p id="heatmapSub">Прямое и косвенное воздействие основных инструментов</p></div></div><div class="heatmap" id="policyHeatmap"></div><div class="viz-legend" style="margin-top:12px"><span><i style="background:rgba(61,212,155,.65)"></i><span id="directLegend">прямое воздействие</span></span><span><i style="background:rgba(39,199,231,.35)"></i><span id="indirectLegend">косвенное</span></span></div></div>
+                  </div>
+                  <div class="section-title"><h3 data-t="failTitle">Какие провалы рынка здесь исправляются?</h3></div>
+                  <div class="grid g3" id="failures"></div>
+                </section>
+
+                <section class="view" id="view-support">
+                  <div class="hero"><div class="eyebrow" data-t="supportEyebrow">Навигатор мер</div><h2 data-t="supportTitle">От делового расхода — к подходящей мере поддержки</h2><p data-t="supportLead">Выберите меру слева. Справа показаны экономическая логика, допустимые расходы, ставка, предельная сумма, документы и текущий статус. Процент здесь не регулируется пользователем.</p></div>
+                  <div class="notice"><span>⚠</span><div><strong data-t="important">Важно.</strong> <span data-t="supportNotice">Это возмещение уже понесённых и документально подтверждённых затрат, а не автоматическая выдача денег «на идею». Доступность зависит от бюджета и действующей редакции правил.</span></div></div>
+                  <div class="support-layout" style="margin-top:16px"><div class="card"><div class="section-title" style="margin-top:0"><h3 data-t="catalog">Каталог</h3></div><div class="side-list" id="measureList"></div></div><div class="card" id="measureDetail"></div></div>
+                  <div class="viz-dashboard">
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="capsTitle">Предельные суммы возмещения</h3><p id="capsSub">млн ₸ на одну категорию; цвет показывает статус приёма</p></div></div><div class="viz-chart" id="capsChartNative" aria-label="Сравнение лимитов мер поддержки"></div></div>
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="ratesTitle">Ставка и потолок — разные ограничения</h3><p id="ratesSub">Фактическая компенсация определяется меньшим из двух значений</p></div></div><div class="viz-chart" id="rateCurveNative" aria-label="Кривые возмещения по ставке и потолку"><svg class="native-curve" viewBox="0 0 520 280" role="img"><line class="axis" x1="55" y1="230" x2="500" y2="230"/><line class="axis" x1="55" y1="20" x2="55" y2="230"/><line class="gridline" x1="55" y1="170" x2="500" y2="170"/><line class="gridline" x1="55" y1="110" x2="500" y2="110"/><line class="gridline" x1="55" y1="50" x2="500" y2="50"/><polyline class="curve-a" points="55,230 166,182 277,134 388,86 500,50"/><polyline class="curve-b" points="55,230 166,182 277,170 388,170 500,170"/><polyline class="curve-c" points="55,230 166,170 277,110 360,70 500,70"/><text x="60" y="248">0</text><text x="270" y="248">80</text><text x="472" y="248">160 млн ₸</text><text x="8" y="234">0</text><text x="8" y="174">20</text><text x="8" y="114">40</text><text x="8" y="54">60</text><text x="372" y="43">40% · лимит 60</text><text x="355" y="163">40% · лимит 20</text><text x="337" y="64">50% · лимит 43,25</text></svg></div></div>
+                  </div>
+                </section>
+
+                <section class="view" id="view-simulator">
+                  <div class="hero"><div class="eyebrow" data-t="simEyebrow">Учебный pre-screening</div><h2 data-t="simTitle">Какую поддержку может получить конкретный проект?</h2><p data-t="simLead">Симулятор прогоняет проект по базовым фильтрам, разделяет потенциальную компенсацию и реально доступную сейчас сумму, показывает собственное финансирование и список документов. Это предварительная оценка, а не официальное решение.</p></div>
+                  <div class="sim-layout">
+                    <div class="card">
+                      <h3 data-t="projectProfile">Профиль проекта</h3>
+                      <label class="field"><span data-t="templateLabel">Пример проекта</span><select id="projectTemplate"><option value="machine" selected>Модернизация машиностроительного завода</option><option value="furniture">Цифровизация мебельной фабрики</option><option value="textile">Сертификация текстильного производства</option><option value="chemical">Химический проект с внутренней логистикой</option></select></label>
+                      <div class="grid g2" style="margin-top:12px"><label class="field"><span data-t="sector">Отрасль</span><select id="sector"><option value="machinery">Машиностроение</option><option value="food">Пищевая промышленность</option><option value="light">Лёгкая промышленность</option><option value="chemical">Химическая промышленность</option><option value="furniture">Мебель</option></select></label><label class="field"><span data-t="age">Возраст компании, лет</span><input id="companyAge" type="number" min="0" max="100" value="4"></label></div>
+                      <div class="section-title"><h3 data-t="eligibility">Базовые фильтры</h3></div>
+                      <div class="checks">
+                        <label class="check"><input id="priority" type="checkbox" checked><span data-t="priority">Товар в перечне приоритетных</span></label>
+                        <label class="check"><input id="noArrears" type="checkbox" checked><span data-t="arrears">Нет налоговой/социальной задолженности</span></label>
+                        <label class="check"><input id="ktp" type="checkbox" checked><span data-t="ktpCheck">Есть/готовится включение в Реестр КТП</span></label>
+                        <label class="check"><input id="taxGrowth" type="checkbox" checked><span data-t="taxGrowth">Есть требуемая динамика налогов</span></label>
+                        <label class="check"><input id="publicFunding" type="checkbox"><span data-t="doubleFunding">Оборудование уже оплачено иной господдержкой</span></label>
+                      </div>
+                      <div class="section-title"><h3 data-t="expenses">Документированные расходы, млн ₸</h3></div>
+                      <div id="costInputs"></div>
+                      <button class="btn" id="resetSim" style="margin-top:12px" data-t="reset">Сбросить пример</button>
+                    </div>
+                    <div class="grid">
+                      <div class="card"><div class="two-status"><div class="statusbox"><label data-t="potential">Потенциально по формулам</label><strong class="cyan" id="potentialTotal">0</strong><span class="kicker" data-t="million">млн ₸</span></div><div class="statusbox"><label data-t="availableNow">Доступно сейчас в модели</label><strong class="green" id="availableTotal">0</strong><span class="kicker" data-t="million">млн ₸</span></div></div><div class="native-donut-wrap" id="supportDonutNative"></div><div class="axis-note" id="financeChartNote">Структура финансирования выбранного проекта</div></div>
+                      <div class="card"><div class="viz-head"><div><h3 id="measureChartTitle">Расходы и возмещение по каждой мере</h3><p id="measureChartSub">Сравнение собственного участия, доступной и временно недоступной компенсации</p></div></div><div class="viz-chart" id="supportBarsNative"></div></div>
+                      <div class="card"><h3 data-t="calculation">Расчёт по мерам</h3><table class="result-table"><thead><tr><th data-t="measure">Мера</th><th data-t="status">Статус</th><th data-t="cost">Затраты</th><th data-t="result">Доступно / потенциал</th></tr></thead><tbody id="resultRows"></tbody></table></div>
+                      <div class="card"><h3 data-t="diagnostic">Диагностика заявки</h3><ul class="warning-list" id="diagnostics"></ul></div>
+                    </div>
+                  </div>
+                  <div class="card" style="margin-top:16px"><h3 data-t="routeTitle">Маршрут проекта</h3><div class="funnel" id="eligibilityFunnel" aria-live="polite"></div><div class="route" id="projectRoute" style="margin-top:15px"></div></div>
+                </section>
+
+                <section class="view" id="view-regions">
+                  <div class="hero"><div class="eyebrow" data-t="regionsEyebrow">Пространственная индустриальная политика</div><h2 data-t="regionsTitle">СЭЗ, индустриальная зона или обычная площадка?</h2><p data-t="regionsLead">Зона — не награда и не универсальная льгота. Это выбор инфраструктурно-правового режима под вид деятельности, масштаб инвестиций, логистику и сроки запуска.</p></div>
+                  <div class="grid g4"><div class="card"><div class="badge info" data-t="latestDate">последняя публикация 09.10.2026</div><div class="num cyan">18</div><p data-t="sezCount">специальных экономических зон</p></div><div class="card"><div class="badge info" data-t="currentSite">текущая страница QazIndustry</div><div class="num green">67</div><p data-t="izCount">индустриальных зон</p></div><div class="card"><div class="num amber">561</div><p data-t="projectsCount">инвестиционный проект в СЭЗ</p></div><div class="card"><div class="num violet">11,5 <small>трлн ₸</small></div><p data-t="investmentCount">заявленный объём инвестиций в СЭЗ</p></div></div>
+                  <div class="grid g3" style="margin-top:16px"><div class="card"><div class="num">38 090</div><p data-t="jobs">рабочих мест</p></div><div class="card"><div class="num">15,9 <small>трлн ₸</small></div><p data-t="output">объём производства</p></div><div class="card"><div class="num">1,1 <small>трлн ₸</small></div><p data-t="exports">экспорт продукции</p></div></div>
+                  <div class="viz-dashboard">
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="sezMetricsTitle">Масштаб системы СЭЗ</h3><p id="sezMetricsSub">официальные агрегированные показатели, не фиктивная разбивка по зонам</p></div></div><div class="metric-band" id="sezMetricBars"></div></div>
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="zoneModelTitle">Модель выбора площадки</h3><p id="zoneModelSub">Передвиньте параметры проекта — точка покажет наиболее близкий режим</p></div></div><div class="zone-controls"><label class="field"><span id="taxNeedLabel">Важность налогово-таможенного режима: <b id="taxNeedValue">75</b>%</span><input id="taxNeed" type="range" min="0" max="100" value="75"></label><label class="field"><span id="infraNeedLabel">Потребность в готовой инфраструктуре: <b id="infraNeedValue">55</b>%</span><input id="infraNeed" type="range" min="0" max="100" value="55"></label></div><div class="zone-plot" id="zonePlot" data-x="важность специального режима →" data-y="готовая инфраструктура →"><div class="zone-area iz" id="zoneIz">Индустриальная зона</div><div class="zone-area sez" id="zoneSez">СЭЗ</div><div class="zone-area market" id="zoneOrdinary">Обычная площадка</div><div class="zone-dot" id="zoneDot" aria-label="Положение проекта"></div></div><div class="badge info" id="zoneModelResult">Предварительно: СЭЗ</div></div>
+                  </div>
+                  <div class="section-title"><h3 data-t="compareTitle">Чем отличаются площадки</h3></div><div class="compare" id="zoneCompare"></div>
+                  <div class="section-title"><h3 data-t="wizardTitle">Мини-навигатор размещения</h3><p data-t="wizardSub">Выберите главную потребность проекта</p></div><div class="decision"><button class="active" data-choice="regime"><b data-t="regime">Налогово-таможенный режим</b><span data-t="regimeDesc">Крупный проект и разрешённый вид деятельности</span></button><button data-choice="infra"><b data-t="infra">Земля и готовая инфраструктура</b><span data-t="infraDesc">Важен быстрый запуск производства</span></button><button data-choice="market"><b data-t="market">Логистика и рынок важнее льгот</b><span data-t="marketDesc">Нужна обычная площадка у поставщиков/покупателей</span></button></div><div class="card" id="zoneAdvice" style="margin-top:12px"></div>
+                </section>
+
+                <section class="view" id="view-value">
+                  <div class="hero"><div class="eyebrow" data-t="valueEyebrow">Внутристрановая ценность</div><h2 data-t="valueTitle">Реестр КТП — не офтейк-контракт</h2><p data-t="valueLead">Реестр подтверждает статус казахстанского товаропроизводителя и открывает доступ к регулируемым закупкам и адресным мерам поддержки. Офтейк — отдельный договор будущей поставки с конкретным покупателем.</p></div>
+                  <div class="grid g2"><div class="card myth"><span class="badge" data-t="wrong">Неверно</span><h3 data-t="mythTitle">«КТП — база гарантированных контрактов»</h3><p data-t="mythText">Само включение в реестр не гарантирует заказ и не заменяет тендер, квалификацию, сертификацию или коммерческий договор.</p></div><div class="card truth"><span class="badge ok" data-t="correct">Корректно</span><h3 data-t="truthTitle">«КТП — цифровое подтверждение производителя»</h3><p data-t="truthText">Проверяются продуктовые коды, собственные мощности, оборудование и фактическое производство; затем статус используется в регулируемых закупках и поддержке.</p></div></div>
+                  <div class="section-title"><h3 data-t="ktpFlow">Как работает Реестр КТП</h3></div><div class="flow" id="ktpFlow"></div>
+                  <div class="section-title"><h3 data-t="cooperationTitle">Цепочка промышленной кооперации</h3></div><div class="flow" id="coopFlow"></div>
+                  <div class="viz-dashboard">
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="sankeyTitle">Поток от спроса до поставки</h3><p id="sankeySub">КТП подтверждает производителя, но контракт возникает только после квалификации</p></div></div><div class="sankey" id="valueSankey"></div></div>
+                    <div class="viz-panel"><div class="viz-head"><div><h3 id="railCurveTitle">Симулятор железнодорожной компенсации</h3><p id="railCurveSub">50% расходов до достижения лимита 43,25 млн ₸</p></div><strong class="green" id="railResult">20,0 млн ₸</strong></div><div class="curve-controls"><label class="field"><span id="railCostLabel">Расходы на перевозку: <b id="railCostValue">40</b> млн ₸</span><input id="railCost" type="range" min="0" max="140" step="1" value="40"></label><div class="gauge" id="railGauge" style="--p:46"><strong id="railGaugeValue">46%</strong></div></div><div class="viz-chart sm" id="railCurveNative"><svg class="native-curve" viewBox="0 0 520 250" role="img"><line class="axis" x1="55" y1="205" x2="500" y2="205"/><line class="axis" x1="55" y1="20" x2="55" y2="205"/><line class="gridline" x1="55" y1="125" x2="500" y2="125"/><path class="area" d="M55 205 L330 52 L500 52 L500 205 Z"/><polyline class="curve-c" points="55,205 118,170 182,135 245,100 330,52 500,52"/><circle class="marker" id="railMarker" cx="182" cy="135" r="7"/><text x="60" y="223">0</text><text x="265" y="223">70</text><text x="462" y="223">140 млн ₸</text><text x="8" y="208">0</text><text x="8" y="129">20</text><text x="8" y="56">43,25</text><text x="338" y="43">потолок 43,25 млн ₸</text></svg></div></div>
+                  </div>
+                  <div class="grid g2" style="margin-top:16px"><div class="card"><h3 data-t="transportTitle">Компенсация железнодорожной доставки</h3><p data-t="transportText">Для приоритетных товаров внутри Казахстана: ориентир 50% документированных затрат, не более 10 000 МРП (43,25 млн ₸ в опубликованном разъяснении 2026 года). Текущий приём по внутреннему рынку отмечен QazIndustry как приостановленный из-за отсутствия финансирования.</p><div class="formula">R = min(0,50 × C<sub>rail</sub>; 43,25 млн ₸)</div></div><div class="card"><h3>Прозрачность и контроль предоставления поддержки</h3><p>Это не вопрос, а перечень механизмов, которые ограничивают ручное распределение денег.</p><ul class="clean-list" id="controls"></ul></div></div>
+                </section>
+
+                <section class="view" id="view-roadmap">
+                  <div class="hero"><div class="eyebrow" data-t="roadEyebrow">Рабочая карта</div><h2 data-t="roadTitle">От идеи до обоснованной заявки</h2><p data-t="roadLead">«Национальная спецификация» заменена на практический маршрут, прозрачные формулы, словарь и официальные источники. Выдуманные индексы кластеризации и мультипликаторы удалены.</p></div>
+                  <div class="flow" id="masterFlow"></div>
+                  <div class="viz-panel" style="margin-top:16px"><div class="viz-head"><div><h3 id="roadVisualTitle">Контрольные ворота проекта</h3><p id="roadVisualSub">Каждый следующий этап имеет смысл только после прохождения предыдущего</p></div></div><div class="road-visual" id="roadVisual"></div></div>
+                  <div class="grid g2" style="margin-top:16px"><div class="card"><h3 data-t="formulaTitle">Единственная универсальная формула</h3><div class="formula">R<sub>i</sub> = min(r<sub>i</sub> × C<sub>eligible,i</sub>, Cap<sub>i</sub>)<br>Own<sub>i</sub> = C<sub>eligible,i</sub> − R<sub>i</sub></div><p data-t="formulaText">Но формула применяется только после проверки заявителя, допустимости расходов, сроков документов, отсутствия двойного финансирования и наличия бюджета.</p><button class="btn" id="exportBtn" data-t="export">Экспортировать расчёт и методику (JSON)</button></div><div class="card glossary"><h3 data-t="glossary">Короткий словарь</h3><div id="glossary"></div></div></div>
+                  <div class="section-title"><h3 data-t="sourcesTitle">Официальные источники</h3><p data-t="checked">Проверено 27 октября 2026 г.</p></div><div class="card" id="sources"></div>
+                  <div class="notice" style="margin-top:16px"><span>i</span><div><strong data-t="limitation">Ограничение модели.</strong> <span data-t="limitationText">Дашборд предназначен для обучения и предварительной навигации. Он не подтверждает право на выплату; перед заявкой необходимо проверить действующую редакцию правил, перечень приоритетных товаров, бюджет и требования оператора.</span></div></div>
+                </section>
+              </main>
+              <footer class="footer"><div class="shell"><span data-t="footer">QazIndustry Industrial Strategy Navigator · визуально-аналитическая версия 3.0 · официальные первичные источники</span></div></footer>
+            </div>
+        </section>
 
     </main>
 
@@ -88,5 +439,154 @@
         <p class="mt-1">© Almaty Management University | School of Digital Technologies and Economics 2026</p>
     </footer>
 
+    <!-- JS SCRIPTS -->
+    <script>
+    'use strict';
+
+    // 1. Переключение верхних вкладок (Стратегия vs Симулятор QazIndustry)
+    function switchMainTab(tabName) {
+        const btnStrategy = document.getElementById('mainTabStrategy');
+        const btnSimulator = document.getElementById('mainTabSimulator');
+        const viewStrategy = document.getElementById('main-view-strategy');
+        const viewSimulator = document.getElementById('main-view-simulator');
+
+        if (tabName === 'strategy') {
+            btnStrategy.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-sm";
+            btnSimulator.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white";
+            viewStrategy.classList.remove('hidden');
+            viewSimulator.classList.add('hidden');
+        } else {
+            btnSimulator.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-sm";
+            btnStrategy.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-white";
+            viewSimulator.classList.remove('hidden');
+            viewStrategy.classList.add('hidden');
+            
+            // Первичная отрисовка симулятора при открытии
+            renderAll();
+        }
+    }
+
+    // 2. Скрипт симулятора QazIndustry
+    const T={
+      ru:{title:'Индустриальная стратегия: от закона до проекта',subtitle:'Расширенный учебный навигатор по инструментам QazIndustry · данные проверены 27.10.2026',theme:'Тема',tabPolicy:'Архитектура',tabSupport:'Меры поддержки',tabSimulator:'Симулятор проекта',tabRegions:'СЭЗ и регионы',tabValue:'КТП и кооперация',tabRoadmap:'Маршрут и источники',policyEyebrow:'Логика промышленной политики',policyTitle:'Система исправления барьеров',policyLead:'Закон задаёт цели и правила, институты превращают их в инструменты, а предприятие получает поддержку только под подтверждённые затраты и условия. Нажмите на карточки: на обороте — экономический смысл и практическое применение.',transitionTitle:'Переход к более высокой добавленной стоимости',transitionSub:'Поддержка — средство перехода, а не самоцель',failTitle:'Какие провалы рынка здесь исправляются?',supportEyebrow:'Навигатор мер',supportTitle:'От делового расхода — к подходящей мере поддержки',supportLead:'Выберите меру слева. Справа показаны экономическая логика, допустимые расходы, ставка, предельная сумма, документы и текущий статус. Процент здесь не регулируется пользователем.',important:'Важно.',supportNotice:'Это возмещение уже понесённых и документально подтверждённых затрат, а не автоматическая выдача денег «на идею». Доступность зависит от бюджета и действующей редакции правил.',catalog:'Каталог',simEyebrow:'Учебный pre-screening',simTitle:'Какую поддержку может получить конкретный проект?',simLead:'Симулятор прогоняет проект по базовым фильтрам, разделяет потенциальную компенсацию и реально доступную сейчас сумму, показывает собственное финансирование и список документов. Это предварительная оценка, а не официальное решение.',projectProfile:'Профиль проекта',templateLabel:'Пример проекта',sector:'Отрасль',age:'Возраст компании, лет',eligibility:'Базовые фильтры',priority:'Товар в перечне приоритетных',arrears:'Нет налоговой/социальной задолженности',ktpCheck:'Есть/готовится включение в Реестр КТП',taxGrowth:'Есть требуемая динамика налогов',doubleFunding:'Оборудование уже оплачено иной господдержкой',expenses:'Документированные расходы, млн ₸',reset:'Сбросить пример',potential:'Потенциально по формулам',availableNow:'Доступно сейчас в модели',million:'млн ₸',calculation:'Расчёт по мерам',measure:'Мера',status:'Статус',cost:'Затраты',result:'Расчёт',diagnostic:'Диагностика заявки',routeTitle:'Маршрут проекта',regionsEyebrow:'Пространственная промышленная политика',regionsTitle:'СЭЗ, индустриальная зона или обычная площадка?',regionsLead:'Зона — не награда и не универсальная льгота. Это выбор инфраструктурно-правового режима под вид деятельности, масштаб инвестиций, логистику и сроки запуска.',latestDate:'последняя публикация 09.10.2026',currentSite:'текущая страница QazIndustry',sezCount:'специальных экономических зон',izCount:'индустриальных зон',projectsCount:'инвестиционный проект в СЭЗ',investmentCount:'заявленный объём инвестиций в СЭЗ',jobs:'рабочих мест',output:'объём производства',exports:'экспорт продукции',compareTitle:'Чем отличаются площадки',wizardTitle:'Мини-навигатор размещения',wizardSub:'Выберите главную потребность проекта',regime:'Налогово-таможенный режим',regimeDesc:'Крупный проект и разрешённый вид деятельности',infra:'Земля и готовая инфраструктура',infraDesc:'Важен быстрый запуск производства',market:'Логистика и рынок важнее льгот',marketDesc:'Нужна обычная площадка у поставщиков/покупателей',valueEyebrow:'Внутристрановая ценность',valueTitle:'Реестр КТП — не офтейк-контракт',valueLead:'Реестр подтверждает статус казахстанского товаропроизводителя и открывает доступ к регулируемым закупкам и адресным мерам поддержки. Офтейк — отдельный договор будущей поставки с конкретным покупателем.',wrong:'Неверно',mythTitle:'«КТП — база гарантированных контрактов»',mythText:'Само включение в реестр не гарантирует заказ и не заменяет тендер, квалификацию, сертификацию или коммерческий договор.',correct:'Корректно',truthTitle:'«КТП — цифровое подтверждение производителя»',truthText:'Проверяются продуктовые коды, собственные мощности, оборудование и фактическое производство; затем статус используется в регулируемых закупках и поддержке.',ktpFlow:'Как работает Реестр КТП',cooperationTitle:'Цепочка промышленной кооперации',transportTitle:'Компенсация железнодорожной доставки',transportText:'Для приоритетных товаров внутри Казахстана: ориентир 50% документированных затрат, не более 10 000 МРП (43,25 млн ₸ в опубликованном разъяснении 2026 года). Текущий приём по внутреннему рынку отмечен QazIndustry как приостановленный из-за отсутствия финансирования.',controlsTitle:'Что снижает риск коррупционной дискреции',roadEyebrow:'Рабочая карта',roadTitle:'От идеи до обоснованной заявки',roadLead:'«Национальная спецификация» заменена на практический маршрут, прозрачные формулы, словарь и официальные источники. Выдуманные индексы кластеризации и мультипликаторы удалены.',formulaTitle:'Единственная универсальная формула',formulaText:'Но формула применяется только после проверки заявителя, допустимости расходов, сроков документов, отсутствия двойного финансирования и наличия бюджета.',export:'Экспортировать расчёт и методику (JSON)',glossary:'Короткий словарь',sourcesTitle:'Официальные источники',checked:'Проверено 27 октября 2026 г.',limitation:'Ограничение модели.',limitationText:'Дашборд предназначен для обучения и предварительной навигации. Он не подтверждает право на выплату; перед заявкой необходимо проверить действующую редакцию правил, перечень приоритетных товаров, бюджет и требования оператора.',footer:'QazIndustry Industrial Strategy Navigator · визуально-аналитическая версия 3.0 · официальные первичные источники'},
+      en:{title:'Industrial Strategy: From Law to Project',subtitle:'Expanded learning navigator for QazIndustry instruments · data checked 27 Oct 2026',theme:'Theme',tabPolicy:'Architecture',tabSupport:'Support measures',tabSimulator:'Project simulator',tabRegions:'SEZ & regions',tabValue:'KTP & cooperation',tabRoadmap:'Roadmap & sources',policyEyebrow:'Industrial policy logic',policyTitle:'System for addressing specific barriers',policyLead:'The law sets objectives and rules, institutions turn them into instruments, and a company receives support only for verified costs and subject to conditions. Select a card to see its economic rationale and practical meaning.',transitionTitle:'Moving toward higher value added',transitionSub:'Support is a transition instrument, not an end in itself',failTitle:'Which market failures are addressed?',supportEyebrow:'Measure navigator',supportTitle:'From a business expense to the relevant support measure',supportLead:'Choose a measure on the left. The right panel explains the rationale, eligible costs, rate, cap, evidence and current status. The user cannot choose the reimbursement rate.',important:'Important.',supportNotice:'This is reimbursement of incurred and documented eligible costs, not automatic funding for an idea. Availability depends on the budget and current rules.',catalog:'Catalogue',simEyebrow:'Learning pre-screening',simTitle:'What support could a specific project receive?',simLead:'The simulator checks basic filters, separates formula-based potential from support currently available, shows own financing and required evidence. It is not an official decision.',projectProfile:'Project profile',templateLabel:'Project example',sector:'Sector',age:'Company age, years',eligibility:'Basic filters',priority:'Product is on the priority list',arrears:'No tax or social-payment arrears',ktpCheck:'Included/preparing for the KTP Register',taxGrowth:'Required tax-payment dynamics met',doubleFunding:'Equipment already funded by another public measure',expenses:'Documented expenditure, KZT million',reset:'Reset example',potential:'Formula-based potential',availableNow:'Available now in this model',million:'KZT million',calculation:'Calculation by measure',measure:'Measure',status:'Status',cost:'Cost',result:'Result',diagnostic:'Application diagnostics',routeTitle:'Project route',regionsEyebrow:'Spatial industrial policy',regionsTitle:'SEZ, industrial zone, or an ordinary site?',regionsLead:'A zone is not a prize or a universal benefit. It is an infrastructure and legal regime selected for activity, investment scale, logistics and launch timing.',latestDate:'latest publication: 9 Oct 2026',currentSite:'current QazIndustry page',sezCount:'special economic zones',izCount:'industrial zones',projectsCount:'investment projects in SEZs',investmentCount:'announced SEZ investment',jobs:'jobs',output:'production output',exports:'product exports',compareTitle:'How sites differ',wizardTitle:'Location mini-navigator',wizardSub:'Choose the project’s primary need',regime:'Tax and customs regime',regimeDesc:'Major project with an eligible activity',infra:'Land and ready infrastructure',infraDesc:'Fast production launch matters',market:'Logistics and market over benefits',marketDesc:'Ordinary site close to suppliers or buyers',valueEyebrow:'Domestic value',valueTitle:'The KTP Register is not an off-take contract',valueLead:'The Register verifies Kazakhstan producer status and provides access to regulated procurement and targeted support. An off-take is a separate future-supply contract with a buyer.',wrong:'Incorrect',mythTitle:'“KTP is a database of guaranteed contracts”',mythText:'Registration does not guarantee an order and does not replace a tender, qualification, certification or commercial contract.',correct:'Correct',truthTitle:'“KTP digitally verifies a producer”',truthText:'Product codes, own capacity, equipment and actual production are checked; the status is then used in regulated procurement and support.',ktpFlow:'How the KTP Register works',cooperationTitle:'Industrial cooperation chain',transportTitle:'Domestic rail delivery reimbursement',transportText:'For priority goods within Kazakhstan: indicative 50% of documented cost, capped at 10,000 MCI (KZT 43.25m in the 2026 publication). QazIndustry currently marks domestic-market intake as paused because of no funding.',controlsTitle:'Controls that reduce discretionary risk',roadEyebrow:'Working roadmap',roadTitle:'From an idea to a substantiated application',roadLead:'The vague “national specification” is replaced by a practical route, transparent formulas, glossary and official sources. Invented clustering indexes and multipliers were removed.',formulaTitle:'The one universal formula',formulaText:'The formula applies only after applicant eligibility, cost eligibility, document timing, no double funding, and budget availability are checked.',export:'Export calculation and methodology (JSON)',glossary:'Short glossary',sourcesTitle:'Official sources',checked:'Checked 27 October 2026',limitation:'Model limitation.',limitationText:'This dashboard is for learning and preliminary navigation. It does not establish entitlement; always check the current rules, priority-goods list, budget and operator requirements before applying.',footer:'QazIndustry Industrial Strategy Navigator · visual analytics edition 3.0 · official primary sources'}
+    };
+
+    const DATA={
+      flips:{ru:[['⚖','Закон № 86-VII','Что задаёт правовую рамку?','Цели: конкурентоспособность, продукция высокой добавленной стоимости, экспорт и снижение импортозависимости.','Закон от 27.12.2021 определяет полномочия государства, инструменты, приоритетные товары, обязательства получателей и мониторинг.'],['🏛','Институты развития','Кто и за что отвечает?','Правительство и министерство формируют политику; QazIndustry — национальный институт развития промышленности, аналитик и оператор ряда мер.','QazIndustry не является “универсальным банком”: финансирование, зоны, закупки и компенсации имеют разных участников и отдельные правила.'],['🧩','Провалы рынка','Зачем вмешивается государство?','Предприятию может быть невыгодно в одиночку финансировать навыки, стандарты, цифровизацию или координацию цепочки поставок.','Поддержка оправдана, когда создаваемый общественный эффект выше частной отдачи, но её дизайн должен ограничивать ренту и замещение частных денег.'],['🛡','Подотчётность','Почему это не “бесплатные деньги”?','Фиксированные ставки и лимиты, подтверждающие документы, проверка задолженности и двойного финансирования.','Решение также зависит от бюджета, сроков, приоритетного перечня и встречных обязательств. Отказ/исключение должны иметь проверяемое основание и порядок обжалования.']],en:[['⚖','Law No. 86-VII','What creates the legal framework?','Objectives include competitiveness, higher value added, exports and reduced import dependence.','The Law of 27 Dec 2021 defines public powers, instruments, priority goods, recipient obligations and monitoring.'],['🏛','Development institutions','Who does what?','Government and the ministry make policy; QazIndustry is a national industry development institute, analyst and operator of several measures.','QazIndustry is not a universal bank: finance, zones, procurement and reimbursements involve different actors and rules.'],['🧩','Market failures','Why intervene?','A firm may underinvest in skills, standards, digitalisation or supply-chain coordination when benefits spill over.','Support is justified when social returns exceed private returns, but its design must limit rent-seeking and crowding out.'],['🛡','Accountability','Why is it not “free money”?','Fixed rates and caps, evidence, arrears and double-funding checks.','Decisions also depend on budget, timing, priority lists and reciprocal obligations; adverse decisions need traceable grounds and appeal routes.']]},
+      ladder:{ru:[['Сырьё и базовая продукция','Низкая глубина переработки'],['Переработка','Оборудование, процессы, стандарты'],['Производительность','Навыки, Lean, цифровизация'],['Рынок и цепочки','КТП, закупки, кооперация, экспорт']],en:[['Raw and basic goods','Low processing depth'],['Processing','Equipment, processes, standards'],['Productivity','Skills, lean methods, digitalisation'],['Markets and chains','KTP, procurement, cooperation, exports']]},
+      failures:{ru:[['Координация','Крупный заказчик и МСБ не находят друг друга; отсутствуют стандарты, объёмы и долгосрочный сигнал спроса.'],['Информация и качество','Покупатель не уверен в происхождении и мощности поставщика; производителю дорого подтвердить качество.'],['Внешние эффекты навыков','Работник может уйти, поэтому компания обучает меньше общественно оптимального уровня.'],['Масштаб и инфраструктура','Первому инвестору дорого подводить сети и формировать кластер в одиночку.'],['Технологический риск','Цифровизация и новые процессы требуют затрат до того, как доказана отдача.'],['Доступ к рынку','Сертификация, испытания и логистика создают высокие фиксированные расходы.']],en:[['Coordination','Anchors and SMEs cannot align standards, volumes and long-term demand signals.'],['Information and quality','Buyers cannot easily verify origin or capacity; quality evidence is costly.'],['Skills spillovers','Workers may leave, so firms train less than the social optimum.'],['Scale and infrastructure','The first investor cannot efficiently fund all utilities and cluster infrastructure alone.'],['Technology risk','Digitalisation and new processes cost money before returns are proven.'],['Market access','Certification, testing and logistics create high fixed costs.']]}
+    };
+
+    const MEASURES=[
+      {id:'skills',group:'productivity',active:true,rate:.4,cap:30,n:{ru:'Компетенции работников',en:'Workforce competencies'},short:{ru:'Обучение · 40% · до 30 млн',en:'Training · 40% · up to 30m'},problem:{ru:'Недоинвестирование в специфические производственные навыки.',en:'Underinvestment in production-specific skills.'},eligible:{ru:'Обучение, переподготовка и повышение квалификации инженерно-технического, производственного персонала и руководителей; обычно не более 3 месяцев.',en:'Training, retraining and upskilling of engineering, production and senior-management staff; generally no more than 3 months.'},evidence:{ru:'Договор, программа, акт, платёжные документы, подтверждение участников и срока; документы по расходам — в пределах установленного периода (на странице оператора указано до 24 месяцев).',en:'Contract, programme, acceptance act, payment evidence, participants and duration; cost documents within the permitted period (operator page indicates up to 24 months).'},exclude:{ru:'Финансы, административный и юридический персонал; неподтверждённые или несвязанные с производством расходы.',en:'Finance, administrative and legal staff; undocumented or non-production costs.'}},
+      {id:'process',group:'productivity',active:true,rate:.4,cap:60,n:{ru:'Технологические процессы',en:'Technological processes'},short:{ru:'Оборудование и процессы · 40% · до 60 млн',en:'Equipment & processes · 40% · up to 60m'},problem:{ru:'Высокая стоимость модернизации и внедрения технологии.',en:'High cost of modernisation and technology adoption.'},eligible:{ru:'Энергоаудит, новое технологическое оборудование, сопровождение и управление производственными процессами, монтаж/шеф-монтаж и инструктаж.',en:'Energy audit, new technological equipment, production-process support and management, installation/supervision and instruction.'},evidence:{ru:'Спецификация и связь с производством, договор, акт ввода/выполнения, платёжные документы, подтверждение новизны и отсутствия двойного финансирования.',en:'Specification and production link, contract, commissioning/acceptance act, payment evidence, new-equipment and no-double-funding confirmation.'},exclude:{ru:'Двойное финансирование; монтаж/шеф-монтаж имеет отдельный ориентир лимита до 12 млн ₸.',en:'Double funding; installation/supervision has a separate indicative cap of KZT 12m.'}},
+      {id:'efficiency',group:'productivity',active:true,rate:.4,cap:20,n:{ru:'Эффективность производства',en:'Production efficiency'},short:{ru:'Lean/5S/Kaizen · 40% · до 20 млн',en:'Lean/5S/Kaizen · 40% · up to 20m'},problem:{ru:'Организационные улучшения имеют эффект, но их трудно заложить в залог и профинансировать.',en:'Organisational improvements create value but are hard to collateralise and finance.'},eligible:{ru:'Kaizen, TPM, Six Sigma, 5S, Kanban, зелёные и энергоэффективные технологии и связанные услуги.',en:'Kaizen, TPM, Six Sigma, 5S, Kanban, green and energy-efficient technologies and related services.'},evidence:{ru:'Договор с исполнителем, диагностика, план изменений, акт, платёжные документы и измеримые результаты.',en:'Provider contract, diagnosis, implementation plan, acceptance act, payment evidence and measurable results.'},exclude:{ru:'Общие консультации без производственного результата и документированной связи с проектом.',en:'Generic consulting without a documented production outcome.'}},
+      {id:'digital',group:'productivity',active:true,rate:.4,cap:60,n:{ru:'Цифровые технологии',en:'Digital technologies'},short:{ru:'Цифровое оборудование · 40% · до 60 млн',en:'Digital equipment · 40% · up to 60m'},problem:{ru:'Риск и фиксированные затраты первого внедрения цифрового решения.',en:'Risk and fixed cost of first digital adoption.'},eligible:{ru:'Новое цифровое оборудование, включая 3D-сканер, 3D-принтер и плоттер, при связи с производственным процессом.',en:'New digital equipment, including 3D scanners, 3D printers and plotters, where linked to production.'},evidence:{ru:'Техническое задание, договор, серийные/инвентарные данные, акт ввода, оплата и доказательство использования в производстве.',en:'Technical specification, contract, serial/asset data, commissioning, payment and evidence of production use.'},exclude:{ru:'Обычная офисная техника, неподтверждённая связь с производством и двойное бюджетное финансирование.',en:'Ordinary office equipment, no production link, or double public funding.'}},
+      {id:'cert',group:'market',active:false,rate:.5,cap:65,n:{ru:'Сертификация и испытания',en:'Certification and testing'},short:{ru:'Внутренний рынок · 50% · приём приостановлен',en:'Domestic market · 50% · intake paused'},problem:{ru:'Фиксированная стоимость подтверждения качества ограничивает доступ МСБ к рынку.',en:'Fixed quality-assurance cost limits SME market access.'},eligible:{ru:'Оценка соответствия, сертификационные и лабораторные испытания, инспекционный аудит, регистрация, переоформление и продление сертификатов.',en:'Conformity assessment, certification and laboratory tests, inspection audits, registration, reissue and renewal of certificates.'},evidence:{ru:'Договор с аккредитованной организацией, протоколы/сертификаты, акты и платёжные документы.',en:'Accredited-body contract, reports/certificates, acceptance acts and payment evidence.'},exclude:{ru:'Сейчас приём по мерам внутреннего рынка на официальной странице приостановлен из-за отсутствия финансирования.',en:'The official page currently marks domestic-market intake as paused due to lack of funding.'}},
+      {id:'rail',group:'market',active:false,rate:.5,cap:43.25,n:{ru:'Железнодорожная доставка',en:'Domestic rail delivery'},short:{ru:'По РК · 50% · до 43,25 млн · пауза',en:'Within Kazakhstan · 50% · up to 43.25m · paused'},problem:{ru:'Большое расстояние до внутреннего покупателя ухудшает конкурентоспособность местного товара.',en:'Long distance to domestic buyers weakens local-product competitiveness.'},eligible:{ru:'Документированные расходы на перевозку приоритетных обработанных товаров железнодорожным транспортом внутри Казахстана.',en:'Documented rail transport of priority processed goods within Kazakhstan.'},evidence:{ru:'Договор перевозки, накладные, маршрут, платёжные документы, подтверждение товара и производителя.',en:'Freight contract, waybills, route, payment evidence, and product/producer confirmation.'},exclude:{ru:'Не автомобильная доставка и не универсальная экспортная субсидия; текущий приём по внутреннему рынку приостановлен.',en:'Not road freight and not a universal export subsidy; domestic-market intake is currently paused.'}}
+    ];
+
+    const COST_KEYS=['skills','process','efficiency','digital','cert','rail'];
+    const MEASURE_COLORS={skills:'#27c7e7',process:'#4189ff',efficiency:'#3dd49b',digital:'#a889ff',cert:'#f4b84a',rail:'#ff6b70'};
+    const TEMPLATES={machine:{ru:'Модернизация машиностроительного завода',en:'Machinery plant modernisation',sector:'machinery',costs:{skills:18,process:170,efficiency:16,digital:55,cert:12,rail:22}},furniture:{ru:'Цифровизация мебельной фабрики',en:'Furniture factory digitalisation',sector:'furniture',costs:{skills:8,process:45,efficiency:12,digital:95,cert:8,rail:6}},textile:{ru:'Сертификация текстильного производства',en:'Textile producer certification',sector:'light',costs:{skills:6,process:20,efficiency:8,digital:10,cert:28,rail:14}},chemical:{ru:'Химический проект с внутренней логистикой',en:'Chemical project with domestic logistics',sector:'chemical',costs:{skills:25,process:240,efficiency:30,digital:80,cert:90,rail:120}}};
+    let lang='ru',selectedMeasure='skills';
+    const $=id=>document.getElementById(id), money=v=>new Intl.NumberFormat(lang==='ru'?'ru-RU':'en-US',{maximumFractionDigits:2}).format(v);
+
+    function tr(){document.querySelectorAll('.qaz-scope [data-t]').forEach(el=>{const k=el.dataset.t;if(T[lang][k])el.textContent=T[lang][k]});$('ruBtn').classList.toggle('active',lang==='ru');$('enBtn').classList.toggle('active',lang==='en');renderAll();}
+    function renderAll(){renderPolicy();renderMeasures();renderSimulatorLabels();renderFlows();renderZones();renderReference();renderVisuals();calculate();updateZoneModel();updateRailCurve();}
+    function palette(){const s=getComputedStyle(document.body);return{ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),cyan:s.getPropertyValue('--cyan').trim(),green:s.getPropertyValue('--green').trim(),amber:s.getPropertyValue('--amber').trim(),red:s.getPropertyValue('--red').trim(),violet:s.getPropertyValue('--violet').trim(),blue:s.getPropertyValue('--blue').trim()}}
+
+    function renderVisuals(){
+      const L=lang==='ru';
+      $('architectureTitle').textContent=L?'Архитектура промышленной политики':'Industrial policy architecture';$('architectureSub').textContent=L?'От общественной цели — к проверяемому результату предприятия':'From a public objective to a verifiable firm result';
+      const cols=L?[[['Общественные цели','занятость, устойчивость, диверсификация'],['Закон и стратегия','приоритеты, полномочия, правила']],[['Институты','министерство, QazIndustry, регионы'],['Инструменты','возмещение, СЭЗ/ИЗ, КТП, закупки']],[['Отбор проекта','товар, заявитель, расходы, бюджет'],['Действия предприятия','инвестиции, обучение, внедрение']],[['Измеримый результат','выпуск, производительность, поставки'],['Воздействие','добавленная стоимость, занятость, экспорт']]]:[[['Public objectives','jobs, resilience, diversification'],['Law & strategy','priorities, powers, rules']],[['Institutions','ministry, QazIndustry, regions'],['Instruments','reimbursement, SEZ/IZ, KTP, procurement']],[['Project selection','product, applicant, cost, budget'],['Firm action','investment, training, adoption']],[['Measured result','output, productivity, deliveries'],['Impact','value added, jobs, exports']]];
+      $('architectureMap').innerHTML=cols.map((col,i)=>`${i?'<div class="arch-arrow">→</div>':''}<div class="arch-col">${col.map((x,j)=>`<div class="arch-node ${i===1&&j===0?'primary':''} ${i===3?'impact':''}"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join('')}</div>`).join('');
+      $('architectureLoop').textContent=L?'↶ Мониторинг результата и обратная связь возвращаются в правила, приоритеты и бюджет следующего цикла':'↶ Monitoring and feedback return to the rules, priorities and next-cycle budget';
+      const lanes=L?[['Уровень','Правила','Оператор','Предприятие','Рынок','Оценка'],['Кто','Правительство / МПС','QazIndustry / акимат','Производитель','Заказчик / закупки','Министерство / аудит'],['Что делает','ставит цели','проверяет инструмент','софинансирует и внедряет','квалифицирует и покупает','сравнивает результат с целью']]:[['Level','Rules','Operator','Enterprise','Market','Evaluation'],['Who','Government / ministry','QazIndustry / region','Producer','Buyer / procurement','Ministry / audit'],['Action','sets objectives','checks the instrument','co-finances and implements','qualifies and buys','compares outcome to objective']];$('policyLanes').innerHTML=lanes.flatMap((r,ri)=>r.map((x,ci)=>`<div class="lane-cell ${ci===0?'lane-head':''}">${x}</div>`)).join('');
+      $('heatmapTitle').textContent=L?'Матрица «барьер → инструмент»':'Barrier-to-instrument matrix';$('heatmapSub').textContent=L?'Прямое и косвенное воздействие основных инструментов':'Direct and indirect coverage by key instruments';$('directLegend').textContent=L?'прямое воздействие':'direct effect';$('indirectLegend').textContent=L?'косвенное':'indirect';
+      const heads=L?['Барьер','Компенсация','СЭЗ/ИЗ','КТП','Кооперация']:['Barrier','Reimbursement','SEZ/IZ','KTP','Cooperation'];const hm=L?[['Навыки',2,0,0,1],['Технологический риск',2,1,0,1],['Инфраструктура',0,2,0,1],['Информация о поставщике',0,0,2,2],['Доступ к рынку',2,1,1,2]]:[['Skills',2,0,0,1],['Technology risk',2,1,0,1],['Infrastructure',0,2,0,1],['Supplier information',0,0,2,2],['Market access',2,1,1,2]];$('policyHeatmap').innerHTML=heads.map((x,i)=>`<div class="${i?'heat-head':'heat-label heat-head'}">${x}</div>`).join('')+hm.map(r=>`<div class="heat-label">${r[0]}</div>${r.slice(1).map(v=>`<div class="heat-${v}" aria-label="${v===2?(L?'прямое':'direct'):v===1?(L?'косвенное':'indirect'):(L?'нет прямой связи':'no direct link')}">${v===2?'●':v===1?'○':'—'}</div>`).join('')}`).join('');
+      $('capsTitle').textContent=L?'Предельные суммы возмещения':'Reimbursement caps';$('capsSub').textContent=L?'млн ₸ на одну категорию; цвет показывает статус приёма':'KZT million by category; colour shows intake status';$('ratesTitle').textContent=L?'Ставка и потолок — разные ограничения':'Rate and cap are separate constraints';$('ratesSub').textContent=L?'Компенсация определяется меньшим из двух значений':'Reimbursement is the lower of rate-based amount and cap';
+      const measureColors=['#27c7e7','#4189ff','#3dd49b','#a889ff','#f4b84a','#ff6b70'];$('capsChartNative').innerHTML=`<div class="native-bars">${MEASURES.map((m,i)=>`<div class="native-row"><span class="native-label">${m.n[lang]}</span><div class="native-track"><div class="native-fill" style="width:${m.cap/65*100}%;--series:${measureColors[i]}"></div></div><b class="native-value">${money(m.cap)}</b></div>`).join('')}</div><div class="native-axis"><span>0</span><span>20</span><span>40</span><span>65 ${L?'млн ₸':'KZT m'}</span></div>`;
+      $('sezMetricsTitle').textContent=L?'Масштаб системы СЭЗ':'Scale of the SEZ system';$('sezMetricsSub').textContent=L?'официальные агрегаты; без фиктивной разбивки по зонам':'official aggregates; no fabricated zone-level split';const metrics=L?[['Проекты','561',70],['Инвестиции','11,5 трлн ₸',72],['Выпуск','15,9 трлн ₸',100],['Экспорт','1,1 трлн ₸',7]]:[['Projects','561',70],['Investment','KZT 11.5tn',72],['Output','KZT 15.9tn',100],['Exports','KZT 1.1tn',7]];$('sezMetricBars').innerHTML=metrics.map(x=>`<div class="metric-bar"><b>${x[0]}</b><strong>${x[1]}</strong><div class="bar"><i style="width:${x[2]}%"></i></div></div>`).join('');
+      $('zoneModelTitle').textContent=L?'Модель выбора площадки':'Site selection model';$('zoneModelSub').textContent=L?'Передвиньте параметры — точка покажет ближайший режим':'Move the inputs to locate the closest regime';$('zoneIz').textContent=L?'Индустриальная зона':'Industrial zone';$('zoneSez').textContent=L?'СЭЗ':'SEZ';$('zoneOrdinary').textContent=L?'Обычная площадка':'Ordinary site';$('zonePlot').dataset.x=L?'важность специального режима →':'importance of special regime →';$('zonePlot').dataset.y=L?'готовая инфраструктура →':'ready infrastructure →';
+      $('sankeyTitle').textContent=L?'Поток от спроса до поставки':'Flow from demand to delivery';$('sankeySub').textContent=L?'КТП подтверждает производителя, но контракт возникает после квалификации':'KTP verifies the producer; a contract follows qualification';const sank=L?[[['Спрос якоря'],['Госзакупки']],[['Реестр КТП'],['Квалификация']],[['Тендер / офтейк'],['Поставка и сервис']]]:[[['Anchor demand'],['Public procurement']],[['KTP Register'],['Qualification']],[['Tender / off-take'],['Delivery & service']]];$('valueSankey').innerHTML=sank.map((col,i)=>`${i?'<div><div class="sank-band"></div><div class="sank-band thin"></div></div>':''}<div class="sank-col">${col.map(x=>`<div class="sank-node">${x[0]}</div>`).join('')}</div>`).join('');
+      $('railCurveTitle').textContent=L?'Симулятор железнодорожной компенсации':'Rail reimbursement simulator';$('railCurveSub').textContent=L?'50% расходов до достижения лимита 43,25 млн ₸':'50% of cost until the KZT 43.25m cap';
+      $('roadVisualTitle').textContent=L?'Контрольные ворота проекта':'Project control gates';$('roadVisualSub').textContent=L?'Каждый следующий этап имеет смысл после предыдущего':'Each next stage makes sense only after the previous gate';const road=L?[['Барьер','что мешает проекту'],['Право','кто и что подходит'],['Расход','что возмещается'],['Бюджет','лимит и own share'],['Результат','выпуск и мониторинг']]:[['Barrier','what blocks the project'],['Eligibility','who and what qualifies'],['Cost','what is reimbursed'],['Budget','cap and own share'],['Outcome','output and monitoring']];$('roadVisual').innerHTML=road.map((x,i)=>`<div class="road-stage" data-step="${i+1}"><div><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('');
+    }
+
+    function renderPolicy(){
+      $('flipGrid').innerHTML=DATA.flips[lang].map((x,i)=>`<article class="flip" tabindex="0" role="button" aria-label="${x[1]}" aria-pressed="false"><div class="flip-inner"><div class="flip-face"><div class="icon">${x[0]}</div><div class="eyebrow">${x[2]}</div><h3>${x[1]}</h3><p>${x[3]}</p><span class="hint">${lang==='ru'?'Нажмите: подробнее ↻':'Select: details ↻'}</span></div><div class="flip-face flip-back"><div class="eyebrow">${x[1]}</div><p>${x[4]}</p><span class="hint">${lang==='ru'?'Вернуться ↻':'Back ↻'}</span></div></div></article>`).join('');
+      document.querySelectorAll('.flip').forEach(el=>{const toggle=()=>{el.classList.toggle('flipped');el.setAttribute('aria-pressed',el.classList.contains('flipped'))};el.onclick=toggle;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}}});
+      $('ladder').innerHTML=DATA.ladder[lang].map(x=>`<div class="stage"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join('');
+      $('failures').innerHTML=DATA.failures[lang].map((x,i)=>`<div class="card"><span class="badge info">0${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join('');
+    }
+
+    function renderMeasures(){
+      $('measureList').innerHTML=`<div class="eyebrow">${lang==='ru'?'Производительность':'Productivity'}</div>`+MEASURES.filter(m=>m.group==='productivity').map(measureButton).join('')+`<div class="eyebrow" style="margin-top:12px">${lang==='ru'?'Продвижение на внутреннем рынке':'Domestic-market promotion'}</div>`+MEASURES.filter(m=>m.group==='market').map(measureButton).join('');
+      document.querySelectorAll('.measure-btn').forEach(b=>b.onclick=()=>{selectedMeasure=b.dataset.id;renderMeasures()});
+      const m=MEASURES.find(x=>x.id===selectedMeasure);const status=m.active?`<span class="badge ok">● ${lang==='ru'?'действующая формула':'active formula'}</span>`:`<span class="badge pause">● ${lang==='ru'?'приём приостановлен':'intake paused'}</span>`;
+      $('measureDetail').style.setProperty('--series',MEASURE_COLORS[m.id]);$('measureDetail').innerHTML=`<div style="display:flex;justify-content:space-between;gap:12px;align-items:start"><div><div class="eyebrow">${m.group==='productivity'?(lang==='ru'?'Повышение производительности':'Productivity'):(lang==='ru'?'Внутренний рынок':'Domestic market')}</div><h2 style="margin:6px 0">${m.n[lang]}</h2></div>${status}</div><div class="measure-visual"><div class="gauge" style="--p:${m.rate*100};--series:${MEASURE_COLORS[m.id]}"><strong>${m.rate*100}%</strong></div><div style="flex:1"><b>${lang==='ru'?'Предельная сумма':'Maximum reimbursement'}: ${money(m.cap)} ${lang==='ru'?'млн ₸':'KZT m'}</b><div class="cap-track" style="margin-top:10px"><div class="cap-fill" style="width:${m.cap/65*100}%;--series:${MEASURE_COLORS[m.id]}"></div></div><p>${lang==='ru'?'Полоса показывает лимит относительно максимальных 65 млн ₸. Круг — нормативную ставку, а не обещанную долю всего бюджета проекта.':'The bar compares the cap with the KZT 65m maximum. The circle is the statutory rate, not a promise for the whole project budget.'}</p></div></div><div class="formula" style="margin:12px 0">R = min(${Math.round(m.rate*100)}% × C<sub>eligible</sub>; ${money(m.cap)} ${lang==='ru'?'млн ₸':'KZT m'})</div><div class="detail-grid"><div class="detail"><b>${lang==='ru'?'Экономическая проблема':'Economic problem'}</b><span>${m.problem[lang]}</span></div><div class="detail"><b>${lang==='ru'?'Допустимые расходы':'Eligible costs'}</b><span>${m.eligible[lang]}</span></div><div class="detail"><b>${lang==='ru'?'Подтверждение':'Evidence'}</b><span>${m.evidence[lang]}</span></div><div class="detail"><b>${lang==='ru'?'Ограничения':'Restrictions'}</b><span>${m.exclude[lang]}</span></div></div>`;
+    }
+
+    function measureButton(m){return `<button class="measure-btn ${selectedMeasure===m.id?'active':''}" data-id="${m.id}" style="--series:${MEASURE_COLORS[m.id]}"><b>${m.n[lang]}</b><small>${m.short[lang]}</small></button>`}
+
+    function renderSimulatorLabels(){
+      const sel=$('projectTemplate'),current=sel.value||'machine';sel.innerHTML=Object.entries(TEMPLATES).map(([k,v])=>`<option value="${k}">${v[lang]}</option>`).join('');sel.value=current;
+      const labels={skills:{ru:'Обучение работников',en:'Workforce training'},process:{ru:'Процессы и оборудование',en:'Processes and equipment'},efficiency:{ru:'Производственная эффективность',en:'Production efficiency'},digital:{ru:'Цифровые технологии',en:'Digital technologies'},cert:{ru:'Сертификация/испытания',en:'Certification/testing'},rail:{ru:'Ж/д доставка по Казахстану',en:'Domestic rail delivery'}};
+      $('costInputs').innerHTML=COST_KEYS.map(k=>`<div class="cost-row"><label for="cost-${k}">${labels[k][lang]}</label><input id="cost-${k}" data-cost="${k}" type="number" min="0" step="1" value="0"><span class="screenreader">${T[lang].million}</span></div>`).join('');
+      document.querySelectorAll('[data-cost]').forEach(x=>x.addEventListener('input',calculate));
+      const tpl=TEMPLATES[current];COST_KEYS.forEach(k=>{$(`cost-${k}`).value=tpl.costs[k]});
+      document.querySelectorAll('#sector option').forEach(o=>{const map={machinery:['Машиностроение','Machinery'],food:['Пищевая промышленность','Food'],light:['Лёгкая промышленность','Light industry'],chemical:['Химическая промышленность','Chemicals'],furniture:['Мебель','Furniture']};o.textContent=map[o.value][lang==='ru'?0:1]});
+    }
+
+    function applyTemplate(key){const t=TEMPLATES[key];$('sector').value=t.sector;COST_KEYS.forEach(k=>{$(`cost-${k}`).value=t.costs[k]});calculate()}
+
+    function calculate(){
+      if(!$('cost-skills'))return;
+      const basic=Number($('companyAge').value)>=1&&$('priority').checked&&$('noArrears').checked;
+      const noDouble=!$('publicFunding').checked;let potential=0,available=0,totalCost=0;const rows=[],series=[];
+      MEASURES.forEach(m=>{const cost=Math.max(0,Number($(`cost-${m.id}`).value)||0);let r=Math.min(cost*m.rate,m.cap);if(['process','digital'].includes(m.id)&&!noDouble)r=0;totalCost+=cost;potential+=r;const accessible=basic&&m.active?r:0;available+=accessible;const paused=basic&&!m.active?r:0;const own=Math.max(0,cost-accessible-paused);series.push({m,cost,accessible,paused,own});const status=!basic?(lang==='ru'?'Не пройден фильтр':'Filter failed'):(!m.active?(lang==='ru'?'Приём приостановлен':'Intake paused'):(r===0&&cost>0&&!noDouble?(lang==='ru'?'Двойное финансирование':'Double funding'):(lang==='ru'?'Предварительно подходит':'Preliminarily eligible')));rows.push(`<tr><td>${m.n[lang]}</td><td><span class="badge ${accessible>0?'ok':m.active?'':'pause'}">${status}</span></td><td>${money(cost)}</td><td>${money(accessible)} / ${money(r)}</td></tr>`)});
+      $('potentialTotal').textContent=money(potential);$('availableTotal').textContent=money(available);$('resultRows').innerHTML=rows.join('');renderDiagnostics(basic,noDouble);updateProjectCharts(available,Math.max(0,totalCost-available),series);renderEligibilityFunnel();
+    }
+
+    function renderDiagnostics(basic,noDouble){const list=[];if(Number($('companyAge').value)<1)list.push(lang==='ru'?'Компания зарегистрирована менее года: базовый фильтр не пройден.':'Company is less than one year old: basic filter failed.');if(!$('priority').checked)list.push(lang==='ru'?'Проверьте товар по действующему перечню приоритетных товаров.':'Check the product against the current priority-goods list.');if(!$('noArrears').checked)list.push(lang==='ru'?'Наличие задолженности блокирует предварительную оценку.':'Arrears block preliminary eligibility.');if(!$('taxGrowth').checked)list.push(lang==='ru'?'Не выполнена динамика налоговых платежей: проверьте исключения и актуальную редакцию правил.':'Tax-payment dynamics not met: check exceptions and current rules.');if(!$('ktp').checked)list.push(lang==='ru'?'Для регулируемых закупок и адресной поддержки с 2026 года проверьте включение в Реестр КТП.':'For regulated procurement and targeted support from 2026, check KTP Register inclusion.');if(!noDouble)list.push(lang==='ru'?'Оборудование, уже оплаченное иной бюджетной мерой, исключено из расчёта процессов и цифровизации.':'Equipment already paid by another public measure is excluded from process and digital calculations.');if(basic)list.push(lang==='ru'?'Базовые фильтры пройдены; далее нужны документы, проверка сроков и доступного бюджета.':'Basic filters passed; evidence, timing and budget must still be checked.');list.push(lang==='ru'?'Меры внутреннего рынка показаны как потенциал, но не входят в «доступно сейчас»: официальный приём приостановлен.':'Domestic-market measures appear as potential but not “available now”: official intake is paused.');$('diagnostics').innerHTML=list.map(x=>`<li>${x}</li>`).join('')}
+
+    function updateProjectCharts(publicPart,own,series){const L=lang==='ru',total=publicPart+own,share=total?Math.round(publicPart/total*100):0;$('financeChartNote').textContent=L?'Структура финансирования выбранного проекта':'Financing structure of the selected project';$('measureChartTitle').textContent=L?'Расходы и возмещение по каждой мере':'Cost and reimbursement by measure';$('measureChartSub').textContent=L?'Зелёный — доступно, жёлтый — приостановлено, серый — собственные средства':'Green — available, yellow — paused, grey — own financing';$('supportDonutNative').innerHTML=`<div class="native-donut" style="--share:${share}"><div class="native-donut-center"><strong>${share}%</strong><span>${L?'поддержка':'support'}</span></div></div><div class="native-key"><div><i style="background:var(--green)"></i><span>${L?'Доступное возмещение':'Available reimbursement'}</span><b>${money(publicPart)}</b></div><div><i style="background:var(--line)"></i><span>${L?'Собственные средства':'Own financing'}</span><b>${money(own)}</b></div><div><i style="background:var(--amber)"></i><span>${L?'Потенциал приостановленных мер':'Paused-measure potential'}</span><b>${money(series.reduce((s,x)=>s+x.paused,0))}</b></div></div>`;$('supportBarsNative').innerHTML=`<div class="native-bars">${series.map(x=>{const d=x.cost||1;return`<div class="native-row"><span class="native-label">${x.m.n[lang]}</span><div class="native-stack" aria-label="${x.m.n[lang]}"><i class="available" style="width:${x.accessible/d*100}%"></i><i class="paused" style="width:${x.paused/d*100}%"></i><i class="own" style="width:${x.own/d*100}%"></i></div><b class="native-value">${money(x.cost)}</b></div>`}).join('')}</div><div class="viz-legend" style="margin-top:14px"><span><i style="background:var(--green)"></i>${L?'доступно':'available'}</span><span><i style="background:var(--amber)"></i>${L?'приостановлено':'paused'}</span><span><i style="background:var(--line)"></i>${L?'свои средства':'own funds'}</span></div>`}
+
+    function renderEligibilityFunnel(){const L=lang==='ru';const steps=[{t:L?'Возраст ≥ 1 года':'Age ≥ 1 year',ok:Number($('companyAge').value)>=1},{t:L?'Приоритетный товар':'Priority good',ok:$('priority').checked},{t:L?'Нет задолженности':'No arrears',ok:$('noArrears').checked},{t:L?'Налоговая динамика':'Tax dynamics',ok:$('taxGrowth').checked,warn:true},{t:L?'Без двойного финансирования':'No double funding',ok:!$('publicFunding').checked},{t:L?'Бюджет меры':'Measure budget',ok:null}];$('eligibilityFunnel').innerHTML=steps.map((x,i)=>`<div class="funnel-step ${x.ok===null?'warn':x.ok?'pass':'fail'}"><b>${i+1}. ${x.t}</b><span>${x.ok===null?(L?'проверить':'verify'):x.ok?(L?'пройдено':'passed'):(L?'не пройдено':'failed')}</span></div>`).join('')}
+
+    function renderFlows(){const route=lang==='ru'?[['1. Статус','КТП и регистрация'],['2. Товар','Приоритетный перечень'],['3. Расход','Допустимая категория'],['4. Доказательства','Договор, акт, оплата'],['5. Заявка','До исчерпания бюджета']]:[['1. Status','KTP and registration'],['2. Product','Priority list'],['3. Expense','Eligible category'],['4. Evidence','Contract, act, payment'],['5. Application','Before budget is exhausted']];$('projectRoute').innerHTML=route.map((x,i)=>`<div class="route-step"><b>${x[0]}</b><span>${x[1]}</span></div>${i<route.length-1?'<div class="route-arrow">→</div>':''}`).join('');const ktp=lang==='ru'?[['Заявка','e-ondiris.gov.kz'],['Коды товара','Сопоставление данных'],['Мощности','Оборудование и выпуск'],['Включение','Выписка из реестра'],['Мониторинг','Цифровая проверка']]:[['Application','e-ondiris.gov.kz'],['Product codes','Data matching'],['Capacity','Equipment and output'],['Inclusion','Register extract'],['Monitoring','Digital verification']];$('ktpFlow').innerHTML=ktp.map(x=>`<div class="flow-node"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');const coop=lang==='ru'?[['Спрос якоря','Спецификация и объём'],['Поиск КТП','Проверенный производитель'],['Квалификация','Качество и мощность'],['Контракт','Тендер или офтейк'],['Поставка','Срок, цена, сервис']]:[['Anchor demand','Specification and volume'],['KTP search','Verified producer'],['Qualification','Quality and capacity'],['Contract','Tender or off-take'],['Delivery','Timing, price, service']];$('coopFlow').innerHTML=coop.map(x=>`<div class="flow-node"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');$('controls').innerHTML=(lang==='ru'?['Фиксированные ставки и предельные суммы вместо «ручного» процента.','Компенсация фактических подтверждённых затрат, а не обещанного бюджета.','Проверка задолженности, сроков и двойного финансирования.','Цифровая верификация производителя, кода товара, оборудования и мощности.','Очередность и бюджетный статус должны быть публично видимы; решение — обжалуемо.']:['Fixed rates and caps rather than a negotiable percentage.','Reimbursement of documented incurred cost, not a promised budget.','Arrears, timing and double-funding checks.','Digital verification of producer, product code, equipment and capacity.','Visible queue and budget status; decisions subject to appeal.']).map(x=>`<li>${x}</li>`).join('')}
+
+    function renderZones(){const sez=lang==='ru'?{t:'СЭЗ',tag:'Режим + инфраструктура',list:['Только разрешённые виды деятельности конкретной зоны','Налоговые и таможенные преференции по условиям законодательства','Статус участника, инвестиционный проект и обязательства','Подходит, когда выгода режима оправдывает административные условия']}:{t:'SEZ',tag:'Regime + infrastructure',list:['Only activities permitted for the specific zone','Tax and customs preferences subject to law','Participant status, investment project and obligations','Useful when regime benefits justify compliance costs']};const iz=lang==='ru'?{t:'Индустриальная зона',tag:'Площадка + сети',list:['Земельный участок и инженерная инфраструктура','Обычно проще фокус на физическом запуске производства','Не следует автоматически приравнивать ко всем льготам СЭЗ','Подходит МСБ и проектам, которым важна готовность площадки']}:{t:'Industrial zone',tag:'Site + utilities',list:['Land and engineering infrastructure','Usually focused on physical production launch','Do not assume all SEZ benefits apply','Useful for SMEs and projects needing a ready site']};$('zoneCompare').innerHTML=[sez,iz].map(x=>`<div class="card"><span class="badge info">${x.tag}</span><h3>${x.t}</h3><ul>${x.list.map(y=>`<li>${y}</li>`).join('')}</ul></div>`).join('');showZoneAdvice('regime')}
+
+    function showZoneAdvice(choice){document.querySelectorAll('#main-view-simulator .decision button').forEach(b=>b.classList.toggle('active',b.dataset.choice===choice));const a={ru:{regime:['Предварительный маршрут: СЭЗ','Сначала проверьте перечень приоритетных видов деятельности конкретной СЭЗ, требования к участнику, землю, сети, логистику и полную стоимость соблюдения режима.'],infra:['Предварительный маршрут: индустриальная зона','Сравните доступность участка, мощности сетей, сроки подключения, тарифы и обязательства управляющей компании.'],market:['Предварительный маршрут: обычная площадка','Если поставщик, кадры и покупатель важнее режима, обычная площадка может дать меньшие совокупные издержки. Меры производительности при этом остаются отдельным треком.']},en:{regime:['Preliminary route: SEZ','First check the specific SEZ activity list, participant requirements, land, utilities, logistics and full compliance cost.'],infra:['Preliminary route: industrial zone','Compare site availability, utility capacity, connection timing, tariffs and management-company obligations.'],market:['Preliminary route: ordinary site','If suppliers, labour and buyers matter more than the regime, an ordinary site may minimise total cost. Productivity measures remain a separate track.']}}[lang][choice];$('zoneAdvice').innerHTML=`<span class="badge info">${a[0]}</span><p>${a[1]}</p>`}
+
+    function updateZoneModel(){if(!$('taxNeed'))return;const tax=Number($('taxNeed').value),infra=Number($('infraNeed').value),L=lang==='ru';$('taxNeedValue').textContent=tax;$('infraNeedValue').textContent=infra;$('taxNeedLabel').innerHTML=`${L?'Важность налогово-таможенного режима':'Importance of tax/customs regime'}: <b id="taxNeedValue">${tax}</b>%`;$('infraNeedLabel').innerHTML=`${L?'Потребность в готовой инфраструктуре':'Need for ready infrastructure'}: <b id="infraNeedValue">${infra}</b>%`;$('zoneDot').style.left=`${tax}%`;$('zoneDot').style.bottom=`${infra}%`;let choice,label;if(tax>=58&&infra>=35){choice='regime';label=L?'СЭЗ':'SEZ'}else if(infra>=48){choice='infra';label=L?'индустриальная зона':'industrial zone'}else{choice='market';label=L?'обычная площадка':'ordinary site'};$('zoneModelResult').textContent=`${L?'Предварительно':'Preliminary'}: ${label}`;showZoneAdvice(choice)}
+
+    function updateRailCurve(){if(!$('railCost'))return;const cost=Number($('railCost').value),amount=Math.min(cost*.5,43.25),L=lang==='ru';$('railCostLabel').innerHTML=`${L?'Расходы на перевозку':'Rail transport cost'}: <b id="railCostValue">${cost}</b> ${L?'млн ₸':'KZT m'}`;$('railResult').textContent=`${money(amount)} ${L?'млн ₸':'KZT m'}`;const pct=cost?Math.round(amount/cost*100):0;$('railGauge').style.setProperty('--p',pct);$('railGaugeValue').textContent=`${pct}%`;const marker=$('railMarker');if(marker){const x=55+(Math.min(cost,140)/140)*445,y=205-(amount/43.25)*153;marker.setAttribute('cx',x.toFixed(1));marker.setAttribute('cy',y.toFixed(1))}}
+
+    function renderReference(){const master=lang==='ru'?[['Диагностика','Барьер и цель проекта'],['Правовой фильтр','Компания, товар, задолженность'],['Инструмент','Мера, зона или закупка'],['Экономика','Расход, лимит, own share'],['Документы','Заявка и мониторинг']]:[['Diagnosis','Barrier and project objective'],['Legal filter','Firm, product, arrears'],['Instrument','Measure, zone or procurement'],['Economics','Cost, cap, own share'],['Evidence','Application and monitoring']];$('masterFlow').innerHTML=master.map(x=>`<div class="flow-node"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');const gloss=lang==='ru'?[['Приоритетный товар','Товар из действующего перечня, на который распространяется конкретная мера; код и редакцию перечня нужно проверять.'],['КТП','Казахстанский товаропроизводитель, подтверждённый цифровым Реестром; не равен офтейк-контракту.'],['Офтейк-контракт','Договор, по которому покупатель обязуется приобрести будущую продукцию при согласованных условиях.'],['Допустимые затраты','Не весь бюджет проекта, а только расходы, прямо предусмотренные правилами и подтверждённые документами.'],['Встречные обязательства','Измеримые обязательства получателя поддержки по проекту, предусмотренные инструментом.']]:[['Priority good','A product in the current list for the relevant measure; always verify the code and current edition.'],['KTP','A Kazakhstan producer verified by the digital Register; not an off-take contract.'],['Off-take contract','A contract under which a buyer commits to purchase future output on agreed terms.'],['Eligible cost','Not the whole project budget, only costs allowed by rules and evidenced.'],['Reciprocal obligations','Measurable recipient obligations attached to the support instrument.']];$('glossary').innerHTML=gloss.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join('');const src=[['Закон РК «О промышленной политике»','https://adilet.zan.kz/rus/docs/Z2100000086','27.12.2021 № 86-VII'],['QazIndustry: меры повышения производительности','https://qazindustry.gov.kz/ru/business_reimbursement','Ставки, лимиты, требования и документы'],['QazIndustry: продвижение на внутреннем рынке','https://qazindustry.gov.kz/ru/business_reimbursement_internal','Категории мер и текущий статус приёма'],['QazIndustry: СЭЗ и индустриальные зоны','https://qazindustry.gov.kz/ru/sez','Координация зон и текущий перечень'],['QazIndustry: Реестр КТП','https://qazindustry.gov.kz/ru/ktp','Правила, документы и переход на e-ondiris'],['e-Ondiris: цифровой Реестр КТП','https://e-ondiris.gov.kz/','Подача и проверка сведений'],['QazIndustry: актуальные разъяснения 2026','https://qazindustry.gov.kz/ru/article/4456-mery-gospodderzhki-pomogli-rasshirit-proizvodstvo-izdeliy-iz-plastmassy','Лимиты сертификации и ж/д доставки']];$('sources').innerHTML=src.map((x,i)=>`<div class="source"><span class="badge">0${i+1}</span><div><a href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a><span>${x[2]}</span></div></div>`).join('')}
+
+    function exportJSON(){const costs=Object.fromEntries(COST_KEYS.map(k=>[k,Number($(`cost-${k}`)?.value||0)]));const out={model:'QazIndustry Industrial Strategy Navigator',version:'3.0-visual',checked:'2026-10-27',language:lang,project:{template:$('projectTemplate').value,sector:$('sector').value,companyAge:Number($('companyAge').value),filters:{priority:$('priority').checked,noArrears:$('noArrears').checked,ktp:$('ktp').checked,taxGrowth:$('taxGrowth').checked,publicFunding:$('publicFunding').checked},costsMillionKZT:costs},method:MEASURES.map(m=>({id:m.id,rate:m.rate,capMillionKZT:m.cap,intakeActive:m.active})),disclaimer:'Educational pre-screening only; verify current official rules and budget.'};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));a.download='qazindustry_project_prescreen.json';a.click();URL.revokeObjectURL(a.href)}
+
+    // Привязка внутренних табов симулятора QazIndustry
+    document.querySelectorAll('#main-view-simulator .tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('#main-view-simulator .tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#main-view-simulator .view').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(`view-${b.dataset.view}`).classList.add('active');});
+    document.querySelectorAll('#main-view-simulator .decision button').forEach(b=>b.onclick=()=>showZoneAdvice(b.dataset.choice));
+    $('themeBtn').onclick=()=>{document.getElementById('qazScope').classList.toggle('light');renderVisuals();calculate();updateRailCurve()};
+    $('ruBtn').onclick=()=>{lang='ru';tr()};
+    $('enBtn').onclick=()=>{lang='en';tr()};
+    $('projectTemplate').onchange=e=>applyTemplate(e.target.value);
+    ['companyAge','priority','noArrears','ktp','taxGrowth','publicFunding'].forEach(id=>$(id).addEventListener('input',calculate));
+    $('taxNeed').addEventListener('input',updateZoneModel);
+    $('infraNeed').addEventListener('input',updateZoneModel);
+    $('railCost').addEventListener('input',updateRailCurve);
+    $('resetSim').onclick=()=>applyTemplate($('projectTemplate').value);
+    $('exportBtn').onclick=exportJSON;
+
+    // Инициализация по умолчанию
+    tr();
+    applyTemplate('machine');
+    </script>
 </body>
 </html>
