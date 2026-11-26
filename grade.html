@@ -638,70 +638,78 @@
     </footer>
 
     <script>
-        const STORAGE_KEY = 'almau_ie_students_2026_v6';
+        const STORAGE_KEY = 'almau_ie_students_2026_v7';
         const TOTAL_ATTENDANCE_HOURS = 45;
 
-        // Исходные студенты и оценки из файла Industrial Economics
+        function buildHoursFromPercent(percent) {
+            const hoursCount = Math.min(
+                TOTAL_ATTENDANCE_HOURS,
+                Math.max(0, Math.round(((percent || 0) / 100) * TOTAL_ATTENDANCE_HOURS))
+            );
+            return Array.from({ length: TOTAL_ATTENDANCE_HOURS }, (_, idx) => idx < hoursCount);
+        }
+
+        // Исходные студенты и оценки со скрина Industrial Economics
         const initialGroupStudents = [
             {
                 id: 'st-ie-1',
                 name: 'Zhasmin Makulbekova',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
+                attendance: 78,
+                activities: 85,
+                ca1: 90,
                 mc1: 93.33,
-                ca2: 0,
+                ca2: 90,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(78)
             },
             {
                 id: 'st-ie-2',
                 name: 'Nika Krivenko',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
+                attendance: 73,
+                activities: 78,
+                ca1: 85,
                 mc1: 83.33,
-                ca2: 0,
+                ca2: 72,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(73)
             },
             {
                 id: 'st-ie-3',
                 name: 'Kamilla Kabdolda',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
+                attendance: 69,
+                activities: 75,
+                ca1: 85,
                 mc1: 83.33,
-                ca2: 0,
+                ca2: 73,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(69)
             },
             {
                 id: 'st-ie-4',
                 name: 'Kirill Tyan',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
+                attendance: 73,
+                activities: 72,
+                ca1: 60,
                 mc1: 73.33,
-                ca2: 0,
+                ca2: 60,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(73)
             },
             {
                 id: 'st-ie-5',
                 name: 'Daulet Mahsed',
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
+                attendance: 58,
+                activities: 55,
+                ca1: 60,
                 mc1: 69.67,
-                ca2: 0,
+                ca2: 52,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(58)
             }
         ];
 
@@ -736,7 +744,7 @@
 
         function ensureAttendanceHours(student) {
             if (!student.hasOwnProperty('attendanceHours') || !Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
-                student.attendanceHours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
+                student.attendanceHours = buildHoursFromPercent(student.attendance || 0);
             }
         }
 
@@ -750,6 +758,7 @@
                 }
             } else {
                 students = JSON.parse(JSON.stringify(initialGroupStudents));
+                saveDatabase();
             }
             students.forEach(student => ensureAttendanceHours(student));
             updateDashboardData();
@@ -1535,17 +1544,18 @@
                 return isNaN(v) ? 0 : Math.max(0, Math.min(100, Math.round(v * 100) / 100));
             };
 
+            const attVal = parseGrade(attInput);
             const newStudent = {
                 id: 'st-ie-' + Date.now(),
                 name,
-                attendance: parseGrade(attInput),
+                attendance: attVal,
                 activities: parseGrade(actInput),
                 ca1: parseGrade(ca1Input),
                 mc1: parseGrade(mc1Input),
                 ca2: parseGrade(ca2Input),
                 mc2: parseGrade(mc2Input),
                 exam: parseGrade(exmInput),
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+                attendanceHours: buildHoursFromPercent(attVal)
             };
 
             students.unshift(newStudent);
